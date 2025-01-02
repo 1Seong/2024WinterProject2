@@ -3,12 +3,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int jumpUnit;
+    public bool inverted;
 
     Rigidbody rigid;
     BoxCollider coll;
 
     private bool isJumping = false;
-    private bool inverted = false;
 
     private void Awake()
     {
@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
         float initialVelocity = Mathf.Sqrt(2 * gravity * jumpUnit);
         float force = rigid.mass * initialVelocity + 0.5f;
 
+        if (inverted)
+            force = -force;
+
         rigid.AddForce(Vector3.forward * force, ForceMode.Impulse);
     }
 
@@ -47,7 +50,7 @@ public class Player : MonoBehaviour
         rigid.MovePosition(dirVec);
 
         //Landing Platform
-        if(rigid.linearVelocity.z < 0.0f)
+        if(!inverted && rigid.linearVelocity.z < 0.0f)
         {
             Debug.DrawRay(rigid.position, Vector3.back, Color.yellow);
 
@@ -56,6 +59,22 @@ public class Player : MonoBehaviour
             if (rayHit.Length != 0)
             {
                
+                if (rayHit[0].distance < 0.6f)
+                {
+                    Debug.Log(rayHit[0].collider.name);
+                    isJumping = false;
+                }
+            }
+        }
+        else if(inverted && rigid.linearVelocity.z > 0.0f)
+        {
+            Debug.DrawRay(rigid.position, Vector3.forward, Color.yellow);
+
+            RaycastHit[] rayHit = Physics.RaycastAll(rigid.position, Vector3.forward, 0.8f, LayerMask.GetMask("Platform"));
+
+            if (rayHit.Length != 0)
+            {
+
                 if (rayHit[0].distance < 0.6f)
                 {
                     Debug.Log(rayHit[0].collider.name);
