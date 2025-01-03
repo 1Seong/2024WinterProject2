@@ -27,6 +27,25 @@ public class Player : MonoBehaviour
         {
             requestJump = true;
         }
+
+        //Check Invert condition
+        CheckInvert();
+    }
+
+    private void CheckInvert()
+    {
+        float targetZ = -1.0f + GameManager.instance.currentStage.invertLineZ;
+
+        if(!inverted && rigid.position.z > targetZ)
+        {
+            inverted = true;
+            rigid.useGravity = false;
+        }
+        else if(inverted &&  rigid.position.z < targetZ)
+        {
+            inverted = false;
+            rigid.useGravity = true;
+        }
     }
 
     private void PerformJump()
