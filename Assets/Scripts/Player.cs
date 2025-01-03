@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     Rigidbody rigid;
     BoxCollider coll;
 
+    private bool requestJump = false;
     private bool isJumping = false;
 
     private void Awake()
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
         //Jump
         if(Input.GetButtonDown("Jump") && !isJumping)
         {
-            PerformJump();
+            requestJump = true;
         }
     }
 
@@ -61,6 +62,13 @@ public class Player : MonoBehaviour
         {
             Landing();
         }
+
+        //Jumping
+        if (requestJump)
+        {
+            PerformJump();
+            requestJump = false;
+        }
     }
 
     private void Landing()
@@ -69,7 +77,7 @@ public class Player : MonoBehaviour
 
         Debug.DrawRay(rigid.position, targetVec, Color.yellow);
 
-        RaycastHit[] rayHit = Physics.RaycastAll(rigid.position, targetVec, 0.8f, LayerMask.GetMask("Platform"));
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, new Vector3(0.5f, 0, 0.1f), targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
         if (rayHit.Length != 0)
         {
