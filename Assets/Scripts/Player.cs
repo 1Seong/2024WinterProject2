@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
         //Landing Platform
         if (!inverted && rigid.linearVelocity.z < 0.0f || inverted && rigid.linearVelocity.z > 0.0f)
         {
+            isJumping = true;
             Landing();
         }
 
