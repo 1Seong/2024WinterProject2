@@ -7,13 +7,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("# Game Control")]
-    //public bool isPlaying;
+    public bool isPlaying;
     //public float gameTime;
 
     [Header("# Stage Info")]
     public int episodeNum;
     public int episodeId;
     public int stageId;
+    public Stage[][] stages;
+    public Stage currentStage;
 
     [Header("# Player Info")]
     public float speed;
@@ -23,19 +25,33 @@ public class GameManager : MonoBehaviour
     public Player player2;
     public GameObject grid;
 
-    private List<GameObject>[] stages;
 
     private void Awake()
     {
         instance = this;
 
-        stages = new List<GameObject>[episodeNum];
+        Init();
+    }
 
-        for(int i = 0; i != episodeNum; ++i)
+    private void Init()
+    {
+        int i = 0;
+        episodeNum = grid.transform.childCount;
+
+        Transform[] episodes = new Transform[episodeNum];
+
+        //initialize episodes
+        foreach(Transform child in grid.transform)
         {
-            stages[i] = new List<GameObject> ();
-            
-            //initialize stage
+            episodes[i++] = child;
+        }
+
+        //initialize stages
+        stages = new Stage[episodeNum][];
+
+        for (i = 0; i != episodeNum; ++i)
+        {
+            stages[i] = episodes[i].GetComponentsInChildren<Stage>(true);
         }
     }
 
@@ -51,33 +67,45 @@ public class GameManager : MonoBehaviour
 
     public void Stop()
     {
-        //isPlaying = false;
+        isPlaying = false;
 
         Time.timeScale = 0;
     }
 
     public void Resume()
     {
-        //isPlaying = true;
+        isPlaying = true;
 
         Time.timeScale = 1;
     }
 
-    public void EnterStage()
+    public void EnterStage(int episode, int stage)
     {
-        stages[episodeId][stageId].SetActive(true);
+        episodeId = episode;
+        stageId = stage;
+
+        currentStage = stages[episodeId][stageId];
+        currentStage.gameObject.SetActive(true);
+
         PlayerReposition();
-        
+
+        Resume();
     }
 
     public void StageClear()
     {
-        ExitStage();
+        isPlaying = false;
+
+        //clearUI
     }
 
     public void ExitStage()
     {
-        stages[episodeId][stageId].SetActive(false);
+        Stop();
+
+        player1.gameObject.SetActive(true);
+        player2.gameObject.SetActive(true);
+        stages[episodeId][stageId].gameObject.SetActive(false);
     }
 
     public void Reset()
@@ -87,7 +115,8 @@ public class GameManager : MonoBehaviour
 
     private void PlayerReposition()
     {
-
+        player1.gameObject.SetActive(true);
+        player2.gameObject.SetActive(true);
 
         player1.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player2.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;

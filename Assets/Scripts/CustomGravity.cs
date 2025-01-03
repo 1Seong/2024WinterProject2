@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CustomGravity : MonoBehaviour
 {
-    private Vector3 customGravity = new Vector3(0, 0, 9.81f);
+    private Vector3 customGravity = -Physics.gravity;
 
     Player player;
     Rigidbody rigid;
@@ -16,7 +16,7 @@ public class CustomGravity : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!player.inverted)
+        if (!GameManager.instance.isPlaying || !player.inverted)
         {
             return;
         }

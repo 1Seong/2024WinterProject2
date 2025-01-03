@@ -905,6 +905,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4ed08de5f4b834cb2fdd561b6c0dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPosX1: 0
+  startPosZ1: 0
+  startPosX2: 0
+  startPosZ2: 0
+  invertLineZ: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4335,13 +4340,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf78699d29413e4984578cca8696610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaying: 1
   episodeNum: 0
   episodeId: 0
   stageId: 0
+  currentStage: {fileID: 0}
   speed: 5
   player1: {fileID: 11939470}
-  player2: {fileID: 0}
-  grid: {fileID: 0}
+  player2: {fileID: 244936265}
+  grid: {fileID: 1741430370}
 --- !u!1 &2141370549
 GameObject:
   m_ObjectHideFlags: 0
