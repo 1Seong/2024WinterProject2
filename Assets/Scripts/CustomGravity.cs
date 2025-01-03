@@ -16,10 +16,11 @@ public class CustomGravity : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.instance.isPlaying || !player.inverted)
+        if (!GameManager.instance.isPlaying || !GameManager.instance.isTopView || !player.inverted)
         {
             return;
         }
+
         rigid.AddForce(customGravity, ForceMode.Acceleration);
     }
 }

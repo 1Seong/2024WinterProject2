@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     [Header("# Game Control")]
     public bool isPlaying;
+    public bool isTopView;
+    public float cameraRotationTime;
+    public float cameraRotationR;
     //public float gameTime;
 
     [Header("# Stage Info")]
