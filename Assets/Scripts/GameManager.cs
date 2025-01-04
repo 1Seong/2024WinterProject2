@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         currentStage.gameObject.SetActive(true);
 
         PlayerReposition();
-
+        //camera setting
         Resume();
     }
 

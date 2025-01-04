@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     private bool requestJump = false;
     private bool isJumping = false;
+    private bool onBottom = true;
+
     private Transform stage;
     private bool originUseGravity;
 
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
         if(GameManager.instance.isTopView)
             CheckInvert();
 
-        if(Input.GetKeyDown(KeyCode.E) && !isJumping)
+        if(Input.GetKeyDown(KeyCode.E) && !isJumping && onBottom)
         {
             ConvertView();
         }
@@ -76,18 +78,6 @@ public class Player : MonoBehaviour
         StartCoroutine(CameraRotate());
         
 
-        //Wall Setting
-        if(topview)
-        {
-            stage.GetChild(0).gameObject.SetActive(false);
-            stage.GetChild(1).gameObject.SetActive(false);
-        }
-        else
-        {
-            stage.GetChild(0).gameObject.SetActive(true);
-            stage.GetChild(1).gameObject.SetActive(true);
-        }
-
         //Physics Setting
         float gravity = Physics.gravity.magnitude;
 
@@ -105,40 +95,48 @@ public class Player : MonoBehaviour
 
             rigid.useGravity = originUseGravity;
             rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-
         }
-
         GameManager.instance.isTopView = !topview;
     }
 
     IEnumerator CameraRotate()
     {
         bool topview = GameManager.instance.isTopView;
-        float radius = GameManager.instance.cameraRotationR;
-
-        float currentPosY = Camera.main.transform.position.y;
-        float currentPosZ = Camera.main.transform.position.z;
-        float targetPosY = topview ? currentPosY - radius : currentPosY + radius;
-        float targetPosZ = topview ? currentPosZ - radius : currentPosZ + radius;
-
-        float currentRotX = Camera.main.transform.rotation.eulerAngles.x;
-        float targetRot = topview ? 0.0f : 90.0f;
-
+        float targetRot = topview ? -90.0f : 90.0f;
         float totalTime = GameManager.instance.cameraRotationTime;
 
-        for(float i = 0; i < totalTime; i += Time.fixedDeltaTime)
+        Transform bottomWall = GameManager.instance.currentStage.transform.GetChild(0).GetChild(0);
+        Transform topWall = GameManager.instance.currentStage.transform.GetChild(1).GetChild(0);
+        Material mat1 = bottomWall.GetComponent<MeshRenderer>().material;
+        Material mat2 = topWall.GetComponent<MeshRenderer>().material;
+
+        if(!topview)
         {
-            float posY = Mathf.Lerp(currentPosY, targetPosY, i / totalTime);
-            float posZ = Mathf.Lerp(currentPosZ, targetPosZ, i / totalTime);
-            float rotX = Mathf.Lerp(currentRotX, targetRot, i / totalTime);
-
-            Camera.main.transform.position = new Vector3(0, posY, posZ);
-            Camera.main.transform.rotation = Quaternion.Euler(new Vector3(rotX, 0, 0));
-            yield return new WaitForFixedUpdate();
+            bottomWall.gameObject.SetActive(true);
+            topWall.gameObject.SetActive(true);
         }
+        for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
+        {
+            //Camera Rotation
+            Camera.main.transform.RotateAround(new Vector3(0, 2, 2), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
 
-        Camera.main.transform.position = new Vector3(0, targetPosY, targetPosZ);
-        Camera.main.transform.rotation = Quaternion.Euler(new Vector3(targetRot, 0, 0));
+            //Wall Transparency
+            Color color = mat1.color;
+            float amount = Mathf.Lerp(0f, 1f, i / totalTime);
+            if (topview)
+                amount = 1f - amount;
+
+            color.a = amount;
+            mat1.color = color;
+            mat2.color = color;
+
+            yield return new WaitForFixedUpdate(); 
+        }
+        if(topview)
+        {
+            bottomWall.gameObject.SetActive(false);
+            topWall.gameObject.SetActive(false);
+        }
     }
 
     private void PerformJump()
@@ -227,5 +225,41 @@ public class Player : MonoBehaviour
                 isJumping = false;
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(GameManager.instance.isTopView)
+        {
+            if (!inverted && collision.gameObject.tag != "Bottom")
+                return;
+            else if (inverted && collision.gameObject.tag != "Top")
+                return;
+        }
+        else
+        {
+            if (collision.gameObject.tag != "Background")
+                return;
+        }
+
+        onBottom = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (GameManager.instance.isTopView)
+        {
+            if (!inverted && collision.gameObject.tag != "Bottom")
+                return;
+            else if (inverted && collision.gameObject.tag != "Top")
+                return;
+        }
+        else
+        {
+            if (collision.gameObject.tag != "Background")
+                return;
+        }
+
+        onBottom = false;
     }
 }
