@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [Header("# Player Info")]
     public float speed;
+    public float maxSpeed;
 
     [Header("# Game Objects")]
     public Player player1;

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     private bool requestJump = false;
     private bool isJumping = false;
     private bool onBottom = true;
+    public bool hitWall = false;
 
     private Transform stage;
     private bool originUseGravity;
@@ -51,6 +53,38 @@ public class Player : MonoBehaviour
         {
             ConvertView();
         }
+
+        //Stop Speed
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            rigid.linearVelocity = new Vector3(rigid.linearVelocity.normalized.x * 0.0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
+        }
+
+        //Check Inner Wall
+        CheckInnerWall();
+    }
+
+    private void CheckInnerWall()
+    {
+        Vector3 box = GameManager.instance.isTopView ? new Vector3(0.5f, 0.1f, 0.49f) : new Vector3(0.5f, 0.49f, 0.1f);
+        Vector3 targetVec = Input.GetAxisRaw("Horizontal") > 0 ? Vector3.right : Vector3.left;
+
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+   
+        if (rayHit.Length == 0 || rayHit[0].transform.tag != "Inner")
+        {
+            hitWall = false;
+            return;
+        }
+
+        if (rayHit[0].distance < 0.08f)
+        {
+            hitWall = true;
+        }
+        else
+        {
+            hitWall = false;
+        }
     }
 
     private void CheckInvert()
@@ -75,7 +109,7 @@ public class Player : MonoBehaviour
 
         //Camera Setting
 
-        StartCoroutine(CameraRotate());
+        GameManager.instance.currentStage.CallCameraRotate();
         
 
         //Physics Setting
@@ -97,46 +131,6 @@ public class Player : MonoBehaviour
             rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
         }
         GameManager.instance.isTopView = !topview;
-    }
-
-    IEnumerator CameraRotate()
-    {
-        bool topview = GameManager.instance.isTopView;
-        float targetRot = topview ? -90.0f : 90.0f;
-        float totalTime = GameManager.instance.cameraRotationTime;
-
-        Transform bottomWall = GameManager.instance.currentStage.transform.GetChild(0).GetChild(0);
-        Transform topWall = GameManager.instance.currentStage.transform.GetChild(1).GetChild(0);
-        Material mat1 = bottomWall.GetComponent<MeshRenderer>().material;
-        Material mat2 = topWall.GetComponent<MeshRenderer>().material;
-
-        if(!topview)
-        {
-            bottomWall.gameObject.SetActive(true);
-            topWall.gameObject.SetActive(true);
-        }
-        for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
-        {
-            //Camera Rotation
-            Camera.main.transform.RotateAround(new Vector3(0, 2, 2), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
-
-            //Wall Transparency
-            Color color = mat1.color;
-            float amount = Mathf.Lerp(0f, 1f, i / totalTime);
-            if (topview)
-                amount = 1f - amount;
-
-            color.a = amount;
-            mat1.color = color;
-            mat2.color = color;
-
-            yield return new WaitForFixedUpdate(); 
-        }
-        if(topview)
-        {
-            bottomWall.gameObject.SetActive(false);
-            topWall.gameObject.SetActive(false);
-        }
     }
 
     private void PerformJump()
@@ -162,18 +156,28 @@ public class Player : MonoBehaviour
            
     }
 
+
     private void FixedUpdate()
     {
         if (!GameManager.instance.isPlaying)
             return;
 
+        float max = GameManager.instance.maxSpeed;
+
         //Player Moving
-        Vector3 dirVec = rigid.position;
         float h = Input.GetAxisRaw("Horizontal");
 
-        dirVec.x += GameManager.instance.speed * h * Time.fixedDeltaTime;
+        Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
 
-        rigid.MovePosition(dirVec);
+        if (!hitWall)
+            rigid.AddForce(dirVec, ForceMode.Impulse);
+        else
+            rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
+
+        if (rigid.linearVelocity.x > max)
+            rigid.linearVelocity = new Vector3(max, rigid.linearVelocity.y, rigid.linearVelocity.z);
+        else if (rigid.linearVelocity.x < max * (-1))
+            rigid.linearVelocity = new Vector3(max * (-1), rigid.linearVelocity.y, rigid.linearVelocity.z);
 
         //Landing Platform
         if (GameManager.instance.isTopView)
@@ -221,7 +225,7 @@ public class Player : MonoBehaviour
 
             if (rayHit[0].distance < 0.6f)
             {
-                Debug.Log(rayHit[0].collider.name);
+               
                 isJumping = false;
             }
         }

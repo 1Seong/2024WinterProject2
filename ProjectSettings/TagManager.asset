@@ -7,6 +7,8 @@ TagManager:
   - Bottom
   - Top
   - Background
+  - Inner
+  - OtherWall
   layers:
   - Default
   - TransparentFX
