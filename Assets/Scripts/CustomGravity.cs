@@ -9,18 +9,26 @@ public class CustomGravity : MonoBehaviour
 
     void Awake()
     {
+        /*
+         * Awake
+         */
         player = GetComponent<Player>();
         rigid = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
+        /*
+         * Start
+         */
         customGravity = GameManager.instance.isTopView ? Physics.gravity : (!player.inverted ? Physics.gravity : -Physics.gravity);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        /*
+         * Fixed Update
+         */
         if (!GameManager.instance.isPlaying || player.onInnerWall)
         {
             return;
@@ -31,11 +39,17 @@ public class CustomGravity : MonoBehaviour
 
     public void InvertGravity()
     {
+        /*
+         * Invert Gravity
+         */
         customGravity = -Physics.gravity;
     }
 
     public void ReapplyGravity()
     {
+        /*
+         * Reinitialize customGravity
+         */
         customGravity = Physics.gravity;
     }
 }

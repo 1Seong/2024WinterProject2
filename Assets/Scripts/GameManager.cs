@@ -7,17 +7,17 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("# Game Control")]
-    public bool isPlaying;
+    public bool isPlaying; // True when user is playing a stage
     public bool isTopView;
     public float cameraRotationTime;
-    public float cameraRotationR;
+    public float cameraRotationR; // Camera rotation radius
     //public float gameTime;
 
     [Header("# Stage Info")]
-    public int episodeNum;
-    public int episodeId;
-    public int stageId;
-    public Stage[][] stages;
+    private int episodeNum; // The number of episodes
+    public int episodeId; // Current episode index
+    public int stageId; // Current stage index
+    public Stage[][] stages; // Episode x Stages
     public Stage currentStage;
 
     [Header("# Player Info")]
@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        /*
+         * Awake
+         */
+
         instance = this;
 
         Init();
@@ -39,6 +43,9 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
+        /*
+         *  Additional initialization
+         */
         int i = 0;
         episodeNum = grid.transform.childCount;
 
@@ -62,15 +69,22 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         /*
+         * Update
+         */
+
+        /*
          * if(!isPlaying)
          *  return;
          *  
-         *  gameTime += Time.deltaTime;
+         *  gameTime += Time.deltaTime; // Update game time
          */
     }
 
     public void Stop()
     {
+        /*
+         * Stop or pause the game
+         */
         isPlaying = false;
 
         Time.timeScale = 0;
@@ -78,6 +92,9 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
+        /*
+         * Resume the game
+         */
         isPlaying = true;
 
         Time.timeScale = 1;
@@ -85,6 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void EnterStage(int episode, int stage)
     {
+        /*
+         * Should be called when user enter a stage
+         * 
+         * Please complete this method
+         * You can modify original code
+         */
         episodeId = episode;
         stageId = stage;
 
@@ -92,19 +115,33 @@ public class GameManager : MonoBehaviour
         currentStage.gameObject.SetActive(true);
 
         PlayerReposition();
-        //camera setting
+
+        // Do some camera setting
+
         Resume();
     }
 
     public void StageClear()
     {
+        /*
+         * Should be called when user clears a stage
+         * 
+         * Please complete this method
+         * You can modify original code
+         */
         isPlaying = false;
 
-        //clearUI
+        //gameClearUI
     }
 
     public void ExitStage()
     {
+        /*
+         * Should be called when user exits a stage
+         * 
+         * Please complete this method
+         * You can modify original code
+         */
         Stop();
 
         player1.gameObject.SetActive(true);
@@ -114,11 +151,22 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-        
+        /*
+         * Reset the game
+         * 
+         * Please complete this method
+         * You can modify original code
+         */
     }
 
     private void PlayerReposition()
     {
+        /*
+         * Reposition players
+         * 
+         * Please Complete this method
+         * You can modify original code
+         */
         player1.gameObject.SetActive(true);
         player2.gameObject.SetActive(true);
 

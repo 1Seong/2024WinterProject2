@@ -4,24 +4,27 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public int jumpUnit;
+    public int jumpUnit; // Jump unit - ex) when unit is 'n' -> you can jump over a wall with 'n' height
     public bool inverted;
 
     Rigidbody rigid;
     BoxCollider coll;
     CustomGravity customGravity;
 
-    private bool requestJump = false;
-    private bool isJumping = false;
-    private bool onBottom = true;
-    private bool hitInnerWall = false;
-    public bool onInnerWall = false;
+    private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
+    private bool isJumping = false; // cannot perform another jump when isJumping is true
+    private bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
+    private bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
+    public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
     private Transform stage;
     
 
     private void Awake()
     {
+        /*
+         * Awake
+         */
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<BoxCollider>();
         customGravity = GetComponent<CustomGravity>();
@@ -29,35 +32,41 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        /*
+         * Start
+         */
         stage = GameManager.instance.currentStage.transform;
     }
 
     private void OnEnable()
     {
+        /*
+         * On Enable
+         */
         stage = GameManager.instance.currentStage.transform;
     }
 
     private void Update()
     {
+        /*
+         * Update
+         */
         if (!GameManager.instance.isPlaying)
             return;
 
-        //Jump
-        if(Input.GetButtonDown("Jump") && !isJumping)
-        {
-            requestJump = true;
-        }
+        // Jump
+        RequestJump();
 
-        //Check Invert condition
-        if(GameManager.instance.isTopView)
-            CheckInvert();
+        // Check Invert condition
+        CheckInvert();
 
+        // Convert viewpoint when press 'E'
         if(Input.GetKeyDown(KeyCode.E) && !isJumping && onBottom)
         {
             ConvertView();
         }
 
-        //Stop Speed
+        //Stop speed when button is up
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.linearVelocity = new Vector3(rigid.linearVelocity.normalized.x * 0.0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
@@ -70,20 +79,86 @@ public class Player : MonoBehaviour
         CheckInnerWallVert();
     }
 
+    private void RequestJump()
+    {
+        /*
+         * Request jump to fixed update
+         */
+        if (Input.GetButtonDown("Jump") && !isJumping)
+        {
+            requestJump = true;
+        }
+    }
+
+    private void CheckInvert()
+    {
+        /*
+         * Check inversion condition
+         */
+        if (!GameManager.instance.isTopView)
+            return;
+
+        float targetZ = -1.0f + GameManager.instance.currentStage.invertLineZ;
+
+        if(!inverted && rigid.position.z > targetZ)
+        {
+            inverted = true;
+            customGravity.InvertGravity(); // Invert gravity
+        }
+        else if(inverted &&  rigid.position.z < targetZ)
+        {
+            inverted = false;
+            customGravity.InvertGravity();
+        }
+    }
+
+    private void ConvertView()
+    {
+        /*
+         * Convert viewpoint
+         */
+        bool topview = GameManager.instance.isTopView;
+
+        //Camera Setting
+        GameManager.instance.currentStage.CallCameraRotate();
+
+        //Physics Setting
+        float gravity = Physics.gravity.magnitude;
+
+        if(topview)
+        {
+            Physics.gravity = new Vector3(0, -gravity, 0);
+            customGravity.ReapplyGravity();
+            rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            Physics.gravity = new Vector3(0, 0, -gravity);
+
+            if (inverted)
+            {
+                customGravity.InvertGravity();
+            }
+            else
+                customGravity.ReapplyGravity();
+
+            rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        }
+        GameManager.instance.isTopView = !topview;
+    }
+
     private void CheckInnerWallHoriz()
     {
+        /*
+         * Custom horizontal collision with inner walls
+         */
         Vector3 box = GameManager.instance.isTopView ? new Vector3(0.5f, 0.1f, 0.49f) : new Vector3(0.5f, 0.49f, 0.1f);
         Vector3 targetVec = Input.GetAxisRaw("Horizontal") > 0 ? Vector3.right : Vector3.left;
 
+        // Use box cast to check inner walls
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
    
-        if (rayHit.Length == 0 || rayHit[0].transform.tag != "Inner")
-        {
-            hitInnerWall = false;
-            return;
-        }
-
-        if (rayHit[0].distance < 0.08f)
+        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.08f)
         {
             hitInnerWall = true;
         }
@@ -95,6 +170,11 @@ public class Player : MonoBehaviour
 
     private void CheckInnerWallVert()
     {
+        /*
+         * Custom vertical collision with inner walls
+         */
+
+        // Do not check collision when player is moving up
         if (GameManager.instance.isTopView)
         {
             if (!inverted && rigid.linearVelocity.z > 0.0f || inverted && rigid.linearVelocity.z < 0.0f)
@@ -123,75 +203,144 @@ public class Player : MonoBehaviour
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
-        if (rayHit.Length == 0 || rayHit[0].transform.tag != "Inner")
+        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.07f)
         {
-            onInnerWall = false;
+            hitInnerWall = true;
+        }
+        else
+        {
+            hitInnerWall = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        /*
+         * Fixed update
+         */
+        if (!GameManager.instance.isPlaying)
             return;
-        }
 
-        if (rayHit[0].distance < 0.07f)
-        {
-            onInnerWall = true;
-        }
-        else
-        {
-            onInnerWall = false;
-        }
-    }
+        //Player Moving
+        PlayerMoving();
 
-    private void CheckInvert()
-    {
-        float targetZ = -1.0f + GameManager.instance.currentStage.invertLineZ;
+        //restrict max min velocity
+        RestrictSpeed();
+           
+        //Landing Platform
+        CheckLanding();
 
-        if(!inverted && rigid.position.z > targetZ)
+        //check on inner wall
+        CheckOnInnerWall();
+
+        //Jumping
+        if (requestJump)
         {
-            inverted = true;
-            customGravity.InvertGravity();
-        }
-        else if(inverted &&  rigid.position.z < targetZ)
-        {
-            inverted = false;
-            customGravity.InvertGravity();
+            PerformJump();
+            requestJump = false;
         }
     }
 
-    private void ConvertView()
+    private void PlayerMoving()
     {
-        bool topview = GameManager.instance.isTopView;
+        /*
+         * Move player horizontally
+         */
+        float h = Input.GetAxisRaw("Horizontal");
 
-        //Camera Setting
+        Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
 
-        GameManager.instance.currentStage.CallCameraRotate();
-        
+        if (!hitInnerWall)
+            rigid.AddForce(dirVec, ForceMode.Impulse);
+        else
+            rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
+    }
 
-        //Physics Setting
-        float gravity = Physics.gravity.magnitude;
+    private void RestrictSpeed()
+    {
+        /*
+         * Restrict min max speed
+         */
+        float max = GameManager.instance.maxSpeed;
 
-        if(topview)
+        if (rigid.linearVelocity.x > max)
+            rigid.linearVelocity = new Vector3(max, rigid.linearVelocity.y, rigid.linearVelocity.z);
+        else if (rigid.linearVelocity.x < max * (-1))
+            rigid.linearVelocity = new Vector3(max * (-1), rigid.linearVelocity.y, rigid.linearVelocity.z);
+    }
+
+    private void CheckLanding()
+    {
+        /*
+         * Check landing condition
+         */
+        if (GameManager.instance.isTopView)
         {
-            Physics.gravity = new Vector3(0, -gravity, 0);
-            customGravity.ReapplyGravity();
-            rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-
-            if (inverted)
-                rigid.position = new Vector3(rigid.position.x, rigid.position.y, 0);
+            if (!inverted && rigid.linearVelocity.z < 0.0f || inverted && rigid.linearVelocity.z > 0.0f)
+            {
+                Landing();
+            }
         }
         else
         {
-            Physics.gravity = new Vector3(0, 0, -gravity);
+            if (rigid.linearVelocity.y < 0.0f)
+            {
+                Landing();
+            }
+        }
+    }
 
-            if (inverted)
-                customGravity.InvertGravity();
+    private void Landing()
+    {
+        /*
+         * Check collision with any platform and make isJumping to false
+         */
+        isJumping = true;
+
+        Vector3 targetVec = inverted ? Vector3.forward : Vector3.back;
+        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+
+        if (!GameManager.instance.isTopView)
+        {
+            targetVec = Vector3.down;
+            box = new Vector3(0.49f, 0.5f, 0);
+        }
+
+        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
+
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+
+        if (rayHit.Length != 0)
+        {
+
+            if (rayHit[0].distance < 0.1f)
+            {
+               
+                isJumping = false;
+            }
+        }
+    }
+
+    private void CheckOnInnerWall()
+    {
+        /*
+         * Check if player is on inner walls
+         * Restrict vertical velocity
+         */
+        if (onInnerWall)
+        {
+            if (GameManager.instance.isTopView)
+                rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, rigid.linearVelocity.y, 0);
             else
-                customGravity.ReapplyGravity();
-
-            rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+                rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, 0, rigid.linearVelocity.z);
         }
-        GameManager.instance.isTopView = !topview;
     }
 
     private void PerformJump()
     {
+        /*
+         * Perform jumping
+         */
         isJumping = true;
 
         float gravity = Physics.gravity.magnitude;
@@ -213,93 +362,11 @@ public class Player : MonoBehaviour
            
     }
 
-
-    private void FixedUpdate()
-    {
-        if (!GameManager.instance.isPlaying)
-            return;
-
-        float max = GameManager.instance.maxSpeed;
-
-        //Player Moving
-        float h = Input.GetAxisRaw("Horizontal");
-
-        Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
-
-        if (!hitInnerWall)
-            rigid.AddForce(dirVec, ForceMode.Impulse);
-        else
-            rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
-
-        //restrict max min velocity
-        if (rigid.linearVelocity.x > max)
-            rigid.linearVelocity = new Vector3(max, rigid.linearVelocity.y, rigid.linearVelocity.z);
-        else if (rigid.linearVelocity.x < max * (-1))
-            rigid.linearVelocity = new Vector3(max * (-1), rigid.linearVelocity.y, rigid.linearVelocity.z);
-           
-        //Landing Platform
-        if (GameManager.instance.isTopView)
-        {
-            if (!inverted && rigid.linearVelocity.z < 0.0f || inverted && rigid.linearVelocity.z > 0.0f)
-            {
-                Landing();
-            }
-        }
-        else
-        {
-            if (rigid.linearVelocity.y < 0.0f)
-            {
-                Landing();
-            }
-        }
-
-        //check on inner wall
-        if (onInnerWall)
-        {
-            if (GameManager.instance.isTopView)
-                rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, rigid.linearVelocity.y, 0);
-            else
-                rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, 0, rigid.linearVelocity.z);
-        }
-
-        //Jumping
-        if (requestJump)
-        {
-            PerformJump();
-            requestJump = false;
-        }
-    }
-
-    private void Landing()
-    {
-        isJumping = true;
-
-        Vector3 targetVec = inverted ? Vector3.forward : Vector3.back;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
-
-        if (!GameManager.instance.isTopView)
-        {
-            targetVec = Vector3.down;
-            box = new Vector3(0.49f, 0.5f, 0);
-        }
-
-        Debug.DrawRay(rigid.position, targetVec, Color.yellow);
-
-        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-
-        if (rayHit.Length != 0)
-        {
-
-            if (rayHit[0].distance < 0.1f)
-            {
-               
-                isJumping = false;
-            }
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
+        /*
+         * Make onBottom to true if player make contact with bottom platform
+         */
         if(GameManager.instance.isTopView)
         {
             if (!inverted && collision.gameObject.tag != "Bottom")
@@ -318,6 +385,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        /*
+         * Make onBottom to false if player escape from bottom platform
+         */
         if (GameManager.instance.isTopView)
         {
             if (!inverted && collision.gameObject.tag != "Bottom")
