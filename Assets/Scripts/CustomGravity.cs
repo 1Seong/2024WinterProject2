@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CustomGravity : MonoBehaviour
 {
-    private Vector3 customGravity = -Physics.gravity;
+    private Vector3 customGravity;
 
     Player player;
     Rigidbody rigid;
@@ -13,14 +13,29 @@ public class CustomGravity : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        customGravity = GameManager.instance.isTopView ? Physics.gravity : (!player.inverted ? Physics.gravity : -Physics.gravity);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.instance.isPlaying || !GameManager.instance.isTopView || !player.inverted)
+        if (!GameManager.instance.isPlaying || player.onInnerWall)
         {
             return;
         }
 
         rigid.AddForce(customGravity, ForceMode.Acceleration);
+    }
+
+    public void InvertGravity()
+    {
+        customGravity = -Physics.gravity;
+    }
+
+    public void ReapplyGravity()
+    {
+        customGravity = Physics.gravity;
     }
 }
