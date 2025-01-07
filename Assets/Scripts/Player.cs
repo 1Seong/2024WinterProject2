@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
     private bool isJumping = false; // cannot perform another jump when isJumping is true
     private bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
-    private bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
+    public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
     private Transform stage;
@@ -205,11 +205,11 @@ public class Player : MonoBehaviour
 
         if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.07f)
         {
-            hitInnerWall = true;
+            onInnerWall = true;
         }
         else
         {
-            hitInnerWall = false;
+            onInnerWall = false;
         }
     }
 

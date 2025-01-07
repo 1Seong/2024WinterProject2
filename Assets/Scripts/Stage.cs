@@ -7,6 +7,9 @@ public class Stage : MonoBehaviour
     [Header("Stage Info")]
     public int startPosX1; // Start position of player 1
     public int startPosZ1;
+
+    public bool player2Exist; // Does player 2 exist in this stage?
+
     public int startPosX2; // Start position of player 2
     public int startPosZ2;
 
@@ -19,12 +22,15 @@ public class Stage : MonoBehaviour
     private Transform topWall;
     private Transform[] innerWall; // There can be multiple Inner walls
 
-    private void Start()
+    private Transform projectionWallParentXY;
+    private Transform projectionWallParentXZ;
+
+    private void OnEnable()
     {
         /*
          * Start
-         */
-        /*
+         *
+         *
          * Stage Hierarchy structure
          * - 0. Bottom Wall
          * - 1. Top Wall
@@ -32,12 +38,28 @@ public class Stage : MonoBehaviour
          * - 3. Right Wall
          * - 4. Inner Wall
          * - 5. Background Wall
+         * - 6. Projection Wall XY
+         * - 7. Projection Wall XZ
          */
         bottomWall = transform.GetChild(0).GetChild(0);
         topWall = transform.GetChild(1).GetChild(0);
         innerWall = transform.GetChild(4).GetComponentsInChildren<Transform>();
+        projectionWallParentXY = transform.GetChild(6);
+        projectionWallParentXZ = transform.GetChild(7);
 
-        CreateWall();
+        CreateWall(true);
+        CreateWall(false);
+
+        if (player2Exist)
+        {
+            CreateWall(true);
+            CreateWall(false);
+        }
+
+        if(GameManager.instance.isTopView)
+            projectionWallParentXY.gameObject.SetActive(false);
+        else
+            projectionWallParentXZ.gameObject.SetActive(false);
     }
 
     public void CallCameraRotate()
@@ -46,6 +68,18 @@ public class Stage : MonoBehaviour
          * Start Camera Rotation Coroutine
          */
         StartCoroutine(CameraRotate());
+
+        if (GameManager.instance.isTopView) // Top view -> Side view
+        {
+            projectionWallParentXY.gameObject.SetActive(true);
+            projectionWallParentXZ.gameObject.SetActive(false);
+            ReposProjection();
+        }
+        else // Side view -> Top view
+        {
+            projectionWallParentXY.gameObject.SetActive(false);
+            projectionWallParentXZ.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator CameraRotate()
@@ -89,7 +123,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    void CreateWall()
+    void CreateWall(bool onXY)
     {
         /*
          * Project inner walls onto XY, XZ plane
@@ -109,54 +143,45 @@ public class Stage : MonoBehaviour
             Vector3[] vertices = targetMesh.vertices;
 
             // Project vertices into planes
-            Vector3[] projectedVerticesXY = new Vector3[vertices.Length];
-            Vector3[] projectedVerticesXZ = new Vector3[vertices.Length];
+            Vector3[] projectedVertices = new Vector3[vertices.Length];
 
             for (int j = 0; j != vertices.Length; ++j)
             {
                 Vector3 worldVertex = innerWall[i].TransformPoint(vertices[j]);
-                projectedVerticesXY[j] = new Vector3(worldVertex.x, worldVertex.y, 0);
-                projectedVerticesXZ[j] = new Vector3(worldVertex.x, 0, worldVertex.z);
+                projectedVertices[j] = onXY ? new Vector3(worldVertex.x, worldVertex.y, 0)  : new Vector3(worldVertex.x, 0, worldVertex.z);
             }
 
             // Create new mesh
-            Mesh wallMeshXY = new Mesh();
-            Mesh wallMeshXZ = new Mesh();
-            wallMeshXY.vertices = projectedVerticesXY;
-            wallMeshXY.triangles = targetMesh.triangles;
-            wallMeshXY.RecalculateBounds();
-            wallMeshXY.RecalculateNormals();
-
-            wallMeshXZ.vertices = projectedVerticesXZ;
-            wallMeshXZ.triangles = targetMesh.triangles;
-            wallMeshXZ.RecalculateBounds();
-            wallMeshXZ.RecalculateNormals();
+            Mesh wallMesh = new Mesh();
+    
+            wallMesh.vertices = projectedVertices;
+            wallMesh.triangles = targetMesh.triangles;
+            wallMesh.RecalculateBounds();
+            wallMesh.RecalculateNormals();
 
             // Add thickness to mesh
-            AddThickness(wallMeshXY, 0.2f, true);
-            AddThickness(wallMeshXZ, 0.2f, false);
+            AddThickness(wallMesh, 0.2f, onXY);
 
             // Create new Object
-            GameObject wallXY = Instantiate(wallPrefab);
-            wallXY.transform.position = Vector3.zero;
-            wallXY.transform.rotation = Quaternion.identity;
+            GameObject wall = Instantiate(wallPrefab);
 
-            GameObject wallXZ = Instantiate(wallPrefab);
-            wallXZ.transform.position = Vector3.zero;
-            wallXZ.transform.rotation = Quaternion.identity;
+            if(onXY)
+                wall.transform.SetParent(projectionWallParentXY);
+            else
+                wall.transform.SetParent(projectionWallParentXZ);
+
+            wall.transform.position = Vector3.zero;
+            wall.transform.rotation = Quaternion.identity;
 
             // Apply mesh to object
-            MeshFilter wallMeshFilterXY = wallXY.GetComponent<MeshFilter>();
-            wallMeshFilterXY.mesh = wallMeshXY;
+            MeshFilter wallMeshFilterXY = wall.GetComponent<MeshFilter>();
+            wallMeshFilterXY.mesh = wallMesh;
 
-            MeshFilter wallMeshFilterXZ = wallXZ.GetComponent<MeshFilter>();
-            wallMeshFilterXZ.mesh = wallMeshXZ;
+            MeshRenderer mesher = wall.GetComponent<MeshRenderer>();
+            mesher.enabled = false;
 
-            MeshCollider collXY = wallXY.AddComponent<MeshCollider>();
-            collXY.material = pmat;
-
-            MeshCollider collXZ = wallXZ.AddComponent<MeshCollider>();
-            collXZ.material = pmat;
+            MeshCollider coll = wall.AddComponent<MeshCollider>();
+            coll.material = pmat;
         }
     }
 
@@ -210,5 +235,22 @@ public class Stage : MonoBehaviour
         mesh.triangles = newTriangles;
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
+    }
+
+    private void ReposProjection()
+    {
+        /*
+         * Reposition z-axis of projection walls on XY plane
+         */
+        Transform[] projectionsXY = projectionWallParentXY.GetComponentsInChildren<Transform>();
+        Transform player1pos = GameManager.instance.player1.transform;
+
+        projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
+
+        if (player2Exist)
+        {
+            Transform player2pos = GameManager.instance.player2.transform;
+            projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
+        }
     }
 }
