@@ -12,9 +12,9 @@ public class Player : MonoBehaviour
     CustomGravity customGravity;
 
     private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
-    private bool isJumping = false; // cannot perform another jump when isJumping is true
-    private bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
-    public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
+    public bool isJumping = false; // cannot perform another jump when isJumping is true
+    public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
+    private bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
     private Transform stage;
@@ -59,12 +59,6 @@ public class Player : MonoBehaviour
 
         // Check Invert condition
         CheckInvert();
-
-        // Convert viewpoint when press 'E'
-        if(Input.GetKeyDown(KeyCode.E) && !isJumping && onBottom)
-        {
-            ConvertView();
-        }
 
         //Stop speed when button is up
         if (Input.GetButtonUp("Horizontal"))
@@ -112,20 +106,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ConvertView()
+    public void ConversionPhysicsSetting()
     {
         /*
-         * Convert viewpoint
+         * Physics Setting for conversion
          */
-        bool topview = GameManager.instance.isTopView;
-
-        //Camera Setting
-        GameManager.instance.currentStage.CallCameraRotate();
-
-        //Physics Setting
         float gravity = Physics.gravity.magnitude;
 
-        if(topview)
+        if(GameManager.instance.isTopView)
         {
             Physics.gravity = new Vector3(0, -gravity, 0);
             customGravity.ReapplyGravity();
@@ -144,7 +132,6 @@ public class Player : MonoBehaviour
 
             rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
         }
-        GameManager.instance.isTopView = !topview;
     }
 
     private void CheckInnerWallHoriz()

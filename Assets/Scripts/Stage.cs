@@ -62,13 +62,50 @@ public class Stage : MonoBehaviour
             projectionWallParentXZ.gameObject.SetActive(false);
     }
 
-    public void CallCameraRotate()
+    private void Update()
     {
         /*
-         * Start Camera Rotation Coroutine
+         * Update
          */
+        // Check convert condition
+        CheckConvert();
+    }
+
+    private void CheckConvert()
+    {
+        /*
+         * Check convert condition
+         */
+        // Convert viewpoint when press 'E' and players should be on bottom platform
+        Player player1 = GameManager.instance.player1;
+        Player player2 = null;
+
+        if(player2Exist)
+            player2 = GameManager.instance.player2;
+
+        if (Input.GetKeyDown(KeyCode.E) && !player1.isJumping && player1.onBottom)
+        {
+            if (player2Exist)
+            {
+                if (!player2.isJumping && player2.onBottom)
+                    ConvertView();
+            }
+            else
+                ConvertView();
+        }
+    }
+
+    private void ConvertView()
+    {
+        /*
+         * Convert Viewpoint
+         */
+        bool topview = GameManager.instance.isTopView;
+
+        // Camera setting
         StartCoroutine(CameraRotate());
 
+        // Projection wall setting
         if (GameManager.instance.isTopView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
@@ -80,6 +117,13 @@ public class Stage : MonoBehaviour
             projectionWallParentXY.gameObject.SetActive(false);
             projectionWallParentXZ.gameObject.SetActive(true);
         }
+
+        // Player physics setting
+        GameManager.instance.player1.ConversionPhysicsSetting();
+        if(player2Exist)
+            GameManager.instance.player2.ConversionPhysicsSetting();
+
+        GameManager.instance.isTopView = !topview;
     }
 
     IEnumerator CameraRotate()
@@ -250,7 +294,7 @@ public class Stage : MonoBehaviour
         if (player2Exist)
         {
             Transform player2pos = GameManager.instance.player2.transform;
-            projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
+            projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player2pos.position.z);
         }
     }
 }

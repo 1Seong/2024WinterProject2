@@ -21,7 +21,7 @@ public class CustomGravity : MonoBehaviour
         /*
          * Start
          */
-        customGravity = GameManager.instance.isTopView ? Physics.gravity : (!player.inverted ? Physics.gravity : -Physics.gravity);
+        customGravity = GameManager.instance.isTopView ? (!player.inverted ? Physics.gravity : -Physics.gravity) : Physics.gravity;
     }
 
     void FixedUpdate()
