@@ -11,11 +11,6 @@ public class Player : MonoBehaviour
     BoxCollider coll;
     CustomGravity customGravity;
 
-    private bool isPaused = false;
-    private float pauseTimer = 0f;
-    private const float PAUSE_DURATION = 5f;
-    private Vector3 savedVelocity; //used for Pause
-
     private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
     public bool isJumping = false; // cannot perform another jump when isJumping is true
     public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
@@ -58,13 +53,6 @@ public class Player : MonoBehaviour
          */
         if (!GameManager.instance.isPlaying)
             return;
-
-        //Handle pause effect
-        if (isPaused)
-        {
-            HandlePauseEffect();
-            return;  // Skip other updates while paused
-        }
 
         // Jump
         RequestJump();
@@ -217,7 +205,7 @@ public class Player : MonoBehaviour
         /*
          * Fixed update
          */
-        if (!GameManager.instance.isPlaying || isPaused)
+        if (!GameManager.instance.isPlaying)
             return;
 
         //Player Moving
@@ -360,25 +348,6 @@ public class Player : MonoBehaviour
         }
            
     }
-    private void HandlePauseEffect()
-    {
-        if (isPaused)
-        {
-            // Keep the player stopped
-            rigid.linearVelocity = Vector3.zero;
-
-            // Update pause timer
-            pauseTimer -= Time.deltaTime;
-
-            // Check for space key or timer completion
-            if (Input.GetKeyDown(KeyCode.Space) || pauseTimer <= 0)
-            {
-                isPaused = false;
-                rigid.linearVelocity = savedVelocity;
-                pauseTimer = 0f;
-            }
-        }
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -421,15 +390,30 @@ public class Player : MonoBehaviour
 
         onBottom = false;
     }
-    private void OnTriggerEnter(Collider other)
+
+    public void ResetPlayer()
     {
-        if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.Pause && !isPaused)
+        // 점프 유닛 초기화
+        jumpUnit = 1;
+
+        // 개구리 모자 제거
+        Transform frogHat = transform.Find("FrogHat(Clone)");
+        if (frogHat != null)
         {
-            isPaused = true;
-            pauseTimer = PAUSE_DURATION;
-            savedVelocity = rigid.linearVelocity;
-            rigid.linearVelocity = Vector3.zero;
+            Destroy(frogHat.gameObject);
         }
+
+        // 점프 상태 초기화
+        isJumping = false;
+        inverted = false;
+        onBottom = true;
+        onInnerWall = false;
+
+        // 플레이어의 물리 상태 초기화
+        rigid.linearVelocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+
+        Debug.Log($"{name} has been reset to default state.");
     }
 
 }

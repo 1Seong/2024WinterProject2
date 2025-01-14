@@ -25,6 +25,11 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
+    private Transform stage; // Stage의 Transform 참조
+
+    public GameObject frogItemPrefab; // 개구리 아이템 프리팹
+    public GameObject swapItemPrefab; // 스왑 아이템 프리팹
+
     private void OnEnable()
     {
         /*
@@ -46,6 +51,30 @@ public class Stage : MonoBehaviour
         innerWall = transform.GetChild(4).GetComponentsInChildren<Transform>();
         projectionWallParentXY = transform.GetChild(6);
         projectionWallParentXZ = transform.GetChild(7);
+        
+        // GameManager에서 현재 스테이지 Transform 가져오기
+        stage = GameManager.instance.currentStage.transform;
+
+        // 플레이어 상태 초기화
+        GameManager.instance.player1.ResetPlayer();
+        if (GameManager.instance.player2 != null)
+        {
+            GameManager.instance.player2.ResetPlayer();
+        }
+
+        // 아이템 배치
+        if (frogItemPrefab != null)
+        {
+            Vector3 spawnPosition = new Vector3(1, 0, 1); // 위치 설정정
+            Instantiate(frogItemPrefab, spawnPosition, Quaternion.identity, transform);
+        }
+
+        // 스왑 아이템 배치
+        if (swapItemPrefab != null)
+        {
+            Vector3 swapItemPosition = new Vector3(0, 0, 4); // 위치 설정
+            Instantiate(swapItemPrefab, swapItemPosition, Quaternion.identity, transform);
+        }
 
         CreateWall(true);
         CreateWall(false);
