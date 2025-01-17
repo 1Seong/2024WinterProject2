@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
     private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
+    private bool isGPaused = false;
+    private float gPauseTimer = 0f;
+    private const float GPAUSE_DURATION = 10f;
+    private bool wasInverted; //used for GPause
+
     private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
     public bool isJumping = false; // cannot perform another jump when isJumping is true
     public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
@@ -64,6 +69,12 @@ public class Player : MonoBehaviour
         {
             HandlePauseEffect();
             return;  // Skip other updates while paused
+        }
+        
+        //Handle GPause effect
+        if (isGPaused)
+        {
+            HandleGPauseEffect();
         }
 
         // Jump
@@ -379,6 +390,26 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void HandleGPauseEffect()
+    {
+        if (isGPaused)
+        {
+            // Update GPause timer
+            gPauseTimer -= Time.deltaTime;
+
+            // Check for timer completion
+            if (gPauseTimer <= 0)
+            {
+                isGPaused = false;
+                // Restore original gravity state
+                inverted = wasInverted;
+                if (wasInverted)
+                    customGravity.InvertGravity();
+                else
+                    customGravity.ReapplyGravity();
+            }
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -430,6 +461,24 @@ public class Player : MonoBehaviour
             savedVelocity = rigid.linearVelocity;
             rigid.linearVelocity = Vector3.zero;
         }
-    }
 
+        if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.GPause && !isGPaused)
+        {
+            isGPaused = true;
+            gPauseTimer = GPAUSE_DURATION;
+            wasInverted = inverted; // Store current inversion state
+
+            // Reverse gravity
+            if (!inverted)
+            {
+                inverted = true;
+                customGravity.InvertGravity();
+            }
+            else
+            {
+                inverted = false;
+                customGravity.ReapplyGravity();
+            }
+        }
+    }
 }
