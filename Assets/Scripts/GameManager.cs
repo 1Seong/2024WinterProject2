@@ -14,10 +14,6 @@ public class GameManager : MonoBehaviour
     //public float gameTime;
 
     [Header("# Stage Info")]
-    private int episodeNum; // The number of episodes
-    public int episodeId; // Current episode index
-    public int stageId; // Current stage index
-    public Stage[][] stages; // Episode x Stages
     public Stage currentStage;
 
     [Header("# Player Info")]
@@ -46,24 +42,13 @@ public class GameManager : MonoBehaviour
         /*
          *  Additional initialization
          */
-        int i = 0;
-        episodeNum = grid.transform.childCount;
+        
+       
 
-        Transform[] episodes = new Transform[episodeNum];
-
-        //initialize episodes
-        foreach(Transform child in grid.transform)
-        {
-            episodes[i++] = child;
-        }
+        
 
         //initialize stages
-        stages = new Stage[episodeNum][];
-
-        for (i = 0; i != episodeNum; ++i)
-        {
-            stages[i] = episodes[i].GetComponentsInChildren<Stage>(true);
-        }
+        
     }
 
     private void Update()
@@ -108,11 +93,9 @@ public class GameManager : MonoBehaviour
          * Please complete this method
          * You can modify original code
          */
-        episodeId = episode;
-        stageId = stage;
+       
 
-        currentStage = stages[episodeId][stageId];
-        currentStage.gameObject.SetActive(true);
+       
 
         PlayerReposition();
 
@@ -146,17 +129,7 @@ public class GameManager : MonoBehaviour
 
         player1.gameObject.SetActive(true);
         player2.gameObject.SetActive(true);
-        stages[episodeId][stageId].gameObject.SetActive(false);
-    }
-
-    public void Reset()
-    {
-        /*
-         * Reset the game
-         * 
-         * Please complete this method
-         * You can modify original code
-         */
+        
     }
 
     private void PlayerReposition()

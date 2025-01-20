@@ -1,22 +1,12 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Stage : MonoBehaviour
 {
-    [Header("Stage Info")]
-    public int startPosX1; // Start position of player 1
-    public int startPosZ1;
-
-    public bool player2Exist; // Does player 2 exist in this stage?
-
-    public int startPosX2; // Start position of player 2
-    public int startPosZ2;
-
-    public float invertLineZ; // Z line used for player inversion
-
-    public GameObject wallPrefab;
-    public PhysicsMaterial pmat; // Physics material (No friction)
+    private StageData data;
 
     private Transform bottomWall;
     private Transform topWall;
@@ -25,7 +15,36 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
-    private void OnEnable()
+    private Action _startAction;
+    public Action startAction
+    {
+        get => _startAction;
+        set => _startAction = value;
+    }
+
+    private static Action _convertAction;
+    public static Action convertAction
+    {
+        get => _convertAction;
+        set => _convertAction = value;
+    }
+
+    private void Awake()
+    {
+        startAction += Init;
+        startAction += MakeProjection;
+
+        convertAction += CallCameraRotate;
+        convertAction += ProjectionSetting;
+        convertAction += PlayerSetting;
+    }
+
+    private void Start()
+    {
+        startAction.Invoke();
+    }
+
+    private void Init()
     {
         /*
          * Start
@@ -41,22 +60,27 @@ public class Stage : MonoBehaviour
          * - 6. Projection Wall XY
          * - 7. Projection Wall XZ
          */
+        data = StageManager.instance.currentStageInfo.data;
+
         bottomWall = transform.GetChild(0).GetChild(0);
         topWall = transform.GetChild(1).GetChild(0);
         innerWall = transform.GetChild(4).GetComponentsInChildren<Transform>();
         projectionWallParentXY = transform.GetChild(6);
         projectionWallParentXZ = transform.GetChild(7);
+    }
 
+    private void MakeProjection()
+    {
         CreateWall(true);
         CreateWall(false);
 
-        if (player2Exist)
+        if (data.player2Exist)
         {
             CreateWall(true);
             CreateWall(false);
         }
 
-        if(GameManager.instance.isTopView)
+        if (GameManager.instance.isTopView)
             projectionWallParentXY.gameObject.SetActive(false);
         else
             projectionWallParentXZ.gameObject.SetActive(false);
@@ -64,9 +88,6 @@ public class Stage : MonoBehaviour
 
     private void Update()
     {
-        /*
-         * Update
-         */
         // Check convert condition
         CheckConvert();
     }
@@ -80,12 +101,12 @@ public class Stage : MonoBehaviour
         Player player1 = GameManager.instance.player1;
         Player player2 = null;
 
-        if(player2Exist)
+        if(data.player2Exist)
             player2 = GameManager.instance.player2;
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.isJumping && player1.onBottom)
         {
-            if (player2Exist)
+            if (data.player2Exist)
             {
                 if (!player2.isJumping && player2.onBottom)
                     ConvertView();
@@ -100,12 +121,16 @@ public class Stage : MonoBehaviour
         /*
          * Convert Viewpoint
          */
-        bool topview = GameManager.instance.isTopView;
+        convertAction.Invoke();
+    }
 
-        // Camera setting
+    private void CallCameraRotate()
+    {
         StartCoroutine(CameraRotate());
+    }
 
-        // Projection wall setting
+    private void ProjectionSetting()
+    {
         if (GameManager.instance.isTopView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
@@ -117,10 +142,15 @@ public class Stage : MonoBehaviour
             projectionWallParentXY.gameObject.SetActive(false);
             projectionWallParentXZ.gameObject.SetActive(true);
         }
+    }
 
-        // Player physics setting
+    private void PlayerSetting()
+    {
+        //delete this method later
+        bool topview = GameManager.instance.isTopView;
+
         GameManager.instance.player1.ConversionPhysicsSetting();
-        if(player2Exist)
+        if (data.player2Exist)
             GameManager.instance.player2.ConversionPhysicsSetting();
 
         GameManager.instance.isTopView = !topview;
@@ -172,7 +202,7 @@ public class Stage : MonoBehaviour
         /*
          * Project inner walls onto XY, XZ plane
          */
-        if (innerWall == null || wallPrefab == null) 
+        if (innerWall == null || data.wallPrefab == null) 
             return;
 
         for(int i = 1; i != innerWall.Length; ++i) // iterate for every inner walls
@@ -207,7 +237,7 @@ public class Stage : MonoBehaviour
             AddThickness(wallMesh, 0.2f, onXY);
 
             // Create new Object
-            GameObject wall = Instantiate(wallPrefab);
+            GameObject wall = Instantiate(data.wallPrefab);
 
             if(onXY)
                 wall.transform.SetParent(projectionWallParentXY);
@@ -225,7 +255,7 @@ public class Stage : MonoBehaviour
             mesher.enabled = false;
 
             MeshCollider coll = wall.AddComponent<MeshCollider>();
-            coll.material = pmat;
+            coll.material = data.physicsMat;
         }
     }
 
@@ -291,7 +321,7 @@ public class Stage : MonoBehaviour
 
         projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
 
-        if (player2Exist)
+        if (data.player2Exist)
         {
             Transform player2pos = GameManager.instance.player2.transform;
             projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player2pos.position.z);

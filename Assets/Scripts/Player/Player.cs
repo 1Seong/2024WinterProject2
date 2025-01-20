@@ -103,7 +103,8 @@ public class Player : MonoBehaviour
          */
         if (!GameManager.instance.isTopView)
             return;
-
+        
+        /*
         float targetZ = -1.0f + GameManager.instance.currentStage.invertLineZ;
 
         if(!inverted && rigid.position.z > targetZ)
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour
             inverted = false;
             customGravity.InvertGravity();
         }
+        */
     }
 
     public void ConversionPhysicsSetting()
