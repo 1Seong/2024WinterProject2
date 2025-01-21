@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"{gameObject.name} collided with {other.name}");
         // 플레이어가 아이템에 닿았는지 확인
         if (isConsumed || !other.CompareTag("Player"))
             return;
@@ -42,12 +43,14 @@ public class Item : MonoBehaviour
     {
         // 점프 유닛 증가
         player.jumpUnit = 2;
+        Debug.Log("Frog Item applied: Jump unit set to " + player.jumpUnit);
 
         // 개구리 모자 착용
         if (frogHatPrefab != null)
         {
             GameObject frogHat = Instantiate(frogHatPrefab, player.transform);
             frogHat.transform.localPosition = new Vector3(0, 1.5f, 0); // 머리 위치에 모자 배치
+            Debug.Log("Frog hat instantiated for player");
         }
 
         Debug.Log("Frog Item applied: Jump unit increased!");

@@ -65,7 +65,7 @@ public class Stage : MonoBehaviour
         // 아이템 배치
         if (frogItemPrefab != null)
         {
-            Vector3 spawnPosition = new Vector3(1, 0, 1); // 위치 설정정
+            Vector3 spawnPosition = new Vector3(1, 0, 1); // 위치 설정
             Instantiate(frogItemPrefab, spawnPosition, Quaternion.identity, transform);
         }
 
