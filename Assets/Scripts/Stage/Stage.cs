@@ -15,41 +15,28 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
-    private Action _startAction;
-    public Action startAction
-    {
-        get => _startAction;
-        set => _startAction = value;
-    }
+    public static event Action stageStartEvent;
 
-    private static Action _convertAction;
-    public static Action convertAction
-    {
-        get => _convertAction;
-        set => _convertAction = value;
-    }
+    public static event Action convertEvent;
 
     private void Awake()
     {
-        startAction += Init;
-        startAction += MakeProjection;
+        stageStartEvent += Init;
+        stageStartEvent += MakeProjection;
 
-        convertAction += CallCameraRotate;
-        convertAction += ProjectionSetting;
-        convertAction += PlayerSetting;
+        convertEvent += CallCameraRotate;
+        convertEvent += ProjectionSetting;
+        convertEvent += PlayerSetting;
     }
 
     private void Start()
     {
-        startAction.Invoke();
+        stageStartEvent?.Invoke();
     }
 
     private void Init()
     {
         /*
-         * Start
-         *
-         *
          * Stage Hierarchy structure
          * - 0. Bottom Wall
          * - 1. Top Wall
@@ -121,7 +108,7 @@ public class Stage : MonoBehaviour
         /*
          * Convert Viewpoint
          */
-        convertAction.Invoke();
+        convertEvent?.Invoke();
     }
 
     private void CallCameraRotate()
@@ -202,7 +189,7 @@ public class Stage : MonoBehaviour
         /*
          * Project inner walls onto XY, XZ plane
          */
-        if (innerWall == null || data.wallPrefab == null) 
+        if (innerWall == null || StageData.wallPrefab == null) 
             return;
 
         for(int i = 1; i != innerWall.Length; ++i) // iterate for every inner walls
@@ -237,7 +224,7 @@ public class Stage : MonoBehaviour
             AddThickness(wallMesh, 0.2f, onXY);
 
             // Create new Object
-            GameObject wall = Instantiate(data.wallPrefab);
+            GameObject wall = Instantiate(StageData.wallPrefab);
 
             if(onXY)
                 wall.transform.SetParent(projectionWallParentXY);
@@ -255,7 +242,7 @@ public class Stage : MonoBehaviour
             mesher.enabled = false;
 
             MeshCollider coll = wall.AddComponent<MeshCollider>();
-            coll.material = data.physicsMat;
+            coll.material = StageData.physicsMat;
         }
     }
 

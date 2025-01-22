@@ -21,8 +21,6 @@ public class Player : MonoBehaviour
     public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
     private bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
-
-    private Transform stage;
     
 
     private void Awake()
@@ -37,18 +35,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        /*
-         * Start
-         */
-        stage = GameManager.instance.currentStage.transform;
+        
     }
 
     private void OnEnable()
     {
-        /*
-         * On Enable
-         */
-        stage = GameManager.instance.currentStage.transform;
+        
     }
 
     private void Update()

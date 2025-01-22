@@ -24,31 +24,28 @@ public class StageManager : MonoBehaviour
 
     private Dictionary<Episode, StageData[]> _epStagePair;
 
-    private Action _stageEnterAction;
-    public Action stageEnterAction
-    {
-        get => _stageEnterAction;
-        set => _stageEnterAction = value;
-    }
-
-    private Action _stageExitAction;
-    public Action stageExitAction
-    {
-        get => _stageExitAction;
-        set => _stageExitAction = value;
-    }
+    public event Action stageEnterEvent;
+    public event Action stageClearEvent;
+    public event Action stageExitEvent;
 
     private void Awake()
     {
         instance = this;
         DontDestroyOnLoad(this);
 
-        _epStagePair = new Dictionary<Episode, StageData[]>();
-        _epStagePair.Add(Episode.Episode1, episode1);
-        _epStagePair.Add(Episode.Episode2, episode2);
-        _epStagePair.Add(Episode.Episode3, episode3);
-        _epStagePair.Add(Episode.Episode4, episode4);
-        _epStagePair.Add(Episode.Episode5, episode5);
+        _epStagePair = new Dictionary<Episode, StageData[]>
+        {
+            { Episode.Episode1, episode1 },
+            { Episode.Episode2, episode2 },
+            { Episode.Episode3, episode3 },
+            { Episode.Episode4, episode4 },
+            { Episode.Episode5, episode5 }
+        };
+    }
+
+    private void Start()
+    {
+        Stage.stageStartEvent += PlayerReposition;
     }
 
     public void StageEnter(Episode episode, int index)
@@ -57,17 +54,26 @@ public class StageManager : MonoBehaviour
         currentStageInfo.stageIndex = index;
         currentStageInfo.data = _epStagePair[currentStageInfo.episode][currentStageInfo.stageIndex];
 
-        stageEnterAction.Invoke();
+        stageEnterEvent?.Invoke();
 
         GameManager.instance.isPlaying = true;
         LoadStage();
     }
 
+    public void StageClear()
+    {
+        GameManager.instance.isPlaying = false;
+
+        stageClearEvent?.Invoke();
+    }
+
     public void StageExit()
     {
-        stageExitAction.Invoke();
+        if(GameManager.instance.isPlaying)
+            GameManager.instance.isPlaying = false;
 
-        GameManager.instance.isPlaying = false;
+        stageExitEvent?.Invoke();
+
         LoadSelectStage();
     }
 
@@ -89,5 +95,10 @@ public class StageManager : MonoBehaviour
          * Reset the game
          */
         LoadStage();
+    }
+
+    private void PlayerReposition()
+    {
+
     }
 }

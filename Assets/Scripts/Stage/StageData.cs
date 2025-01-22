@@ -11,14 +11,14 @@ public class StageData : ScriptableObject
 
     [TextArea] public string stageName;
 
-    public GameObject wallPrefab;
-    public PhysicsMaterial physicsMat; // Physics material (No friction)
+    public static GameObject wallPrefab;
+    public static PhysicsMaterial physicsMat; // Physics material (No friction)
 
     [Header("PlayerInfo")]
 
-    public Vector2 startPos1;
+    public Vector3 startPos1;
 
     public bool player2Exist; // Does player 2 exist in this stage?
 
-    public Vector2 startPos2;
+    public Vector3 startPos2;
 }
