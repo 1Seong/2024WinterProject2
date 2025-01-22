@@ -27,7 +27,7 @@ public class StageManager : MonoBehaviour
     public event Action stageEnterEvent;
     public event Action stageClearEvent;
     public event Action stageExitEvent;
-
+    
     private void Awake()
     {
         instance = this;

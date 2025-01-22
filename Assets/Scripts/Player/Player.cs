@@ -25,29 +25,13 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        /*
-         * Awake
-         */
         rigid = GetComponent<Rigidbody>();
         coll = GetComponent<BoxCollider>();
         customGravity = GetComponent<CustomGravity>();
     }
 
-    private void Start()
-    {
-        
-    }
-
-    private void OnEnable()
-    {
-        
-    }
-
     private void Update()
     {
-        /*
-         * Update
-         */
         if (!GameManager.instance.isPlaying)
             return;
 
@@ -121,20 +105,17 @@ public class Player : MonoBehaviour
 
         if(GameManager.instance.isTopView)
         {
-            Physics.gravity = new Vector3(0, -gravity, 0);
-            customGravity.ReapplyGravity();
+            customGravity.SetToConvert();
             rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         }
         else
         {
-            Physics.gravity = new Vector3(0, 0, -gravity);
-
             if (inverted)
             {
-                customGravity.InvertGravity();
+                customGravity.SetToInvert();
             }
             else
-                customGravity.ReapplyGravity();
+                customGravity.SetToDefault();
 
             rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
         }
@@ -185,12 +166,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        Vector3 targetVec = inverted ? Vector3.forward : Vector3.back;
+        Vector3 targetVec = customGravity.down;
         Vector3 box = new Vector3(0.49f, 0.1f, 0.5f);
 
         if (!GameManager.instance.isTopView)
         {
-            targetVec = Vector3.down;
             box = new Vector3(0.49f, 0.5f, 0.1f);
         }
 
@@ -208,9 +188,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-         * Fixed update
-         */
         if (!GameManager.instance.isPlaying || isPaused)
             return;
 
@@ -290,12 +267,11 @@ public class Player : MonoBehaviour
          */
         isJumping = true;
 
-        Vector3 targetVec = inverted ? Vector3.forward : Vector3.back;
+        Vector3 targetVec = customGravity.down;
         Vector3 box = new Vector3(0.49f, 0, 0.5f);
 
         if (!GameManager.instance.isTopView)
         {
-            targetVec = Vector3.down;
             box = new Vector3(0.49f, 0.5f, 0);
         }
 
@@ -341,19 +317,9 @@ public class Player : MonoBehaviour
         float initialVelocity = Mathf.Sqrt(2 * gravity * jumpUnit);
         float force = rigid.mass * initialVelocity + 0.5f;
 
-        if (GameManager.instance.isTopView)
-        {
-            if(inverted)
-                force = -force;
-
-            rigid.AddForce(Vector3.forward * force, ForceMode.Impulse);
-        }
-        else
-        {
-            rigid.AddForce(Vector3.up * force, ForceMode.Impulse);
-        }
-           
+        rigid.AddForce(customGravity.up * force, ForceMode.Impulse);
     }
+
     private void HandlePauseEffect()
     {
         if (isPaused)
