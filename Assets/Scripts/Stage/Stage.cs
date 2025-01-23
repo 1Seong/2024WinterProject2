@@ -24,9 +24,8 @@ public class Stage : MonoBehaviour
         stageStartEvent += Init;
         stageStartEvent += MakeProjection;
 
-        convertEvent += CallCameraRotate;
+        convertEvent += () => StartCoroutine(CameraRotate());
         convertEvent += ProjectionSetting;
-        convertEvent += PlayerSetting;
     }
 
     private void Start()
@@ -48,6 +47,7 @@ public class Stage : MonoBehaviour
          * - 7. Projection Wall XZ
          */
         data = StageManager.instance.currentStageInfo.data;
+        GameManager.instance.isTopView = data.topview;
 
         bottomWall = transform.GetChild(0).GetChild(0);
         topWall = transform.GetChild(1).GetChild(0);
@@ -67,7 +67,7 @@ public class Stage : MonoBehaviour
             CreateWall(false);
         }
 
-        if (GameManager.instance.isTopView)
+        if (!GameManager.instance.isTopView)
             projectionWallParentXY.gameObject.SetActive(false);
         else
             projectionWallParentXZ.gameObject.SetActive(false);
@@ -85,6 +85,8 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
+        if (!data.conversionActive) return;
+
         Player player1 = GameManager.instance.player1;
         Player player2 = null;
 
@@ -108,17 +110,14 @@ public class Stage : MonoBehaviour
         /*
          * Convert Viewpoint
          */
-        convertEvent?.Invoke();
-    }
+        GameManager.instance.isTopView = !GameManager.instance.isTopView;
 
-    private void CallCameraRotate()
-    {
-        StartCoroutine(CameraRotate());
+        convertEvent?.Invoke();
     }
 
     private void ProjectionSetting()
     {
-        if (GameManager.instance.isTopView) // Top view -> Side view
+        if (!GameManager.instance.isTopView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
             projectionWallParentXZ.gameObject.SetActive(false);
@@ -131,25 +130,13 @@ public class Stage : MonoBehaviour
         }
     }
 
-    private void PlayerSetting()
-    {
-        //delete this method later
-        bool topview = GameManager.instance.isTopView;
-
-        GameManager.instance.player1.ConversionPhysicsSetting();
-        if (data.player2Exist)
-            GameManager.instance.player2.ConversionPhysicsSetting();
-
-        GameManager.instance.isTopView = !topview;
-    }
-
     IEnumerator CameraRotate()
     {
         /*
          * Rotate Camera and make bottom and top wall transparent
          */
         bool topview = GameManager.instance.isTopView;
-        float targetRot = topview ? -90.0f : 90.0f;
+        float targetRot = topview ? 90.0f : -90.0f;
         float totalTime = GameManager.instance.cameraRotationTime;
 
         Material mat1 = bottomWall.GetComponent<MeshRenderer>().material;

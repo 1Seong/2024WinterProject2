@@ -96,31 +96,6 @@ public class Player : MonoBehaviour
         */
     }
 
-    public void ConversionPhysicsSetting()
-    {
-        /*
-         * Physics Setting for conversion
-         */
-        float gravity = Physics.gravity.magnitude;
-
-        if(GameManager.instance.isTopView)
-        {
-            customGravity.SetToConvert();
-            rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-        }
-        else
-        {
-            if (inverted)
-            {
-                customGravity.SetToInvert();
-            }
-            else
-                customGravity.SetToDefault();
-
-            rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        }
-    }
-
     private void CheckInnerWallHoriz()
     {
         /*

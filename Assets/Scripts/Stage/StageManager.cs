@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        Stage.stageStartEvent += PlayerReposition;
+        Stage.stageStartEvent += ObjectReposition;
     }
 
     public void StageEnter(Episode episode, int index)
@@ -97,7 +97,7 @@ public class StageManager : MonoBehaviour
         LoadStage();
     }
 
-    private void PlayerReposition()
+    private void ObjectReposition()
     {
 
     }

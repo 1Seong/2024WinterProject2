@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721e35e6b743c9f4c946a6e0ec5810c8, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  episodeNum: 0
-  stageName: 
-  startPos1: {x: 0, y: 0, z: 0}
+  episodeNum: 2
+  stageIndex: 0
+  stageName: Stage1
+  topview: 0
+  conversionActive: 0
+  startPos1: {x: 23, y: 0, z: 4235}
   player2Exist: 0
-  startPos2: {x: 0, y: 0, z: 0}
+  startPos2: {x: 324, y: 0, z: 0}

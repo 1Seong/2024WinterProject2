@@ -8,8 +8,11 @@ public class StageData : ScriptableObject
     [Header("StageInfo")]
 
     public Episode episodeNum;
+    public int stageIndex;
+    public string stageName;
 
-    [TextArea] public string stageName;
+    public bool topview;
+    public bool conversionActive;
 
     public static GameObject wallPrefab;
     public static PhysicsMaterial physicsMat; // Physics material (No friction)
