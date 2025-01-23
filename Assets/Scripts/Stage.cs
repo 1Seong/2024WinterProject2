@@ -159,7 +159,7 @@ public class Stage : MonoBehaviour
             mat2.color = color;
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
-        }
+        } 
         if (topview) // Top view -> Side view
         {
             bottomWall.gameObject.SetActive(false);
