@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
+
+public enum GravityState { defaultG, invertG, convertG };
 
 public class CustomGravity : MonoBehaviour
 {
-    private enum GravityState { defaultG, invertG, convertG };
-    private GravityState _gravityState;
+    [SerializeField] private GravityState _gravityState;
 
-    [SerializeField] private Vector3 _currentGravity;
+    private Vector3 _currentGravity;
 
     public Vector3 up;
     public Vector3 down;
@@ -16,11 +18,12 @@ public class CustomGravity : MonoBehaviour
     public static event Action gPauseAtDefaultEvent;
     public static event Action gPauseAtInvertEvent;
 
-    private GravityState _gravityStateP
+    public GravityState gravityState
     {
         get => _gravityState;
         set
         {
+            _gravityState = value;
             switch(value)
             {
                 case GravityState.invertG:
@@ -57,55 +60,66 @@ public class CustomGravity : MonoBehaviour
 
     private void Start()
     {
-        _gravityStateP = _gravityState;
+        gravityState = _gravityState;
+        //it may cause problem when stage start in top view state
+        if (gravityState == GravityState.defaultG)
+            gPauseAtDefaultEvent += CallGPauseAction;
+        else if (gravityState == GravityState.invertG)
+            gPauseAtInvertEvent += CallGPauseAction;
 
         Stage.convertEvent += ConvertAction;
+
+        if(player != null)
+            player.invertEvent += Inversion;
+    }
+
+    private void OnDestroy()
+    {
+        Stage.convertEvent -= ConvertAction;
+        gPauseAtDefaultEvent -= CallGPauseAction;
+        gPauseAtInvertEvent -= CallGPauseAction;
     }
 
     void FixedUpdate()
     {
         if (!GameManager.instance.isPlaying || player.onInnerWall)
-        {
             return;
-        }
 
         rigid.AddForce(_currentGravity, ForceMode.Acceleration);
     }
 
     public void SetToDefault()
     {
-        _gravityStateP = GravityState.defaultG;
+        gravityState = GravityState.defaultG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     }
 
     public void SetToInvert()
     {
-        _gravityStateP = GravityState.invertG;
+        gravityState = GravityState.invertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     }
 
     public void SetToConvert()
     {
-        _stateBeforeConvert = _gravityStateP;
+        _stateBeforeConvert = gravityState;
 
-        _gravityStateP = GravityState.convertG;
+        gravityState = GravityState.convertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
     }
 
     private void Inversion()
     {
         //월선할때 호출
-        Action callGPauseAction = () => StartCoroutine(GPauseAction());
-
-        if (_gravityStateP == GravityState.defaultG)
+        if (gravityState == GravityState.defaultG)
         {
-            gPauseAtDefaultEvent -= callGPauseAction;
-            gPauseAtInvertEvent += callGPauseAction;
+            gPauseAtDefaultEvent -= CallGPauseAction;
+            gPauseAtInvertEvent += CallGPauseAction;
         }
-        else if (_gravityStateP == GravityState.invertG)
+        else if (gravityState == GravityState.invertG)
         {
-            gPauseAtDefaultEvent += callGPauseAction;
-            gPauseAtInvertEvent -= callGPauseAction;
+            gPauseAtDefaultEvent += CallGPauseAction;
+            gPauseAtInvertEvent -= CallGPauseAction;
         }
         else return;
         
@@ -114,7 +128,7 @@ public class CustomGravity : MonoBehaviour
 
     private void InvertAction()
     {
-        if (_gravityStateP == GravityState.defaultG)
+        if (gravityState == GravityState.defaultG)
             SetToInvert();
         else
             SetToDefault();
@@ -122,7 +136,7 @@ public class CustomGravity : MonoBehaviour
 
     private void ConvertAction()
     {
-        if(GameManager.instance.isTopView)
+        if(GameManager.instance.isSideView)
             SetToConvert();
         else
         {
@@ -136,10 +150,15 @@ public class CustomGravity : MonoBehaviour
     private void GPause()
     {
         //GPause 활성화될때 호출
-        if (_gravityStateP == GravityState.defaultG)
+        if (gravityState == GravityState.defaultG)
             gPauseAtDefaultEvent?.Invoke();
-        else if (_gravityStateP == GravityState.invertG)
+        else if (gravityState == GravityState.invertG)
             gPauseAtInvertEvent?.Invoke();
+    }
+
+    private void CallGPauseAction()
+    {
+        StartCoroutine(GPauseAction());
     }
 
     IEnumerator GPauseAction()

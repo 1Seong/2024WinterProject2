@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("# Game Control")]
     public bool isPlaying; // True when user is playing a stage
-    public bool isTopView;
+    public bool isSideView;
     public float cameraRotationTime;
     public float cameraRotationR; // Camera rotation radius
     //public float gameTime;
@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     public float maxSpeed;
 
     [Header("# Game Objects")]
-    public Player player1;
-    public Player player2;
+    public GameObject player1;
+    public GameObject player2;
 
 
     private void Awake()
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
          */
 
         instance = this;
-
+        DontDestroyOnLoad(this);
         //Init();
     }
 

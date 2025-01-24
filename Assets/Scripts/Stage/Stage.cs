@@ -15,17 +15,32 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
-    public static event Action stageStartEvent;
+    private GameObject player1;
+    private GameObject player2;
 
+    private bool isActing = false;
+
+    public static event Action stageStartEvent;
     public static event Action convertEvent;
 
     private void Awake()
     {
         stageStartEvent += Init;
+        stageStartEvent += ObjectReposition;
         stageStartEvent += MakeProjection;
 
-        convertEvent += () => StartCoroutine(CameraRotate());
+        convertEvent += CallCameraRotate;
         convertEvent += ProjectionSetting;
+    }
+
+    private void OnDestroy()
+    {
+        stageStartEvent -= Init;
+        stageStartEvent -= ObjectReposition;
+        stageStartEvent -= MakeProjection;
+
+        convertEvent -= CallCameraRotate;
+        convertEvent -= ProjectionSetting;
     }
 
     private void Start()
@@ -47,7 +62,7 @@ public class Stage : MonoBehaviour
          * - 7. Projection Wall XZ
          */
         data = StageManager.instance.currentStageInfo.data;
-        GameManager.instance.isTopView = data.topview;
+        GameManager.instance.isSideView = false;
 
         bottomWall = transform.GetChild(0).GetChild(0);
         topWall = transform.GetChild(1).GetChild(0);
@@ -67,7 +82,7 @@ public class Stage : MonoBehaviour
             CreateWall(false);
         }
 
-        if (!GameManager.instance.isTopView)
+        if (!GameManager.instance.isSideView)
             projectionWallParentXY.gameObject.SetActive(false);
         else
             projectionWallParentXZ.gameObject.SetActive(false);
@@ -85,19 +100,13 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
-        if (!data.conversionActive) return;
+        if (!data.conversionActive || isActing) return;
 
-        Player player1 = GameManager.instance.player1;
-        Player player2 = null;
-
-        if(data.player2Exist)
-            player2 = GameManager.instance.player2;
-
-        if (Input.GetKeyDown(KeyCode.E) && !player1.isJumping && player1.onBottom)
+        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping && player1.GetComponent<Player>().onBottom)
         {
             if (data.player2Exist)
             {
-                if (!player2.isJumping && player2.onBottom)
+                if (!player2.GetComponent<PlayerJump>().isJumping && player2.GetComponent<Player>().onBottom)
                     ConvertView();
             }
             else
@@ -110,14 +119,14 @@ public class Stage : MonoBehaviour
         /*
          * Convert Viewpoint
          */
-        GameManager.instance.isTopView = !GameManager.instance.isTopView;
+        GameManager.instance.isSideView = !GameManager.instance.isSideView;
 
         convertEvent?.Invoke();
     }
 
     private void ProjectionSetting()
     {
-        if (!GameManager.instance.isTopView) // Top view -> Side view
+        if (GameManager.instance.isSideView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
             projectionWallParentXZ.gameObject.SetActive(false);
@@ -130,19 +139,26 @@ public class Stage : MonoBehaviour
         }
     }
 
+    private void CallCameraRotate()
+    {
+        StartCoroutine(CameraRotate());
+    }
+
     IEnumerator CameraRotate()
     {
         /*
          * Rotate Camera and make bottom and top wall transparent
          */
-        bool topview = GameManager.instance.isTopView;
-        float targetRot = topview ? 90.0f : -90.0f;
+        bool sideview = GameManager.instance.isSideView;
+        float targetRot = sideview ? -90.0f : 90.0f;
         float totalTime = GameManager.instance.cameraRotationTime;
 
         Material mat1 = bottomWall.GetComponent<MeshRenderer>().material;
         Material mat2 = topWall.GetComponent<MeshRenderer>().material;
 
-        if (!topview) // Side view -> Top view
+        isActing = true;
+
+        if (!sideview) // Side view -> Top view
         {
             bottomWall.gameObject.SetActive(true);
             topWall.gameObject.SetActive(true);
@@ -155,7 +171,7 @@ public class Stage : MonoBehaviour
             //Wall Transparency Control
             Color color = mat1.color;
             float amount = Mathf.Lerp(0f, 1f, i / totalTime);
-            if (topview)
+            if (sideview)
                 amount = 1f - amount;
 
             color.a = amount;
@@ -164,11 +180,13 @@ public class Stage : MonoBehaviour
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
-        if (topview) // Top view -> Side view
+        if (sideview) // Top view -> Side view
         {
             bottomWall.gameObject.SetActive(false);
             topWall.gameObject.SetActive(false);
         }
+
+        isActing = false;
     }
 
     void CreateWall(bool onXY)
@@ -176,7 +194,7 @@ public class Stage : MonoBehaviour
         /*
          * Project inner walls onto XY, XZ plane
          */
-        if (innerWall == null || StageData.wallPrefab == null) 
+        if (innerWall == null || StageManager.instance.wallPrefab == null) 
             return;
 
         for(int i = 1; i != innerWall.Length; ++i) // iterate for every inner walls
@@ -211,7 +229,7 @@ public class Stage : MonoBehaviour
             AddThickness(wallMesh, 0.2f, onXY);
 
             // Create new Object
-            GameObject wall = Instantiate(StageData.wallPrefab);
+            GameObject wall = Instantiate(StageManager.instance.wallPrefab);
 
             if(onXY)
                 wall.transform.SetParent(projectionWallParentXY);
@@ -229,7 +247,7 @@ public class Stage : MonoBehaviour
             mesher.enabled = false;
 
             MeshCollider coll = wall.AddComponent<MeshCollider>();
-            coll.material = StageData.physicsMat;
+            coll.material = StageManager.instance.physicsMat;
         }
     }
 
@@ -244,38 +262,49 @@ public class Stage : MonoBehaviour
         Vector3[] originalVertices = mesh.vertices;
         Vector3[] newVertices = new Vector3[originalVertices.Length * 2];
 
-        // Add front, back triangles
+        // Add front and back vertices
         for (int i = 0; i < originalVertices.Length; i++)
         {
-            newVertices[i] = originalVertices[i];                    // Front vertices
+            newVertices[i] = originalVertices[i]; // Front vertices
             newVertices[i + originalVertices.Length] = originalVertices[i] + targetVec * thickness; // Back vertices
         }
 
-        // Copy new triangles
+        // Copy original triangles for front and back faces
         int[] originalTriangles = mesh.triangles;
         int[] newTriangles = new int[originalTriangles.Length * 2 + originalVertices.Length * 6];
 
-        // Add front, back triangles
+        // Front face triangles (unchanged)
         for (int i = 0; i < originalTriangles.Length; i++)
         {
-            newTriangles[i] = originalTriangles[i]; // Front triangles
-            newTriangles[i + originalTriangles.Length] = originalTriangles[i] + originalVertices.Length; // Back triangles
+            newTriangles[i] = originalTriangles[i];
         }
 
-        // Create side faces
+        // Back face triangles (reversed to maintain correct normals)
+        for (int i = 0; i < originalTriangles.Length; i += 3)
+        {
+            newTriangles[originalTriangles.Length + i] = originalTriangles[i] + originalVertices.Length;
+            newTriangles[originalTriangles.Length + i + 1] = originalTriangles[i + 2] + originalVertices.Length;
+            newTriangles[originalTriangles.Length + i + 2] = originalTriangles[i + 1] + originalVertices.Length;
+        }
+
+        // Add side faces
         int offset = originalTriangles.Length * 2;
         for (int i = 0; i < originalVertices.Length; i++)
         {
-            int next = (i + 1) % originalVertices.Length; // Next point
+            int next = (i + 1) % originalVertices.Length;
 
-            // Create two triangles
-            newTriangles[offset++] = i; // Front
-            newTriangles[offset++] = next + originalVertices.Length; // Next back
-            newTriangles[offset++] = next; // Next front
+            if (i < next)
+            {
+                // Triangle 1
+                newTriangles[offset++] = i;
+                newTriangles[offset++] = i + originalVertices.Length;
+                newTriangles[offset++] = next;
 
-            newTriangles[offset++] = i; // Front
-            newTriangles[offset++] = i + originalVertices.Length; // Back
-            newTriangles[offset++] = next + originalVertices.Length; // Next back
+                // Triangle 2
+                newTriangles[offset++] = next;
+                newTriangles[offset++] = i + originalVertices.Length;
+                newTriangles[offset++] = next + originalVertices.Length;
+            }
         }
 
         // Apply to mesh
@@ -285,20 +314,30 @@ public class Stage : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+
     private void ReposProjection()
     {
         /*
          * Reposition z-axis of projection walls on XY plane
          */
         Transform[] projectionsXY = projectionWallParentXY.GetComponentsInChildren<Transform>();
-        Transform player1pos = GameManager.instance.player1.transform;
+        Transform player1pos = player1.transform;
 
         projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
 
         if (data.player2Exist)
         {
-            Transform player2pos = GameManager.instance.player2.transform;
+            Transform player2pos = player2.transform;
             projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player2pos.position.z);
         }
+    }
+
+    private void ObjectReposition()
+    {
+        //please add item reposition logic
+        player1 = Instantiate(GameManager.instance.player1, data.startPos1, Quaternion.identity);
+        
+        if (data.player2Exist)
+            player2 = Instantiate(GameManager.instance.player2, data.startPos2, Quaternion.identity);
     }
 }

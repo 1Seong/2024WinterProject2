@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public int jumpUnit; // Jump unit - ex) when unit is 'n' -> you can jump over a wall with 'n' height
-    public bool inverted;
+    private Action updateAction;
+
+    public event Action invertEvent;
 
     Rigidbody rigid;
-    BoxCollider coll;
     CustomGravity customGravity;
 
     private bool isPaused = false;
@@ -16,18 +17,20 @@ public class Player : MonoBehaviour
     private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
-    private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
-    public bool isJumping = false; // cannot perform another jump when isJumping is true
     public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
-    private bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
+    public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
-    
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        coll = GetComponent<BoxCollider>();
         customGravity = GetComponent<CustomGravity>();
+    }
+
+    private void Start()
+    {
+        updateAction += CheckInvert;
+        updateAction += CheckInnerWallHoriz;
     }
 
     private void Update()
@@ -35,41 +38,15 @@ public class Player : MonoBehaviour
         if (!GameManager.instance.isPlaying)
             return;
 
+        /*
         //Handle pause effect
         if (isPaused)
         {
             HandlePauseEffect();
             return;  // Skip other updates while paused
         }
-
-        // Jump
-        RequestJump();
-
-        // Check Invert condition
-        CheckInvert();
-
-        //Stop speed when button is up
-        if (Input.GetButtonUp("Horizontal"))
-        {
-            rigid.linearVelocity = new Vector3(rigid.linearVelocity.normalized.x * 0.0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
-        }
-
-        //Check Inner Wall Horizontally
-        CheckInnerWallHoriz();
-
-        //Check Inner Wall Vertically
-        CheckInnerWallVert();
-    }
-
-    private void RequestJump()
-    {
-        /*
-         * Request jump to fixed update
-         */
-        if (Input.GetButtonDown("Jump") && !isJumping)
-        {
-            requestJump = true;
-        }
+        */
+        updateAction?.Invoke();
     }
 
     private void CheckInvert()
@@ -77,23 +54,16 @@ public class Player : MonoBehaviour
         /*
          * Check inversion condition
          */
-        if (!GameManager.instance.isTopView)
+        if (GameManager.instance.isSideView)
             return;
         
-        /*
-        float targetZ = -1.0f + GameManager.instance.currentStage.invertLineZ;
+        float targetZ = 2.5f;
 
-        if(!inverted && rigid.position.z > targetZ)
+        if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
-            inverted = true;
-            customGravity.InvertGravity(); // Invert gravity
+            invertEvent?.Invoke();
         }
-        else if(inverted &&  rigid.position.z < targetZ)
-        {
-            inverted = false;
-            customGravity.InvertGravity();
-        }
-        */
+        
     }
 
     private void CheckInnerWallHoriz()
@@ -101,168 +71,25 @@ public class Player : MonoBehaviour
         /*
          * Custom horizontal collision with inner walls
          */
-        Vector3 box = GameManager.instance.isTopView ? new Vector3(0.5f, 0.1f, 0.49f) : new Vector3(0.5f, 0.49f, 0.1f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.5f, 0.1f, 0.49f) : new Vector3(0.5f, 0.49f, 0.1f);
         Vector3 targetVec = Input.GetAxisRaw("Horizontal") > 0 ? Vector3.right : Vector3.left;
 
         // Use box cast to check inner walls
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
    
-        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.08f)
-        {
+        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.06f)
             hitInnerWall = true;
-        }
         else
-        {
             hitInnerWall = false;
-        }
-    }
-
-    private void CheckInnerWallVert()
-    {
-        /*
-         * Custom vertical collision with inner walls
-         */
-
-        // Do not check collision when player is moving up
-        if (GameManager.instance.isTopView)
-        {
-            if (!inverted && rigid.linearVelocity.z > 0.0f || inverted && rigid.linearVelocity.z < 0.0f)
-            {
-                onInnerWall = false;
-                return;
-            }
-        }
-        else
-        {
-            if (rigid.linearVelocity.y > 0.0f)
-            {
-                onInnerWall = false;
-                return;
-            }
-        }
-
-        Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0.1f, 0.5f);
-
-        if (!GameManager.instance.isTopView)
-        {
-            box = new Vector3(0.49f, 0.5f, 0.1f);
-        }
-
-        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-
-        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.07f)
-        {
-            onInnerWall = true;
-        }
-        else
-        {
-            onInnerWall = false;
-        }
     }
 
     private void FixedUpdate()
     {
-        if (!GameManager.instance.isPlaying || isPaused)
+        if (!GameManager.instance.isPlaying)
             return;
-
-        //Player Moving
-        PlayerMoving();
-
-        //restrict max min velocity
-        RestrictSpeed();
-           
-        //Landing Platform
-        CheckLanding();
 
         //check on inner wall
         CheckOnInnerWall();
-
-        //Jumping
-        if (requestJump)
-        {
-            PerformJump();
-            requestJump = false;
-        }
-    }
-
-    private void PlayerMoving()
-    {
-        /*
-         * Move player horizontally
-         */
-        float h = Input.GetAxisRaw("Horizontal");
-
-        Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
-
-        if (!hitInnerWall)
-            rigid.AddForce(dirVec, ForceMode.Impulse);
-        else
-            rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
-    }
-
-    private void RestrictSpeed()
-    {
-        /*
-         * Restrict min max speed
-         */
-        float max = GameManager.instance.maxSpeed;
-
-        if (rigid.linearVelocity.x > max)
-            rigid.linearVelocity = new Vector3(max, rigid.linearVelocity.y, rigid.linearVelocity.z);
-        else if (rigid.linearVelocity.x < max * (-1))
-            rigid.linearVelocity = new Vector3(max * (-1), rigid.linearVelocity.y, rigid.linearVelocity.z);
-    }
-
-    private void CheckLanding()
-    {
-        /*
-         * Check landing condition
-         */
-        if (GameManager.instance.isTopView)
-        {
-            if (!inverted && rigid.linearVelocity.z < 0.0f || inverted && rigid.linearVelocity.z > 0.0f)
-            {
-                Landing();
-            }
-        }
-        else
-        {
-            if (rigid.linearVelocity.y < 0.0f)
-            {
-                Landing();
-            }
-        }
-    }
-
-    private void Landing()
-    {
-        /*
-         * Check collision with any platform and make isJumping to false
-         */
-        isJumping = true;
-
-        Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
-
-        if (!GameManager.instance.isTopView)
-        {
-            box = new Vector3(0.49f, 0.5f, 0);
-        }
-
-        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
-
-        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-
-        if (rayHit.Length != 0)
-        {
-
-            if (rayHit[0].distance < 0.1f)
-            {
-               
-                isJumping = false;
-            }
-        }
     }
 
     private void CheckOnInnerWall()
@@ -273,26 +100,11 @@ public class Player : MonoBehaviour
          */
         if (onInnerWall)
         {
-            if (GameManager.instance.isTopView)
+            if (!GameManager.instance.isSideView)
                 rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, rigid.linearVelocity.y, 0);
             else
                 rigid.linearVelocity = new Vector3(rigid.linearVelocity.x, 0, rigid.linearVelocity.z);
         }
-    }
-
-    private void PerformJump()
-    {
-        /*
-         * Perform jumping
-         */
-        isJumping = true;
-
-        float gravity = Physics.gravity.magnitude;
-
-        float initialVelocity = Mathf.Sqrt(2 * gravity * jumpUnit);
-        float force = rigid.mass * initialVelocity + 0.5f;
-
-        rigid.AddForce(customGravity.up * force, ForceMode.Impulse);
     }
 
     private void HandlePauseEffect()
@@ -320,20 +132,21 @@ public class Player : MonoBehaviour
         /*
          * Make onBottom to true if player make contact with bottom platform
          */
-        if(GameManager.instance.isTopView)
+        switch (customGravity.gravityState)
         {
-            if (!inverted && collision.gameObject.tag != "Bottom")
-                return;
-            else if (inverted && collision.gameObject.tag != "Top")
-                return;
+            case GravityState.defaultG:
+                if (collision.gameObject.tag == "Bottom")
+                    onBottom = true;
+                break;
+            case GravityState.invertG:
+                if (collision.gameObject.tag == "Top")
+                    onBottom = true;
+                break;
+            case GravityState.convertG:
+                if (collision.gameObject.tag == "Background")
+                    onBottom = true;
+                break;
         }
-        else
-        {
-            if (collision.gameObject.tag != "Background")
-                return;
-        }
-
-        onBottom = true;
     }
 
     private void OnCollisionExit(Collision collision)
@@ -341,21 +154,23 @@ public class Player : MonoBehaviour
         /*
          * Make onBottom to false if player escape from bottom platform
          */
-        if (GameManager.instance.isTopView)
+        switch (customGravity.gravityState)
         {
-            if (!inverted && collision.gameObject.tag != "Bottom")
-                return;
-            else if (inverted && collision.gameObject.tag != "Top")
-                return;
+            case GravityState.defaultG:
+                if (collision.gameObject.tag == "Bottom")
+                    onBottom = false;
+                break;
+            case GravityState.invertG:
+                if (collision.gameObject.tag == "Top")
+                    onBottom = false;
+                break;
+            case GravityState.convertG:
+                if (collision.gameObject.tag == "Background")
+                    onBottom = false;
+                break;
         }
-        else
-        {
-            if (collision.gameObject.tag != "Background")
-                return;
-        }
-
-        onBottom = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.Pause && !isPaused)
@@ -366,5 +181,4 @@ public class Player : MonoBehaviour
             rigid.linearVelocity = Vector3.zero;
         }
     }
-
 }

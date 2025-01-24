@@ -21,6 +21,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageData[] episode5;
 
     public CurrentStage currentStageInfo;
+    public GameObject wallPrefab;
+    public PhysicsMaterial physicsMat; // Physics material (No friction)
 
     private Dictionary<Episode, StageData[]> _epStagePair;
 
@@ -33,6 +35,8 @@ public class StageManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this);
 
+        currentStageInfo = new CurrentStage();
+
         _epStagePair = new Dictionary<Episode, StageData[]>
         {
             { Episode.Episode1, episode1 },
@@ -41,11 +45,6 @@ public class StageManager : MonoBehaviour
             { Episode.Episode4, episode4 },
             { Episode.Episode5, episode5 }
         };
-    }
-
-    private void Start()
-    {
-        Stage.stageStartEvent += ObjectReposition;
     }
 
     public void StageEnter(Episode episode, int index)
@@ -95,10 +94,5 @@ public class StageManager : MonoBehaviour
          * Reset the game
          */
         LoadStage();
-    }
-
-    private void ObjectReposition()
-    {
-
     }
 }

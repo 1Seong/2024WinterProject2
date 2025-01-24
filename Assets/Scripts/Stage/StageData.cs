@@ -11,11 +11,7 @@ public class StageData : ScriptableObject
     public int stageIndex;
     public string stageName;
 
-    public bool topview;
     public bool conversionActive;
-
-    public static GameObject wallPrefab;
-    public static PhysicsMaterial physicsMat; // Physics material (No friction)
 
     [Header("PlayerInfo")]
 
