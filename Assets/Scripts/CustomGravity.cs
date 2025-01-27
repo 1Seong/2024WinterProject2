@@ -110,7 +110,7 @@ public class CustomGravity : MonoBehaviour
 
     private void Inversion()
     {
-        //¿ù¼±ÇÒ¶§ È£Ãâ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ È£ï¿½ï¿½
         if (gravityState == GravityState.defaultG)
         {
             gPauseAtDefaultEvent -= CallGPauseAction;
@@ -149,7 +149,7 @@ public class CustomGravity : MonoBehaviour
 
     private void GPause()
     {
-        //GPause È°¼ºÈ­µÉ¶§ È£Ãâ
+        //GPause È°ï¿½ï¿½È­ï¿½É¶ï¿½ È£ï¿½ï¿½
         if (gravityState == GravityState.defaultG)
             gPauseAtDefaultEvent?.Invoke();
         else if (gravityState == GravityState.invertG)
