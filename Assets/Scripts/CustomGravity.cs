@@ -147,7 +147,7 @@ public class CustomGravity : MonoBehaviour
         }
     }
 
-    private void GPause()
+    public void GPause()
     {
         //GPause 활성화될때 호출
         if (gravityState == GravityState.defaultG)
