@@ -1,55 +1,170 @@
+using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
+
+public enum GravityState { defaultG, invertG, convertG };
 
 public class CustomGravity : MonoBehaviour
 {
-    private Vector3 customGravity;
+    [SerializeField] private GravityState _gravityState;
+
+    private Vector3 _currentGravity;
+
+    public Vector3 up;
+    public Vector3 down;
+
+    public static event Action gPauseAtDefaultEvent;
+    public static event Action gPauseAtInvertEvent;
+
+    public GravityState gravityState
+    {
+        get => _gravityState;
+        set
+        {
+            _gravityState = value;
+            switch(value)
+            {
+                case GravityState.invertG:
+                    _currentGravity = new Vector3(0, 0, 9.81f);
+                    up = Vector3.back;
+                    down = Vector3.forward;
+                    break;
+                case GravityState.convertG:
+                    _currentGravity = new Vector3(0, -9.81f, 0);
+                    up = Vector3.up;
+                    down = Vector3.down;
+                    break;
+                case GravityState.defaultG:
+                default:
+                    _currentGravity = new Vector3(0, 0, -9.81f);
+                    up = Vector3.forward;
+                    down = Vector3.back;
+                    break;
+            }
+        }
+    }
+
+    private GravityState _stateBeforeConvert;
 
     Player player;
     Rigidbody rigid;
 
     void Awake()
     {
-        /*
-         * Awake
-         */
-        player = GetComponent<Player>();
+        if(tag == "Player")
+            player = GetComponent<Player>();
         rigid = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        /*
-         * Start
-         */
-        customGravity = GameManager.instance.isTopView ? (!player.inverted ? Physics.gravity : -Physics.gravity) : Physics.gravity;
+        gravityState = _gravityState;
+        //it may cause problem when stage start in top view state
+        if (gravityState == GravityState.defaultG)
+            gPauseAtDefaultEvent += CallGPauseAction;
+        else if (gravityState == GravityState.invertG)
+            gPauseAtInvertEvent += CallGPauseAction;
+
+        Stage.convertEvent += ConvertAction;
+
+        if(player != null)
+            player.invertEvent += Inversion;
+    }
+
+    private void OnDestroy()
+    {
+        Stage.convertEvent -= ConvertAction;
+        gPauseAtDefaultEvent -= CallGPauseAction;
+        gPauseAtInvertEvent -= CallGPauseAction;
     }
 
     void FixedUpdate()
     {
-        /*
-         * Fixed Update
-         */
         if (!GameManager.instance.isPlaying || player.onInnerWall)
-        {
             return;
+
+        rigid.AddForce(_currentGravity, ForceMode.Acceleration);
+    }
+
+    public void SetToDefault()
+    {
+        gravityState = GravityState.defaultG;
+        rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+    }
+
+    public void SetToInvert()
+    {
+        gravityState = GravityState.invertG;
+        rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+    }
+
+    public void SetToConvert()
+    {
+        _stateBeforeConvert = gravityState;
+
+        gravityState = GravityState.convertG;
+        rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+    }
+
+    private void Inversion()
+    {
+        //�����Ҷ� ȣ��
+        if (gravityState == GravityState.defaultG)
+        {
+            gPauseAtDefaultEvent -= CallGPauseAction;
+            gPauseAtInvertEvent += CallGPauseAction;
         }
-
-        rigid.AddForce(customGravity, ForceMode.Acceleration);
+        else if (gravityState == GravityState.invertG)
+        {
+            gPauseAtDefaultEvent += CallGPauseAction;
+            gPauseAtInvertEvent -= CallGPauseAction;
+        }
+        else return;
+        
+        InvertAction();
     }
 
-    public void InvertGravity()
+    private void InvertAction()
     {
-        /*
-         * Invert Gravity
-         */
-        customGravity = -Physics.gravity;
+        if (gravityState == GravityState.defaultG)
+            SetToInvert();
+        else
+            SetToDefault();
     }
 
-    public void ReapplyGravity()
+    private void ConvertAction()
     {
-        /*
-         * Reinitialize customGravity
-         */
-        customGravity = Physics.gravity;
+        if(GameManager.instance.isSideView)
+            SetToConvert();
+        else
+        {
+            if(_stateBeforeConvert == GravityState.defaultG)
+                SetToDefault();
+            else
+                SetToInvert();
+        }
+    }
+
+    private void GPause()
+    {
+        //GPause Ȱ��ȭ�ɶ� ȣ��
+        if (gravityState == GravityState.defaultG)
+            gPauseAtDefaultEvent?.Invoke();
+        else if (gravityState == GravityState.invertG)
+            gPauseAtInvertEvent?.Invoke();
+    }
+
+    private void CallGPauseAction()
+    {
+        StartCoroutine(GPauseAction());
+    }
+
+    IEnumerator GPauseAction()
+    {
+        InvertAction();
+        yield return new WaitForSeconds(10f);
+        InvertAction();
     }
 }

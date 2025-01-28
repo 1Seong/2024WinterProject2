@@ -8,7 +8,7 @@ public class Spring : MonoBehaviour
     BoxCollider coll;
     CustomGravity customGravity;
     Vector3 compressVector;
-    float compressFloat = 0.4f;
+    //float compressFloat = 0.4f;
     public bool isIdle = true;
 
     public int springJumpUnit = 4;

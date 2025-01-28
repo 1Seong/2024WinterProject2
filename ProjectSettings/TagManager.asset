@@ -9,6 +9,7 @@ TagManager:
   - Background
   - Inner
   - OtherWall
+  - NonConsum
   layers:
   - Default
   - TransparentFX
