@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
         if (isConsumed || !other.CompareTag("Player"))
             return;
 
-        Player player = other.GetComponent<Player>();
+        PlayerJump player = other.GetComponent<PlayerJump>();
         if (player != null)
         {
             ApplyEffect(player); // 아이템 효과 적용
@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void ApplyEffect(Player player)
+    private void ApplyEffect(PlayerJump player)
     {
         // 아이템 타입별로 효과 처리
         switch (itemType)
@@ -39,7 +39,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void ApplyFrogEffect(Player player)
+    private void ApplyFrogEffect(PlayerJump player)
     {
         // 점프 유닛 증가
         player.jumpUnit = 2;
@@ -59,8 +59,8 @@ public class Item : MonoBehaviour
     private void ApplySwapEffect()
     {
         // 플레이어 간 위치 교환
-        Player player1 = GameManager.instance.player1;
-        Player player2 = GameManager.instance.player2;
+        GameObject player1 = GameManager.instance.player1;
+        GameObject player2 = GameManager.instance.player2;
 
         if (player1 != null && player2 != null)
         {

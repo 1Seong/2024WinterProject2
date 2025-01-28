@@ -36,7 +36,7 @@ public class SimpleSpring : MonoBehaviour
         float gravity = Physics.gravity.magnitude;
         float initialVelocity = Mathf.Sqrt(2 * gravity * springJumpUnit);
         float force = objRb.mass * initialVelocity + 0.5f;
-        if (GameManager.instance.isTopView)
+        if (!GameManager.instance.isSideView)
             obj.GetComponent<Rigidbody>().AddForce(Vector3.forward * force, ForceMode.Impulse);
         else
             obj.GetComponent<Rigidbody>().AddForce(Vector3.back * force, ForceMode.Impulse);

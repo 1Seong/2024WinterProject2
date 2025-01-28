@@ -181,4 +181,5 @@ public class Player : MonoBehaviour
             rigid.linearVelocity = Vector3.zero;
         }
     }
+
 }
