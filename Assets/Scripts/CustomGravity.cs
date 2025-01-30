@@ -82,7 +82,7 @@ public class CustomGravity : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameManager.instance.isPlaying || player.onInnerWall)
+        if (!GameManager.instance.isPlaying || player != null && player.onInnerWall)
             return;
 
         rigid.AddForce(_currentGravity, ForceMode.Acceleration);
