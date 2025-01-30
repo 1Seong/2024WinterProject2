@@ -27,8 +27,6 @@ public class PlayerJump : MonoBehaviour
         {
             if (Vector3.Dot(rigid.linearVelocity, customGravity.up) <= 0)
                 Landing();
-            else
-                GetComponent<Player>().onInnerWall = false;
         };
         updateAction += RequestJump;
         fixedUpdateAction += () =>
@@ -87,13 +85,7 @@ public class PlayerJump : MonoBehaviour
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
         if (rayHit.Length != 0 && rayHit[0].distance < 0.07f)
-        {
             isJumping = false;
-            if (rayHit[0].transform.tag == "Inner")
-                GetComponent<Player>().onInnerWall = true;
-        }
-        else
-            GetComponent<Player>().onInnerWall = false;
     }
 
     private void PerformJump()

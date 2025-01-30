@@ -16,7 +16,7 @@ public class Portal : MonoBehaviour
     {
         if (!canTeleport) return;
 
-        Player player = other.GetComponent<Player>();
+        Movable player = other.GetComponent<Movable>();
         if (player != null && nonConsum.type == NonConsum.Type.PortalIn && linkedPortal != null)
         {
             // Get the player's rigidbody

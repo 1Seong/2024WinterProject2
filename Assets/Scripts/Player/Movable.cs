@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Movable : MonoBehaviour
 {
     private Action updateAction;
 
@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
-    public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
     public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
@@ -30,6 +29,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         updateAction += CheckInvert;
+        updateAction += CheckInnerWallVert;
         updateAction += CheckInnerWallHoriz;
     }
 
@@ -57,12 +57,40 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 2.5f;
+        float targetZ = 4f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
             invertEvent?.Invoke();
         }
+        
+    }
+
+    private void CheckInnerWallVert()
+    {
+        /*
+         * Check collision with any platform and make isJumping to false
+         */
+        if (Vector3.Dot(rigid.linearVelocity, customGravity.up) > 0)
+        {
+            onInnerWall = false;
+            return;
+        }
+
+        Vector3 targetVec = customGravity.down;
+        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+
+        if (GameManager.instance.isSideView)
+            box = new Vector3(0.49f, 0.5f, 0);
+
+        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
+
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+
+        if (rayHit.Length != 0 && rayHit[0].distance < 0.07f && rayHit[0].transform.tag == "Inner")
+            onInnerWall = true;
+        else
+            onInnerWall = false;
         
     }
 
@@ -129,46 +157,12 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        /*
-         * Make onBottom to true if player make contact with bottom platform
-         */
-        switch (customGravity.gravityState)
-        {
-            case GravityState.defaultG:
-                if (collision.gameObject.tag == "Bottom")
-                    onBottom = true;
-                break;
-            case GravityState.invertG:
-                if (collision.gameObject.tag == "Top")
-                    onBottom = true;
-                break;
-            case GravityState.convertG:
-                if (collision.gameObject.tag == "Background")
-                    onBottom = true;
-                break;
-        }
+       
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        /*
-         * Make onBottom to false if player escape from bottom platform
-         */
-        switch (customGravity.gravityState)
-        {
-            case GravityState.defaultG:
-                if (collision.gameObject.tag == "Bottom")
-                    onBottom = false;
-                break;
-            case GravityState.invertG:
-                if (collision.gameObject.tag == "Top")
-                    onBottom = false;
-                break;
-            case GravityState.convertG:
-                if (collision.gameObject.tag == "Background")
-                    onBottom = false;
-                break;
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)

@@ -15,6 +15,9 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
+    private Transform restrictionSide;
+    private Transform restrictionTop;
+
     private GameObject player1;
     private GameObject player2;
 
@@ -54,21 +57,24 @@ public class Stage : MonoBehaviour
          * Stage Hierarchy structure
          * - 0. Bottom Wall
          * - 1. Top Wall
-         * - 2. Left Wall
-         * - 3. Right Wall
-         * - 4. Inner Wall
-         * - 5. Background Wall
-         * - 6. Projection Wall XY
-         * - 7. Projection Wall XZ
+         * - 2. Side Wall
+         * - 3. Inner Wall
+         * - 4. Background Wall
+         * - 5. Projection Wall XY
+         * - 6. Projection Wall XZ
+         * - 7. Restriction Side
+         * - 8. Restriction Top
          */
         data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
-        bottomWall = transform.GetChild(0).GetChild(0);
-        topWall = transform.GetChild(1).GetChild(0);
-        innerWall = transform.GetChild(4).GetComponentsInChildren<Transform>();
-        projectionWallParentXY = transform.GetChild(6);
-        projectionWallParentXZ = transform.GetChild(7);
+        bottomWall = transform.GetChild(0);
+        topWall = transform.GetChild(1);
+        innerWall = transform.GetChild(3).GetComponentsInChildren<Transform>();
+        projectionWallParentXY = transform.GetChild(5);
+        projectionWallParentXZ = transform.GetChild(6);
+        restrictionSide = transform.GetChild(7);
+        restrictionTop = transform.GetChild(8);
     }
 
     private void MakeProjection()
@@ -102,11 +108,11 @@ public class Stage : MonoBehaviour
         // Convert viewpoint when press 'E' and players should be on bottom platform
         if (!data.conversionActive || isActing) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping && player1.GetComponent<Player>().onBottom)
+        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {
             if (data.player2Exist)
             {
-                if (!player2.GetComponent<PlayerJump>().isJumping && player2.GetComponent<Player>().onBottom)
+                if (!player2.GetComponent<PlayerJump>().isJumping)
                     ConvertView();
             }
             else
@@ -166,7 +172,7 @@ public class Stage : MonoBehaviour
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             //Camera Rotation
-            Camera.main.transform.RotateAround(new Vector3(0, 2, 2), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
+            Camera.main.transform.RotateAround(new Vector3(7, 2, 4), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
 
             //Wall Transparency Control
             Color color = mat1.color;
@@ -321,6 +327,9 @@ public class Stage : MonoBehaviour
          * Reposition z-axis of projection walls on XY plane
          */
         Transform[] projectionsXY = projectionWallParentXY.GetComponentsInChildren<Transform>();
+
+        if (projectionsXY.Length == 1) return;
+
         Transform player1pos = player1.transform;
 
         projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);

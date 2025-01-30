@@ -48,20 +48,20 @@ public class CustomGravity : MonoBehaviour
 
     private GravityState _stateBeforeConvert;
 
-    Player player;
+    Movable movable;
     Rigidbody rigid;
 
     void Awake()
     {
         if(tag == "Player")
-            player = GetComponent<Player>();
+            movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
         gravityState = _gravityState;
-        //it may cause problem when stage start in top view state
+        //it may cause problem when stage start in side view state
         if (gravityState == GravityState.defaultG)
             gPauseAtDefaultEvent += CallGPauseAction;
         else if (gravityState == GravityState.invertG)
@@ -69,8 +69,8 @@ public class CustomGravity : MonoBehaviour
 
         Stage.convertEvent += ConvertAction;
 
-        if(player != null)
-            player.invertEvent += Inversion;
+        if(movable != null)
+            movable.invertEvent += Inversion;
     }
 
     private void OnDestroy()
@@ -82,7 +82,7 @@ public class CustomGravity : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameManager.instance.isPlaying || player != null && player.onInnerWall)
+        if (!GameManager.instance.isPlaying || movable != null && movable.onInnerWall)
             return;
 
         rigid.AddForce(_currentGravity, ForceMode.Acceleration);
@@ -110,7 +110,6 @@ public class CustomGravity : MonoBehaviour
 
     private void Inversion()
     {
-        //�����Ҷ� ȣ��
         if (gravityState == GravityState.defaultG)
         {
             gPauseAtDefaultEvent -= CallGPauseAction;
@@ -149,7 +148,6 @@ public class CustomGravity : MonoBehaviour
 
     private void GPause()
     {
-        //GPause Ȱ��ȭ�ɶ� ȣ��
         if (gravityState == GravityState.defaultG)
             gPauseAtDefaultEvent?.Invoke();
         else if (gravityState == GravityState.invertG)
