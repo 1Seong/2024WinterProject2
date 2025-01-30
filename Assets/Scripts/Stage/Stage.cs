@@ -22,6 +22,7 @@ public class Stage : MonoBehaviour
     private GameObject player2;
 
     private bool isActing = false;
+    private bool restrict = false;
 
     public static event Action stageStartEvent;
     public static event Action convertEvent;
@@ -88,10 +89,7 @@ public class Stage : MonoBehaviour
             CreateWall(false);
         }
 
-        if (!GameManager.instance.isSideView)
-            projectionWallParentXY.gameObject.SetActive(false);
-        else
-            projectionWallParentXZ.gameObject.SetActive(false);
+        ProjectionSetting();
     }
 
     private void Update()
@@ -106,7 +104,7 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
-        if (!data.conversionActive || isActing) return;
+        if (!data.conversionActive || isActing || restrict) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {
@@ -168,7 +166,11 @@ public class Stage : MonoBehaviour
         {
             bottomWall.gameObject.SetActive(true);
             topWall.gameObject.SetActive(true);
+            restrictionSide.gameObject.SetActive(false);
         }
+        if (sideview) // Top view -> Side view
+            restrictionTop.gameObject.SetActive(false);
+
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             //Camera Rotation
@@ -186,10 +188,14 @@ public class Stage : MonoBehaviour
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
+
+        if(!sideview) // Side view -> Top view
+            restrictionTop.gameObject.SetActive(true);
         if (sideview) // Top view -> Side view
         {
             bottomWall.gameObject.SetActive(false);
             topWall.gameObject.SetActive(false);
+            restrictionSide.gameObject.SetActive(true);
         }
 
         isActing = false;
@@ -320,7 +326,6 @@ public class Stage : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-
     private void ReposProjection()
     {
         /*
@@ -348,5 +353,32 @@ public class Stage : MonoBehaviour
         
         if (data.player2Exist)
             player2 = Instantiate(GameManager.instance.player2, data.startPos2, Quaternion.identity);
+
+        if (GameManager.instance.isSideView) // Top view -> Side view
+        {
+            restrictionSide.gameObject.SetActive(true);
+            restrictionTop.gameObject.SetActive(false);
+        }
+        else // Side view -> Top view
+        {
+            restrictionSide.gameObject.SetActive(false);
+            restrictionTop.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<Movable>() != null)
+        {
+            restrict = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Movable>() != null)
+        {
+            restrict = false;
+        }
     }
 }
