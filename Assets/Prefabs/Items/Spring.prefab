@@ -147,6 +147,8 @@ GameObject:
   - component: {fileID: 365874312589675931}
   - component: {fileID: 1081521929253617636}
   - component: {fileID: 8230632082871085644}
+  - component: {fileID: 1401685340319063681}
+  - component: {fileID: 6124115024087117398}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -231,7 +233,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3347869255024758824}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ad200896323d1714690abde955d14b42, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -267,8 +269,37 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1401685340319063681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347869255024758824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376b2172a5c3d02479df23bd10eda2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gravityState: 0
+  up: {x: 0, y: 0, z: 0}
+  down: {x: 0, y: 0, z: 0}
+--- !u!114 &6124115024087117398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347869255024758824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8536f5bb9b699734a88f32ba369ede7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitInnerWall: 0
+  onInnerWall: 0

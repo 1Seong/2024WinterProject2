@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class Movable : MonoBehaviour
 {
+    private const float ICE_ACCELATION = 2f;
+
     private Action updateAction;
 
     public event Action invertEvent;
@@ -20,6 +22,8 @@ public class Movable : MonoBehaviour
     public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
+    private bool onIce = false;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -31,6 +35,7 @@ public class Movable : MonoBehaviour
         updateAction += CheckInvert;
         updateAction += CheckInnerWallVert;
         updateAction += CheckInnerWallHoriz;
+        updateAction += IceAction;
     }
 
     private void Update()
@@ -111,6 +116,64 @@ public class Movable : MonoBehaviour
             hitInnerWall = false;
     }
 
+    private void IceAction()
+    {
+        Vector3 targetVec = customGravity.down;
+        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        bool iceExist;
+
+        Func<RaycastHit[], bool> IceExist = (RaycastHit[] rayHit) =>
+        {
+            if (rayHit.Length == 0) return false;
+
+            foreach (var i in rayHit)
+                if (i.distance < 0.1f && i.transform.tag == "Ice")
+                    return true;
+
+            return false;
+        };
+
+        Func<RaycastHit[], bool> PlatformExist = (RaycastHit[] rayHit) =>
+        {
+            if (rayHit.Length == 0) return false;
+
+            foreach (var i in rayHit)
+                if (i.distance < 0.1f)
+                    return true;
+
+            return false;
+        };
+
+        if (GameManager.instance.isSideView)
+            box = new Vector3(0.49f, 0.5f, 0);
+
+        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
+
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+
+        iceExist = IceExist(rayHit);
+
+        if(!onIce && iceExist && rigid.linearVelocity.x != 0) // onIce : false -> true
+        {
+            onIce = true;
+            if (tag == "Player")
+                GetComponent<PlayerMove>().enabled = false;
+            else
+                GetComponent<BoxCollider>().material.dynamicFriction = 0;
+        }
+        else if(onIce && PlatformExist(rayHit) && !iceExist) // onIce : true -> false
+        {
+            onIce = false;
+            rigid.linearVelocity = Vector3.zero;
+            if (tag == "Player")
+            {
+                GetComponent<PlayerMove>().enabled = true;
+            }
+            else
+                GetComponent<BoxCollider>().material.dynamicFriction = 2;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!GameManager.instance.isPlaying)
@@ -118,6 +181,12 @@ public class Movable : MonoBehaviour
 
         //check on inner wall
         CheckOnInnerWall();
+
+        if (onIce)
+        {
+            int dir = rigid.linearVelocity.x > 0 ? 1 : -1;
+            rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
+        }
     }
 
     private void CheckOnInnerWall()
