@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1066810323377483091}
   - component: {fileID: 3816498866504149935}
   - component: {fileID: 7569363150037841705}
-  - component: {fileID: -6195670462787188451}
+  - component: {fileID: -3237998326866336943}
   m_Layer: 0
-  m_Name: FrogItem
+  m_Name: FrogItemTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6195670462787188451
+--- !u!114 &-3237998326866336943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,8 +118,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7631117311906597743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e380ec474c4e142b0c83868c772b68, type: 3}
+  m_Script: {fileID: 11500000, guid: d47bcbff67c38a4499cb0cd7a62ff782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 0
-  frogHatPrefab: {fileID: 0}
