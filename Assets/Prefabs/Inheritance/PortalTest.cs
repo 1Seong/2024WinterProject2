@@ -24,18 +24,18 @@ public class PortalTest : ItemBehavior
     {
         if (!canTeleport) return;
 
-        Player player = other.GetComponent<Player>();
-        if (player != null && nonConsum.type == NonConsum.Type.PortalIn && linkedPortal != null)
+        Movable movable = other.GetComponent<Movable>();
+        if (movable != null && nonConsum.type == NonConsum.Type.PortalIn && linkedPortal != null)
         {
             // Get the player's rigidbody
-            Rigidbody playerRb = player.GetComponent<Rigidbody>();
+            Rigidbody playerRb = movable.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
                 // Store current velocity
                 Vector3 currentVelocity = playerRb.linearVelocity;
 
                 // Teleport the player to the linked portal's position
-                player.transform.position = linkedPortal.position;
+                movable.transform.position = linkedPortal.position;
 
                 // Maintain the player's momentum
                 playerRb.linearVelocity = currentVelocity;
