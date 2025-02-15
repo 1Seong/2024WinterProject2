@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PortalTest : ItemBehavior
 {
-    public Transform linkedPortal; // Reference to the linked portal (PortalOut for PortalIn, and vice versa)
+    public Transform linkedPortal; // Reference to the linked portal
     private NonConsum nonConsum;
     private bool canTeleport = true;
     private float cooldownTime = 0.5f; // Cooldown to prevent repeated teleportation

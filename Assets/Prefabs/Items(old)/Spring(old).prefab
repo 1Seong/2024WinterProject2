@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1081521929253617636}
   - component: {fileID: 8230632082871085644}
   m_Layer: 0
-  m_Name: SpringTest
+  m_Name: Spring(old)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

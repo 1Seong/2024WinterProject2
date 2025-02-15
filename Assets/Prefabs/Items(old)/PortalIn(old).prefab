@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5537011425149244538}
   - component: {fileID: 7332340680949238666}
   - component: {fileID: 5464156737174271902}
-  - component: {fileID: -2701394487813316989}
+  - component: {fileID: 5536524426982822378}
   m_Layer: 0
-  m_Name: PortalInTest
+  m_Name: PortalIn(old)
   m_TagString: NonConsum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
---- !u!114 &-2701394487813316989
+--- !u!114 &5536524426982822378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,8 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4160161308393899195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c907fd9ba2834b4d9cfe881069cce9a, type: 3}
+  m_Script: {fileID: 11500000, guid: ec3f98f8e823ffd43ae3aaba3fd6887c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isConsumable: 0
   linkedPortal: {fileID: 0}
