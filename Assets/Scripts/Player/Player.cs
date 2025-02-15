@@ -38,14 +38,14 @@ public class Player : MonoBehaviour
         if (!GameManager.instance.isPlaying)
             return;
 
-        /*
+        
         //Handle pause effect
         if (isPaused)
         {
             HandlePauseEffect();
             return;  // Skip other updates while paused
         }
-        */
+        
         updateAction?.Invoke();
     }
 
@@ -179,6 +179,11 @@ public class Player : MonoBehaviour
             pauseTimer = PAUSE_DURATION;
             savedVelocity = rigid.linearVelocity;
             rigid.linearVelocity = Vector3.zero;
+        }
+
+        if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.GPause)
+        {
+            customGravity.GPause();
         }
     }
 

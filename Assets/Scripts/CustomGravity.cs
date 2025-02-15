@@ -147,7 +147,7 @@ public class CustomGravity : MonoBehaviour
         }
     }
 
-    private void GPause()
+    public void GPause()
     {
         //GPause Ȱ��ȭ�ɶ� ȣ��
         if (gravityState == GravityState.defaultG)
