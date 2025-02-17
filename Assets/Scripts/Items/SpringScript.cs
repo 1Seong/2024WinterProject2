@@ -1,25 +1,25 @@
 using UnityEngine;
 
-public class SpringTest : ItemBehavior
+public class SpringScript : ItemBehavior
 {
-    public int springJumpUnit = 4;
+    public int springJumpUnit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isConsumable = true;
+        isConsumable = false;
     }
 
     new void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         Debug.Log("child triggered!");
-        
         SpringActivate(other.gameObject);
         base.OnTriggerEnter(other);
     }
 
     private void SpringActivate(GameObject obj)
     {
-        if (obj.tag == "player")
+        if (obj.tag == "Player")
         {
             Rigidbody objRb = obj.GetComponent<Rigidbody>();
             float gravity = Physics.gravity.magnitude;

@@ -147,6 +147,7 @@ public class CustomGravity : MonoBehaviour
         }
     }
 
+    /*
     public void GPause()
     {
         //GPause Ȱ��ȭ�ɶ� ȣ��
@@ -155,8 +156,9 @@ public class CustomGravity : MonoBehaviour
         else if (gravityState == GravityState.invertG)
             gPauseAtInvertEvent?.Invoke();
     }
+    */
 
-    private void CallGPauseAction()
+    public void CallGPauseAction()
     {
         StartCoroutine(GPauseAction());
     }
@@ -164,7 +166,10 @@ public class CustomGravity : MonoBehaviour
     IEnumerator GPauseAction()
     {
         InvertAction();
+        Debug.Log("1clear");
         yield return new WaitForSeconds(10f);
+        Debug.Log("2clear");
         InvertAction();
+        Debug.Log("3clear");
     }
 }

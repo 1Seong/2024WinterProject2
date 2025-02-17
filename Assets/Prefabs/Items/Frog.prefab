@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3237998326866336943}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47bcbff67c38a4499cb0cd7a62ff782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isConsumable: 1
+  frogJumpUnit: 2
+  frogHatPrefab: {fileID: 0}

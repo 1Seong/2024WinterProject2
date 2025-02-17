@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwapTest : ItemBehavior
+public class Swap : ItemBehavior
 {
     GameObject player1, player2;
 
@@ -13,6 +13,7 @@ public class SwapTest : ItemBehavior
 
     new void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         SwapActivate();
         base.OnTriggerEnter(other);

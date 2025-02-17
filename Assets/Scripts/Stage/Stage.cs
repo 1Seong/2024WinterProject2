@@ -104,6 +104,7 @@ public class Stage : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping && player1.GetComponent<Player>().onBottom)
         {
+            Debug.Log("E key down");
             if (data.player2Exist)
             {
                 if (!player2.GetComponent<PlayerJump>().isJumping && player2.GetComponent<Player>().onBottom)

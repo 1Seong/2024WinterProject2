@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FrogTest : ItemBehavior
+public class Frog : ItemBehavior
 {
     public int frogJumpUnit = 2;
     public GameObject frogHatPrefab;
@@ -12,6 +12,7 @@ public class FrogTest : ItemBehavior
     }
     new void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         FrogActivate(other);
         base.OnTriggerEnter(other);

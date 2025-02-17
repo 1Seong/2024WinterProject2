@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     private bool isPaused = false;
     private float pauseTimer = 0f;
-    private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
     public bool onBottom = true; // user can convert the view only when player is on bottom wall (or top, background depend on inverted and viewpoint)
@@ -57,7 +56,7 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 2.5f;
+        float targetZ = 100f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
@@ -113,7 +112,7 @@ public class Player : MonoBehaviour
         {
             // Keep the player stopped
             rigid.linearVelocity = Vector3.zero;
-
+            rigid.constraints = RigidbodyConstraints.FreezeAll;
             // Update pause timer
             pauseTimer -= Time.deltaTime;
 
@@ -121,6 +120,8 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || pauseTimer <= 0)
             {
                 isPaused = false;
+                rigid.constraints = RigidbodyConstraints.None;
+                rigid.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
                 rigid.linearVelocity = savedVelocity;
                 pauseTimer = 0f;
             }
@@ -171,6 +172,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    // pause the player for given duration
+    public void Pause(float duration)
+    {
+        isPaused = true;
+        pauseTimer = duration;
+        savedVelocity = rigid.linearVelocity;
+        rigid.linearVelocity = Vector3.zero;
+    }
+
+
+
+    // CHANGED: TriggerEnter is activated in the item's script
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.Pause && !isPaused)
@@ -186,5 +200,5 @@ public class Player : MonoBehaviour
             customGravity.GPause();
         }
     }
-
+    */
 }
