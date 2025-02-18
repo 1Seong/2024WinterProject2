@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 2.0f;
+        float targetZ = 100.0f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {

@@ -6,7 +6,7 @@ public class GPause : ItemBehavior
     Player player;
     void Start()
     {
-        isConsumable = true;
+        isConsumable = false;
     }
 
     new void OnTriggerEnter(Collider other)
