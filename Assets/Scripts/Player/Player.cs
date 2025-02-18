@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 100f;
+        float targetZ = 2.0f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
@@ -181,7 +181,26 @@ public class Player : MonoBehaviour
         rigid.linearVelocity = Vector3.zero;
     }
 
+    public void CallGPauseAction()
+    {
+        StartCoroutine(GPauseAction());
+    }
 
+    IEnumerator GPauseAction()
+    {
+        updateAction -= CheckInvert;
+        invertEvent!.Invoke();
+        Debug.Log("1clear");
+
+        yield return new WaitForSeconds(10f);
+        Debug.Log("2clear");
+        
+        
+        invertEvent!.Invoke();
+        yield return new WaitForSeconds(2f);
+        updateAction += CheckInvert;
+        Debug.Log("3clear");
+    }
 
     // CHANGED: TriggerEnter is activated in the item's script
     /*

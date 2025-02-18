@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Pause : ItemBehavior
 {
+    Player player;
+    
     void Start()
     {
         isConsumable = true;
@@ -12,7 +14,7 @@ public class Pause : ItemBehavior
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
-        Player player = other.GetComponent<Player>();
+        player = other.GetComponent<Player>();
         player.Pause(5.0f);
         base.OnTriggerEnter(other);
     }

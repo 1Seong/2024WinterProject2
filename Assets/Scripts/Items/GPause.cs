@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GPause : ItemBehavior
 {
-    CustomGravity gravity;
+    Player player;
     void Start()
     {
         isConsumable = true;
@@ -13,18 +13,23 @@ public class GPause : ItemBehavior
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
-        GPauseActivate(other.gameObject);
+        player = other.GetComponent<Player>();
+        player.CallGPauseAction();
         base.OnTriggerEnter(other);
     }
 
+
+    /////////////////// NOT USED ////////////////////
+    /*
     private void GPauseActivate(GameObject obj)
     {   
 
-        gravity = obj.GetComponent<CustomGravity>();
+        gravity = obj.GetComponent<Player>();
         if (gravity != null)
         {
-            Debug.Log("OK!");
+            Debug.Log("calling CustomGravity");
             gravity.CallGPauseAction();
         }
     }
+    */
 }

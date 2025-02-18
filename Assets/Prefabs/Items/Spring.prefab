@@ -286,4 +286,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isConsumable: 0
-  springJumpUnit: 4
+  springJumpUnit: 10
