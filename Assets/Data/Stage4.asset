@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721e35e6b743c9f4c946a6e0ec5810c8, type: 3}
-  m_Name: Stage1
+  m_Name: Stage4
   m_EditorClassIdentifier: 
   episodeNum: 0
-  stageIndex: 0
-  stageName: Stage1
+  stageIndex: 3
+  stageName: Stage4
   conversionActive: 1
   startPos1: {x: 1.5, y: 0, z: 0.5}
   player2Exist: 1
