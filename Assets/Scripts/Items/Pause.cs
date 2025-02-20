@@ -1,24 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class Pause : ItemBehavior
+public class Pause : Consumable
 {
+    [SerializeField] private float pauseTime = 5.0f;
     Movable player;
-    
-    void Start()
-    {
-        isConsumable = true;
-    }
 
     protected override void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         player = other.GetComponent<Movable>();
-        player.Pause(5.0f);
+        PlayerTriggerEvent += (other) => player.Pause(pauseTime);
         base.OnTriggerEnter(other);
     }
-    
 
     //////////////////// NOT USED //////////////////////////
    /*

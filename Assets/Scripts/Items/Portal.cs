@@ -6,17 +6,9 @@ public class Portal : ItemBehavior
     private bool canTeleport = true;
     private float cooldownTime = 0.5f; // Cooldown to prevent repeated teleportation
 
-    private void Start()
-    { 
-        isConsumable = false;
-    }
-
-    new void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        if (other.tag != "Player") return;
-        Debug.Log("child triggered!");
-        PortalActivate(other);
-        base.OnTriggerEnter(other);
+        PlayerTriggerEvent += PortalActivate;
     }
 
     private void PortalActivate(Collider other)
@@ -30,14 +22,8 @@ public class Portal : ItemBehavior
             Rigidbody playerRb = player.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
-                // Store current velocity
-                Vector3 currentVelocity = playerRb.linearVelocity;
-
                 // Teleport the player to the linked portal's position
                 player.transform.position = linkedPortal.position;
-
-                // Maintain the player's momentum
-                playerRb.linearVelocity = currentVelocity;
 
                 // Start cooldown
                 canTeleport = false;

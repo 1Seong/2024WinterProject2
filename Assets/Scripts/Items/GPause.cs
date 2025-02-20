@@ -4,17 +4,13 @@ using UnityEngine;
 public class GPause : ItemBehavior
 {
     Movable player;
-    void Start()
-    {
-        isConsumable = false;
-    }
 
     new void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         player = other.GetComponent<Movable>();
-        player.CallGPauseAction();
+        PlayerTriggerEvent += (other) => player.CallGPauseAction();
         base.OnTriggerEnter(other);
     }
 
