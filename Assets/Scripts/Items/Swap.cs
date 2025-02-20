@@ -6,7 +6,7 @@ public class Swap : Consumable
 
     private void Awake()
     {
-        PlayerTriggerEvent += collider => SwapActivate();
+        PlayerTriggerEvent += _ => SwapActivate();
     }
 
     void Start()

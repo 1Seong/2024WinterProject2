@@ -11,7 +11,7 @@ public class Pause : Consumable
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         player = other.GetComponent<Movable>();
-        PlayerTriggerEvent += (other) => player.Pause(pauseTime);
+        PlayerTriggerEvent += _ => player.Pause(pauseTime);
         base.OnTriggerEnter(other);
     }
 

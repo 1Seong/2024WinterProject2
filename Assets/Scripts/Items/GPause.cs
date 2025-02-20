@@ -10,7 +10,7 @@ public class GPause : ItemBehavior
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
         player = other.GetComponent<Movable>();
-        PlayerTriggerEvent += (other) => player.CallGPauseAction();
+        PlayerTriggerEvent += _ => player.CallGPauseAction();
         base.OnTriggerEnter(other);
     }
 
