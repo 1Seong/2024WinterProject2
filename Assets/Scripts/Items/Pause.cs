@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class Pause : ItemBehavior
 {
-    Player player;
+    Movable player;
     
     void Start()
     {
         isConsumable = true;
     }
 
-    new void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
-        player = other.GetComponent<Player>();
+        player = other.GetComponent<Movable>();
         player.Pause(5.0f);
         base.OnTriggerEnter(other);
     }

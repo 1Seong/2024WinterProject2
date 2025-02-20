@@ -23,7 +23,7 @@ public class ItemBehavior : MonoBehaviour
         }
     }
 
-    protected void OnTriggerEnter(Collider other)
+    virtual protected void OnTriggerEnter(Collider other)
     {
         Debug.Log("parent trigger!");
         if (other.gameObject.tag == "Player")

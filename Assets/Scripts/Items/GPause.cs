@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GPause : ItemBehavior
 {
-    Player player;
+    Movable player;
     void Start()
     {
         isConsumable = false;
@@ -13,7 +13,7 @@ public class GPause : ItemBehavior
     {
         if (other.tag != "Player") return;
         Debug.Log("child triggered!");
-        player = other.GetComponent<Player>();
+        player = other.GetComponent<Movable>();
         player.CallGPauseAction();
         base.OnTriggerEnter(other);
     }
