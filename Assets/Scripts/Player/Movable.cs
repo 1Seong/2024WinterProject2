@@ -16,7 +16,6 @@ public class Movable : MonoBehaviour
 
     private bool isPaused = false;
     private float pauseTimer = 0f;
-    private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
     public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
@@ -43,14 +42,14 @@ public class Movable : MonoBehaviour
         if (!GameManager.instance.isPlaying)
             return;
 
-        /*
+        
         //Handle pause effect
         if (isPaused)
         {
             HandlePauseEffect();
             return;  // Skip other updates while paused
         }
-        */
+        
         updateAction?.Invoke();
     }
 
@@ -62,7 +61,7 @@ public class Movable : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 4f;
+        float targetZ = 100.0f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
@@ -210,7 +209,7 @@ public class Movable : MonoBehaviour
         {
             // Keep the player stopped
             rigid.linearVelocity = Vector3.zero;
-
+            rigid.constraints = RigidbodyConstraints.FreezeAll;
             // Update pause timer
             pauseTimer -= Time.deltaTime;
 
@@ -218,6 +217,8 @@ public class Movable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || pauseTimer <= 0)
             {
                 isPaused = false;
+                rigid.constraints = RigidbodyConstraints.None;
+                rigid.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
                 rigid.linearVelocity = savedVelocity;
                 pauseTimer = 0f;
             }
@@ -234,6 +235,38 @@ public class Movable : MonoBehaviour
         
     }
 
+    // pause the player for given duration
+    public void Pause(float duration)
+    {
+        isPaused = true;
+        pauseTimer = duration;
+        savedVelocity = rigid.linearVelocity;
+        rigid.linearVelocity = Vector3.zero;
+    }
+
+    public void CallGPauseAction()
+    {
+        StartCoroutine(GPauseAction());
+    }
+
+    IEnumerator GPauseAction()
+    {
+        updateAction -= CheckInvert;
+        invertEvent!.Invoke();
+        Debug.Log("1clear");
+
+        yield return new WaitForSeconds(10f);
+        Debug.Log("2clear");
+        
+        
+        invertEvent!.Invoke();
+        yield return new WaitForSeconds(2f);
+        updateAction += CheckInvert;
+        Debug.Log("3clear");
+    }
+
+    // CHANGED: TriggerEnter is activated in the item's script
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.Pause && !isPaused)
@@ -243,6 +276,11 @@ public class Movable : MonoBehaviour
             savedVelocity = rigid.linearVelocity;
             rigid.linearVelocity = Vector3.zero;
         }
-    }
 
+        if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.GPause)
+        {
+            customGravity.GPause();
+        }
+    }
+    */
 }

@@ -61,11 +61,11 @@ public class CustomGravity : MonoBehaviour
     private void Start()
     {
         gravityState = _gravityState;
-        //it may cause problem when stage start in side view state
-        if (gravityState == GravityState.defaultG)
-            gPauseAtDefaultEvent += CallGPauseAction;
-        else if (gravityState == GravityState.invertG)
-            gPauseAtInvertEvent += CallGPauseAction;
+        //it may cause problem when stage start in top view state
+        //if (gravityState == GravityState.defaultG)
+        //    gPauseAtDefaultEvent += CallGPauseAction;
+        //else if (gravityState == GravityState.invertG)
+        //    gPauseAtInvertEvent += CallGPauseAction;
 
         Stage.convertEvent += ConvertAction;
 
@@ -76,8 +76,8 @@ public class CustomGravity : MonoBehaviour
     private void OnDestroy()
     {
         Stage.convertEvent -= ConvertAction;
-        gPauseAtDefaultEvent -= CallGPauseAction;
-        gPauseAtInvertEvent -= CallGPauseAction;
+        //gPauseAtDefaultEvent -= CallGPauseAction;
+        //gPauseAtInvertEvent -= CallGPauseAction;
     }
 
     void FixedUpdate()
@@ -110,17 +110,17 @@ public class CustomGravity : MonoBehaviour
 
     private void Inversion()
     {
-        if (gravityState == GravityState.defaultG)
-        {
-            gPauseAtDefaultEvent -= CallGPauseAction;
-            gPauseAtInvertEvent += CallGPauseAction;
-        }
-        else if (gravityState == GravityState.invertG)
-        {
-            gPauseAtDefaultEvent += CallGPauseAction;
-            gPauseAtInvertEvent -= CallGPauseAction;
-        }
-        else return;
+        //if (gravityState == GravityState.defaultG)
+        //{
+        //    gPauseAtDefaultEvent -= CallGPauseAction;
+        //    gPauseAtInvertEvent += CallGPauseAction;
+        //}
+        //else if (gravityState == GravityState.invertG)
+        //{
+        //    gPauseAtDefaultEvent += CallGPauseAction;
+        //    gPauseAtInvertEvent -= CallGPauseAction;
+        //}
+        //else return;
         
         InvertAction();
     }
@@ -146,23 +146,28 @@ public class CustomGravity : MonoBehaviour
         }
     }
 
-    private void GPause()
+    
+    public void GPause()
     {
         if (gravityState == GravityState.defaultG)
             gPauseAtDefaultEvent?.Invoke();
         else if (gravityState == GravityState.invertG)
             gPauseAtInvertEvent?.Invoke();
     }
+    
 
-    private void CallGPauseAction()
-    {
-        StartCoroutine(GPauseAction());
-    }
+    //public void CallGPauseAction()
+    //{
+    //    StartCoroutine(GPauseAction());
+    //}
 
-    IEnumerator GPauseAction()
-    {
-        InvertAction();
-        yield return new WaitForSeconds(10f);
-        InvertAction();
-    }
+    //IEnumerator GPauseAction()
+    //{
+    //    Inversion();
+    //    Debug.Log("1clear");
+    //    yield return new WaitForSeconds(10f);
+    //    Debug.Log("2clear");
+    //    Inversion();
+    //    Debug.Log("3clear");
+    //}
 }

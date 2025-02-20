@@ -1,23 +1,30 @@
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : ItemBehavior
 {
-    public Transform linkedPortal; // Reference to the linked portal (PortalOut for PortalIn, and vice versa)
-    private NonConsum nonConsum;
+    public Transform linkedPortal; // Reference to the linked portal
     private bool canTeleport = true;
     private float cooldownTime = 0.5f; // Cooldown to prevent repeated teleportation
 
-    private void Awake()
-    {
-        nonConsum = GetComponent<NonConsum>();
+    private void Start()
+    { 
+        isConsumable = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    new void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Player") return;
+        Debug.Log("child triggered!");
+        PortalActivate(other);
+        base.OnTriggerEnter(other);
+    }
+
+    private void PortalActivate(Collider other)
     {
         if (!canTeleport) return;
 
         Movable player = other.GetComponent<Movable>();
-        if (player != null && nonConsum.type == NonConsum.Type.PortalIn && linkedPortal != null)
+        if (player != null && linkedPortal != null)
         {
             // Get the player's rigidbody
             Rigidbody playerRb = player.GetComponent<Rigidbody>();
