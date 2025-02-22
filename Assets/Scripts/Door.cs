@@ -1,48 +1,40 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static PlayerSelectableInterface;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, PlayerSelectableInterface
 {
-    enum DoorColor {Red, Blue};
-    [SerializeField] DoorColor color;
-    [SerializeField] Door otherDoor;
+    public PlayerColor Color { get; set; }
+
+    [SerializeField] PlayerColor color;
+
     private float goalTime = 2.0f;
     private float enterTime, stayTime;
     public bool isComplete;
     StageManager sm;
 
-        
     private void Start()
     {
+        Color = color;
         isComplete = false;
         sm = StageManager.instance;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-            if ((other.gameObject.name == "Player1" && color == DoorColor.Red) || (other.gameObject.name == "Player2" && color == DoorColor.Blue))
-                enterTime = Time.time;
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        enterTime = Time.time;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if ((other.gameObject.name == "Player1" && color == DoorColor.Red) || (other.gameObject.name == "Player2" && color == DoorColor.Blue))
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+
+        stayTime = Time.time - enterTime;
+        if (stayTime >= goalTime)
         {
-            stayTime = Time.time - enterTime;
-            if (stayTime >= goalTime)
-            {
-                isComplete = true;
-                if (otherDoor.isComplete)
-                {
-                    Debug.Log("Stage Clear!");
-                    sm.StageClear();
-                }
-            }
+            isComplete = true;
+            StageManager.instance.CheckStageClear();
         }
     }
-    
-
-
- 
 }

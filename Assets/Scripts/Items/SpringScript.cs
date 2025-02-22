@@ -19,5 +19,4 @@ public class SpringScript : ItemBehavior
         float force = objRb.mass * initialVelocity + 0.5f;
         objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);  
     }
-
 }

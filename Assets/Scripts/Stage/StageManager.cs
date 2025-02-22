@@ -59,6 +59,11 @@ public class StageManager : MonoBehaviour
         LoadStage();
     }
 
+    public void CheckStageClear()
+    {
+
+    }
+
     public void StageClear()
     {
         GameManager.instance.isPlaying = false;

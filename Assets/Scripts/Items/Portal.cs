@@ -1,13 +1,19 @@
 using UnityEngine;
+using static PlayerSelectableInterface;
 
-public class Portal : ItemBehavior
+public class Portal : ItemBehavior, PlayerSelectableInterface
 {
     public Transform linkedPortal; // Reference to the linked portal
     private bool canTeleport = true;
     private float cooldownTime = 0.5f; // Cooldown to prevent repeated teleportation
 
+    public PlayerColor Color { get; set; }
+
+    [SerializeField] private PlayerColor color;
+
     private void Awake()
     {
+        Color = color;
         PlayerTriggerEvent += PortalActivate;
     }
 
@@ -32,8 +38,15 @@ public class Portal : ItemBehavior
         }
     }
 
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        base.OnTriggerEnter(other);
+    }
+
     private void ResetCooldown()
     {
         canTeleport = true;
     }
+
 }

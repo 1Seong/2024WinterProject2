@@ -251,6 +251,8 @@ public class Movable : MonoBehaviour
 
     IEnumerator GPauseAction()
     {
+        GameManager.instance.gpauseActive = true;
+
         updateAction -= CheckInvert;
         invertEvent!.Invoke();
         Debug.Log("1clear");
@@ -258,11 +260,12 @@ public class Movable : MonoBehaviour
         yield return new WaitForSeconds(10f);
         Debug.Log("2clear");
         
-        
         invertEvent!.Invoke();
         yield return new WaitForSeconds(2f);
         updateAction += CheckInvert;
         Debug.Log("3clear");
+
+        GameManager.instance.gpauseActive = false;
     }
 
     // CHANGED: TriggerEnter is activated in the item's script

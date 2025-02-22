@@ -9,7 +9,7 @@ public abstract class ItemBehavior : MonoBehaviour
     protected void OnCollisionEnter(Collision collision)
     {
         Debug.Log("parent collision!");
-        if (collision.gameObject.tag == "Player") 
+        if (collision.gameObject.tag == "Player1" || collision.gameObject.tag == "Player2") 
         {
             PlayerCollisonEvent?.Invoke(collision);
         }
@@ -18,7 +18,7 @@ public abstract class ItemBehavior : MonoBehaviour
     virtual protected void OnTriggerEnter(Collider other)
     {
         Debug.Log("parent trigger!");
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")
         { 
             PlayerTriggerEvent?.Invoke(other);
         }

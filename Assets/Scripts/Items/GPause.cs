@@ -1,13 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using static PlayerSelectableInterface;
 
-public class GPause : ItemBehavior
+public class GPause : ItemBehavior, PlayerSelectableInterface
 {
     Movable player;
 
-    new void OnTriggerEnter(Collider other)
+    public PlayerColor Color { get; set; }
+    [SerializeField] private PlayerColor color;
+
+    private void Start()
     {
-        if (other.tag != "Player") return;
+        Color = color;
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        if (GameManager.instance.gpauseActive) return;
         Debug.Log("child triggered!");
         player = other.GetComponent<Movable>();
         PlayerTriggerEvent += _ => player.CallGPauseAction();
