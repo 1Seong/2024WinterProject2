@@ -6,8 +6,9 @@ public class SpringScript : ItemBehavior
     private float gravity, intial, initialVelocity;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         PlayerTriggerEvent += SpringActivate;
     }
 

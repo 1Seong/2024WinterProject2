@@ -3,24 +3,34 @@ using UnityEngine;
 
 public abstract class ItemBehavior : MonoBehaviour
 {
-    protected event Action<Collision> PlayerCollisonEvent;
+    public enum PlayerColor { noneSelectable, pink, blue };
+    [SerializeField]PlayerColor color;
+
+    protected PlayerSelectableInterface playerSelectable;
+
     protected event Action<Collider> PlayerTriggerEvent;
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void Awake()
     {
-        Debug.Log("parent collision!");
-        if (collision.gameObject.tag == "Player1" || collision.gameObject.tag == "Player2") 
-        {
-            PlayerCollisonEvent?.Invoke(collision);
-        }
+        if (color == PlayerColor.noneSelectable)
+            playerSelectable = new PlayerNonSelect();
+        else
+            playerSelectable = new PlayerSelectable();
     }
 
     virtual protected void OnTriggerEnter(Collider other)
     {
+        if (playerSelectable is not PlayerSelectable || !PerformPlayerCheck(other, (int)color)) return;
+
         Debug.Log("parent trigger!");
         if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")
         { 
             PlayerTriggerEvent?.Invoke(other);
         }
+    }
+
+    protected bool PerformPlayerCheck(Collider other, int id)
+    {
+        return playerSelectable.CheckColor(other, id);
     }
 }

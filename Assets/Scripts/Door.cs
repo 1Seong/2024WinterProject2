@@ -2,11 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static PlayerSelectableInterface;
 
-public class Door : MonoBehaviour, PlayerSelectableInterface
+public class Door : MonoBehaviour
 {
-    public PlayerColor Color { get; set; }
+    enum PlayerColor { pink, blue }
+    [SerializeField] private  PlayerColor color;
 
-    [SerializeField] PlayerColor color;
+    PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
     private float goalTime = 2.0f;
     private float enterTime, stayTime;
@@ -14,19 +15,18 @@ public class Door : MonoBehaviour, PlayerSelectableInterface
 
     private void Start()
     {
-        Color = color;
         isComplete = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        if (playerSelectable.CheckColor(other, (int)color) == false) return;
         enterTime = Time.time;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        if (playerSelectable.CheckColor(other, (int)color) == false) return;
 
         stayTime = Time.time - enterTime;
         if (stayTime >= goalTime)

@@ -6,8 +6,9 @@ public class Frog : Consumable
     public int frogJumpUnit = 2;
     public GameObject frogHatPrefab;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         PlayerTriggerEvent += FrogActivate;
     }
 
