@@ -128,6 +128,7 @@ public class Stage : MonoBehaviour
         GameManager.instance.isSideView = !GameManager.instance.isSideView;
 
         convertEvent?.Invoke();
+        convertEventLast?.Invoke();
     }
 
     private void ProjectionSetting()
