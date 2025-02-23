@@ -11,13 +11,11 @@ public class Door : MonoBehaviour, PlayerSelectableInterface
     private float goalTime = 2.0f;
     private float enterTime, stayTime;
     public bool isComplete;
-    StageManager sm;
 
     private void Start()
     {
         Color = color;
         isComplete = false;
-        sm = StageManager.instance;
     }
 
     private void OnTriggerEnter(Collider other)

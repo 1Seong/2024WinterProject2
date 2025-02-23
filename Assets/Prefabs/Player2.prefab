@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 2424286150958988667}
   - component: {fileID: 4114130906427017452}
   - component: {fileID: 176129316336266622}
-  - component: {fileID: 7890475501075391069}
   - component: {fileID: 2088194589263955920}
   - component: {fileID: -5909739228961020285}
   - component: {fileID: 2962857211919404079}
+  - component: {fileID: 2856269638439548928}
+  - component: {fileID: -1369456303120638838}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player2
@@ -140,20 +141,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7890475501075391069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3094623692732916449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8536f5bb9b699734a88f32ba369ede7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitInnerWall: 0
-  onInnerWall: 0
 --- !u!114 &2088194589263955920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,3 +182,31 @@ MonoBehaviour:
   _gravityState: 1
   up: {x: 0, y: 0, z: 0}
   down: {x: 0, y: 0, z: 0}
+--- !u!114 &2856269638439548928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094623692732916449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fd4469ecef0564394817700074ca10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 1
+  isActing: 0
+--- !u!114 &-1369456303120638838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094623692732916449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fb5616fdc96c940a0757a9edea3427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitInnerWall: 0
+  onInnerWall: 0
