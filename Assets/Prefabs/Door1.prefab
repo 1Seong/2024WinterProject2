@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6819016120993224180}
   - component: {fileID: 1643836865680174321}
   - component: {fileID: 3565190964653781157}
-  - component: {fileID: -329038195033203211}
+  - component: {fileID: 3911186886394767337}
   m_Layer: 0
   m_Name: Door1
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2679056036659605174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.86, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-329038195033203211
+--- !u!114 &3911186886394767337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,8 +118,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2679056036659605174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 500bef16f8f044f419eccd077a30ecd9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dcefc0637d04a14cb52d05dfb4663cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door2: {fileID: 0}
+  color: 0
   isComplete: 0

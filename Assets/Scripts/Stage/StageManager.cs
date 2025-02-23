@@ -24,6 +24,8 @@ public class StageManager : MonoBehaviour
     public GameObject wallPrefab;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 
+    [SerializeField] private Door[] doors;
+
     private Dictionary<Episode, StageData[]> _epStagePair;
 
     public event Action stageEnterEvent;
@@ -61,7 +63,11 @@ public class StageManager : MonoBehaviour
 
     public void CheckStageClear()
     {
-
+        foreach(var door in doors)
+        {
+            if (!door.isComplete) return;
+        }
+        StageClear();
     }
 
     public void StageClear()
