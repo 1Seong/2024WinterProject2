@@ -1,43 +1,35 @@
 using UnityEngine;
+using static PlayerSelectableInterface;
 
-public class Portal : ItemBehavior
+public class Portal : ItemBehavior, PlayerSelectableInterface
 {
     public Transform linkedPortal; // Reference to the linked portal
     private bool canTeleport = true;
     private float cooldownTime = 0.5f; // Cooldown to prevent repeated teleportation
 
-    private void Start()
-    { 
-        isConsumable = false;
-    }
+    public PlayerColor Color { get; set; }
 
-    new void OnTriggerEnter(Collider other)
+    [SerializeField] private PlayerColor color;
+
+    private void Awake()
     {
-        if (other.tag != "Player") return;
-        Debug.Log("child triggered!");
-        PortalActivate(other);
-        base.OnTriggerEnter(other);
+        Color = color;
+        PlayerTriggerEvent += PortalActivate;
     }
 
     private void PortalActivate(Collider other)
     {
         if (!canTeleport) return;
 
-        Player player = other.GetComponent<Player>();
+        Movable player = other.GetComponent<Movable>();
         if (player != null && linkedPortal != null)
         {
             // Get the player's rigidbody
             Rigidbody playerRb = player.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
-                // Store current velocity
-                Vector3 currentVelocity = playerRb.linearVelocity;
-
                 // Teleport the player to the linked portal's position
                 player.transform.position = linkedPortal.position;
-
-                // Maintain the player's momentum
-                playerRb.linearVelocity = currentVelocity;
 
                 // Start cooldown
                 canTeleport = false;
@@ -46,8 +38,15 @@ public class Portal : ItemBehavior
         }
     }
 
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
+        base.OnTriggerEnter(other);
+    }
+
     private void ResetCooldown()
     {
         canTeleport = true;
     }
+
 }

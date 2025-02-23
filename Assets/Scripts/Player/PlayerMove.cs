@@ -5,12 +5,12 @@ public class PlayerMove : MonoBehaviour
 {
     private Action fixedUpdateAction;
 
-    Player player;
+    Movable movable;
     Rigidbody rigid;
 
     private void Awake()
     {
-        player = GetComponent<Player>();
+        movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
     }
 
@@ -49,7 +49,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
 
-        if (!player.hitInnerWall)
+        if (!movable.hitInnerWall)
             rigid.AddForce(dirVec, ForceMode.Impulse);
         else
             rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);

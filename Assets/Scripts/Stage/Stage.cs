@@ -15,10 +15,14 @@ public class Stage : MonoBehaviour
     private Transform projectionWallParentXY;
     private Transform projectionWallParentXZ;
 
+    private Transform restrictionSide;
+    private Transform restrictionTop;
+
     private GameObject player1;
     private GameObject player2;
 
     private bool isActing = false;
+    private bool restrict = false;
 
     public static event Action stageStartEvent;
     public static event Action convertEvent;
@@ -54,21 +58,24 @@ public class Stage : MonoBehaviour
          * Stage Hierarchy structure
          * - 0. Bottom Wall
          * - 1. Top Wall
-         * - 2. Left Wall
-         * - 3. Right Wall
-         * - 4. Inner Wall
-         * - 5. Background Wall
-         * - 6. Projection Wall XY
-         * - 7. Projection Wall XZ
+         * - 2. Side Wall
+         * - 3. Inner Wall
+         * - 4. Background Wall
+         * - 5. Projection Wall XY
+         * - 6. Projection Wall XZ
+         * - 7. Restriction Side
+         * - 8. Restriction Top
          */
         data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
-        bottomWall = transform.GetChild(0).GetChild(0);
-        topWall = transform.GetChild(1).GetChild(0);
-        innerWall = transform.GetChild(4).GetComponentsInChildren<Transform>();
-        projectionWallParentXY = transform.GetChild(6);
-        projectionWallParentXZ = transform.GetChild(7);
+        bottomWall = transform.GetChild(0);
+        topWall = transform.GetChild(1);
+        innerWall = transform.GetChild(3).GetComponentsInChildren<Transform>();
+        projectionWallParentXY = transform.GetChild(5);
+        projectionWallParentXZ = transform.GetChild(6);
+        restrictionSide = transform.GetChild(7);
+        restrictionTop = transform.GetChild(8);
     }
 
     private void MakeProjection()
@@ -82,10 +89,7 @@ public class Stage : MonoBehaviour
             CreateWall(false);
         }
 
-        if (!GameManager.instance.isSideView)
-            projectionWallParentXY.gameObject.SetActive(false);
-        else
-            projectionWallParentXZ.gameObject.SetActive(false);
+        ProjectionSetting();
     }
 
     private void Update()
@@ -100,14 +104,14 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
-        if (!data.conversionActive || isActing) return;
+        if (!data.conversionActive || isActing || restrict) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping && player1.GetComponent<Player>().onBottom)
+        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {
             Debug.Log("E key down");
             if (data.player2Exist)
             {
-                if (!player2.GetComponent<PlayerJump>().isJumping && player2.GetComponent<Player>().onBottom)
+                if (!player2.GetComponent<PlayerJump>().isJumping)
                     ConvertView();
             }
             else
@@ -163,11 +167,15 @@ public class Stage : MonoBehaviour
         {
             bottomWall.gameObject.SetActive(true);
             topWall.gameObject.SetActive(true);
+            restrictionSide.gameObject.SetActive(false);
         }
+        if (sideview) // Top view -> Side view
+            restrictionTop.gameObject.SetActive(false);
+
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             //Camera Rotation
-            Camera.main.transform.RotateAround(new Vector3(0, 2, 2), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
+            Camera.main.transform.RotateAround(new Vector3(7, 2, 4), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
 
             //Wall Transparency Control
             Color color = mat1.color;
@@ -181,10 +189,14 @@ public class Stage : MonoBehaviour
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
+
+        if(!sideview) // Side view -> Top view
+            restrictionTop.gameObject.SetActive(true);
         if (sideview) // Top view -> Side view
         {
             bottomWall.gameObject.SetActive(false);
             topWall.gameObject.SetActive(false);
+            restrictionSide.gameObject.SetActive(true);
         }
 
         isActing = false;
@@ -315,13 +327,15 @@ public class Stage : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-
     private void ReposProjection()
     {
         /*
          * Reposition z-axis of projection walls on XY plane
          */
         Transform[] projectionsXY = projectionWallParentXY.GetComponentsInChildren<Transform>();
+
+        if (projectionsXY.Length == 1) return;
+
         Transform player1pos = player1.transform;
 
         projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
@@ -340,5 +354,32 @@ public class Stage : MonoBehaviour
         
         if (data.player2Exist)
             player2 = Instantiate(GameManager.instance.player2, data.startPos2, Quaternion.identity);
+
+        if (GameManager.instance.isSideView) // Top view -> Side view
+        {
+            restrictionSide.gameObject.SetActive(true);
+            restrictionTop.gameObject.SetActive(false);
+        }
+        else // Side view -> Top view
+        {
+            restrictionSide.gameObject.SetActive(false);
+            restrictionTop.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<Movable>() != null)
+        {
+            restrict = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Movable>() != null)
+        {
+            restrict = false;
+        }
     }
 }

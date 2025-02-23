@@ -1,22 +1,18 @@
 using UnityEngine;
 
-public class Swap : ItemBehavior
+public class Swap : Consumable
 {
     GameObject player1, player2;
 
-    void Start()
+    private void Awake()
     {
-        isConsumable = true;
-        player1 = GameManager.instance.player1;
-        player2 = GameManager.instance.player2;
+        PlayerTriggerEvent += _ => SwapActivate();
     }
 
-    new void OnTriggerEnter(Collider other)
+    void Start()
     {
-        if (other.tag != "Player") return;
-        Debug.Log("child triggered!");
-        SwapActivate();
-        base.OnTriggerEnter(other);
+        player1 = GameManager.instance.player1;
+        player2 = GameManager.instance.player2;
     }
 
     private void SwapActivate()

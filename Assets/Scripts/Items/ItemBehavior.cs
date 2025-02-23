@@ -1,45 +1,26 @@
 using System;
 using UnityEngine;
 
-public class ItemBehavior : MonoBehaviour
+public abstract class ItemBehavior : MonoBehaviour
 {
-    protected event Action ItemActivateEvent;
-    protected event Action PlayerCollisonEvent;
-    protected event Action PlayerTriggerEvent;
-    public bool isConsumable;
-
-    private void Awake()
-    {
-        PlayerCollisonEvent += Consume;
-        PlayerTriggerEvent += Consume;
-    }
+    protected event Action<Collision> PlayerCollisonEvent;
+    protected event Action<Collider> PlayerTriggerEvent;
 
     protected void OnCollisionEnter(Collision collision)
     {
         Debug.Log("parent collision!");
-        if (collision.gameObject.tag == "Player") 
+        if (collision.gameObject.tag == "Player1" || collision.gameObject.tag == "Player2") 
         {
-            PlayerCollisonEvent!.Invoke();
+            PlayerCollisonEvent?.Invoke(collision);
         }
     }
 
-    protected void OnTriggerEnter(Collider other)
+    virtual protected void OnTriggerEnter(Collider other)
     {
         Debug.Log("parent trigger!");
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")
         { 
-            PlayerTriggerEvent!.Invoke();
-        }
-    }
-
-    public void Consume()
-    {
-        if(isConsumable) 
-        {
-            if(transform.parent != null)
-                Destroy(transform.parent.gameObject);
-            else
-                Destroy(gameObject);
+            PlayerTriggerEvent?.Invoke(other);
         }
     }
 }

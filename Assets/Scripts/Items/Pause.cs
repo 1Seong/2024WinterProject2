@@ -1,24 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using static PlayerSelectableInterface;
 
-public class Pause : ItemBehavior
+public class Pause : Consumable, PlayerSelectableInterface
 {
-    Player player;
-    
-    void Start()
+    [SerializeField] private float pauseTime = 5.0f;
+    Movable player;
+
+    public PlayerColor Color { get; set; }
+    [SerializeField] private PlayerColor color;
+
+    private void Start()
     {
-        isConsumable = true;
+        Color = color;
     }
 
-    new void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player") return;
+        if (((PlayerSelectableInterface)this).CheckColor(other) == false) return;
         Debug.Log("child triggered!");
-        player = other.GetComponent<Player>();
-        player.Pause(5.0f);
+        player = other.GetComponent<Movable>();
+        PlayerTriggerEvent += _ => player.Pause(pauseTime);
         base.OnTriggerEnter(other);
     }
-    
 
     //////////////////// NOT USED //////////////////////////
    /*

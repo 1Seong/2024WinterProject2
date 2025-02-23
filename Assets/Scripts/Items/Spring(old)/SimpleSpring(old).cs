@@ -18,7 +18,6 @@ public class SimpleSpring : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered!");
         var obj = other.gameObject;
         if (obj.tag == "Player")
         {
