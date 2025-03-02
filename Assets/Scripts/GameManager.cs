@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool isPlaying; // True when user is playing a stage
     public bool isSideView;
     public float cameraRotationTime;
+    public bool gpauseActive = false;
     //public float gameTime;
 
     [Header("# Player Info")]
