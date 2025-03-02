@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 6976181868370886931}
   - component: {fileID: 5692671113779981045}
   - component: {fileID: 7227038838186266635}
-  - component: {fileID: 2609548923458572442}
   - component: {fileID: 2720230239924338270}
   - component: {fileID: 6179612498199818924}
   - component: {fileID: 5115808886930447055}
+  - component: {fileID: 7895475144599497338}
+  - component: {fileID: -2024937689500597030}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Player
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,21 +141,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2609548923458572442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5193326551105480410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8536f5bb9b699734a88f32ba369ede7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onBottom: 1
-  hitInnerWall: 0
-  onInnerWall: 0
 --- !u!114 &2720230239924338270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,3 +182,31 @@ MonoBehaviour:
   _gravityState: 0
   up: {x: 0, y: 0, z: 0}
   down: {x: 0, y: 0, z: 0}
+--- !u!114 &7895475144599497338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193326551105480410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70fd4469ecef0564394817700074ca10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 1
+  isActing: 0
+--- !u!114 &-2024937689500597030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193326551105480410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fb5616fdc96c940a0757a9edea3427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitInnerWall: 0
+  onInnerWall: 0
