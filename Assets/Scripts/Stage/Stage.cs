@@ -26,6 +26,7 @@ public class Stage : MonoBehaviour
 
     public static event Action stageStartEvent;
     public static event Action convertEvent;
+    public static event Action convertEventLast;
 
     private void Awake()
     {
@@ -108,6 +109,7 @@ public class Stage : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {
+            Debug.Log("E key down");
             if (data.player2Exist)
             {
                 if (!player2.GetComponent<PlayerJump>().isJumping)
@@ -126,6 +128,7 @@ public class Stage : MonoBehaviour
         GameManager.instance.isSideView = !GameManager.instance.isSideView;
 
         convertEvent?.Invoke();
+        convertEventLast?.Invoke();
     }
 
     private void ProjectionSetting()
@@ -157,45 +160,14 @@ public class Stage : MonoBehaviour
         float targetRot = sideview ? -90.0f : 90.0f;
         float totalTime = GameManager.instance.cameraRotationTime;
 
-        Material mat1 = bottomWall.GetComponent<MeshRenderer>().material;
-        Material mat2 = topWall.GetComponent<MeshRenderer>().material;
-
         isActing = true;
-
-        if (!sideview) // Side view -> Top view
-        {
-            bottomWall.gameObject.SetActive(true);
-            topWall.gameObject.SetActive(true);
-            restrictionSide.gameObject.SetActive(false);
-        }
-        if (sideview) // Top view -> Side view
-            restrictionTop.gameObject.SetActive(false);
 
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             //Camera Rotation
             Camera.main.transform.RotateAround(new Vector3(7, 2, 4), Vector3.right, targetRot / ((totalTime / Time.fixedDeltaTime) + 1));
 
-            //Wall Transparency Control
-            Color color = mat1.color;
-            float amount = Mathf.Lerp(0f, 1f, i / totalTime);
-            if (sideview)
-                amount = 1f - amount;
-
-            color.a = amount;
-            mat1.color = color;
-            mat2.color = color;
-
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
-        }
-
-        if(!sideview) // Side view -> Top view
-            restrictionTop.gameObject.SetActive(true);
-        if (sideview) // Top view -> Side view
-        {
-            bottomWall.gameObject.SetActive(false);
-            topWall.gameObject.SetActive(false);
-            restrictionSide.gameObject.SetActive(true);
         }
 
         isActing = false;
