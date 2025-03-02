@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4008663359074790687}
   - component: {fileID: 8759846630789582369}
   - component: {fileID: 5467788433619916287}
+  - component: {fileID: -5066061546764032696}
   m_Layer: 6
   m_Name: RestrictBlock
   m_TagString: Untagged
@@ -326,3 +327,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &-5066061546764032696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5896389588341306108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed009267d5769544b384a78a55385d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActing: 0
+  isSideViewObject: 0
