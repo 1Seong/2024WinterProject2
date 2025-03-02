@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721e35e6b743c9f4c946a6e0ec5810c8, type: 3}
-  m_Name: 3-2
+  m_Name: 5-2
   m_EditorClassIdentifier: 
-  episodeNum: 2
+  episodeNum: 4
   stageIndex: 1
   stageName: Stage2
-  conversionActive: 0
-  startPos1: {x: 1.5, y: 0, z: 0.5}
+  conversionActive: 1
+  startPos1: {x: 7.5, y: 0, z: 3.5}
   player2Exist: 1
-  startPos2: {x: 1.5, y: 0, z: 7.5}
+  startPos2: {x: 6.5, y: 0, z: 4.5}
