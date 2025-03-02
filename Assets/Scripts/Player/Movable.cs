@@ -11,18 +11,17 @@ public class Movable : MonoBehaviour
 
     public event Action invertEvent;
 
-    Rigidbody rigid;
-    CustomGravity customGravity;
+    protected Rigidbody rigid;
+    protected CustomGravity customGravity;
 
     private bool isPaused = false;
     private float pauseTimer = 0f;
-    private const float PAUSE_DURATION = 5f;
     private Vector3 savedVelocity; //used for Pause
 
     public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
-    private bool onIce = false;
+    protected bool onIce = false;
 
     private void Awake()
     {
@@ -36,6 +35,12 @@ public class Movable : MonoBehaviour
         updateAction += CheckInnerWallVert;
         updateAction += CheckInnerWallHoriz;
         updateAction += IceAction;
+        Stage.convertEventLast += CheckConvertCollision;
+    }
+
+    private void OnDestroy()
+    {
+        Stage.convertEventLast -= CheckConvertCollision;
     }
 
     private void Update()
@@ -43,14 +48,14 @@ public class Movable : MonoBehaviour
         if (!GameManager.instance.isPlaying)
             return;
 
-        /*
+        
         //Handle pause effect
         if (isPaused)
         {
             HandlePauseEffect();
             return;  // Skip other updates while paused
         }
-        */
+        
         updateAction?.Invoke();
     }
 
@@ -62,7 +67,7 @@ public class Movable : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 4f;
+        float targetZ = 100.0f;
 
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
         {
@@ -116,33 +121,11 @@ public class Movable : MonoBehaviour
             hitInnerWall = false;
     }
 
-    private void IceAction()
+    protected virtual void IceAction()
     {
         Vector3 targetVec = customGravity.down;
         Vector3 box = new Vector3(0.49f, 0, 0.5f);
         bool iceExist;
-
-        Func<RaycastHit[], bool> IceExist = (RaycastHit[] rayHit) =>
-        {
-            if (rayHit.Length == 0) return false;
-
-            foreach (var i in rayHit)
-                if (i.distance < 0.1f && i.transform.tag == "Ice")
-                    return true;
-
-            return false;
-        };
-
-        Func<RaycastHit[], bool> PlatformExist = (RaycastHit[] rayHit) =>
-        {
-            if (rayHit.Length == 0) return false;
-
-            foreach (var i in rayHit)
-                if (i.distance < 0.1f)
-                    return true;
-
-            return false;
-        };
 
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
@@ -151,27 +134,43 @@ public class Movable : MonoBehaviour
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
-        iceExist = IceExist(rayHit);
+        iceExist = ObjectExistInRaycast(rayHit, "Ice");
 
         if(!onIce && iceExist && rigid.linearVelocity.x != 0) // onIce : false -> true
         {
             onIce = true;
-            if (tag == "Player")
-                GetComponent<PlayerMove>().enabled = false;
-            else
-                GetComponent<BoxCollider>().material.dynamicFriction = 0;
+            
+            GetComponent<BoxCollider>().material.dynamicFriction = 0;
         }
-        else if(onIce && PlatformExist(rayHit) && !iceExist) // onIce : true -> false
+        else if(onIce && ObjectExistInRaycast(rayHit) && !iceExist) // onIce : true -> false
         {
             onIce = false;
             rigid.linearVelocity = Vector3.zero;
-            if (tag == "Player")
-            {
-                GetComponent<PlayerMove>().enabled = true;
-            }
-            else
-                GetComponent<BoxCollider>().material.dynamicFriction = 2;
+            
+            GetComponent<BoxCollider>().material.dynamicFriction = 2;
         }
+    }
+
+    private bool ObjectExistInRaycast(RaycastHit[] rayHit, String tag)
+    {
+        if (rayHit.Length == 0) return false;
+
+        foreach (var i in rayHit)
+            if (i.distance < 0.1f && i.transform.tag == tag)
+                return true;
+
+        return false;
+    }
+
+    private bool ObjectExistInRaycast(RaycastHit[] rayHit)
+    {
+        if (rayHit.Length == 0) return false;
+
+        foreach (var i in rayHit)
+            if (i.distance < 0.1f)
+                return true;
+
+        return false;
     }
 
     private void FixedUpdate()
@@ -210,7 +209,7 @@ public class Movable : MonoBehaviour
         {
             // Keep the player stopped
             rigid.linearVelocity = Vector3.zero;
-
+            rigid.constraints = RigidbodyConstraints.FreezeAll;
             // Update pause timer
             pauseTimer -= Time.deltaTime;
 
@@ -218,22 +217,68 @@ public class Movable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || pauseTimer <= 0)
             {
                 isPaused = false;
+                rigid.constraints = RigidbodyConstraints.None;
+                rigid.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
                 rigid.linearVelocity = savedVelocity;
                 pauseTimer = 0f;
             }
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void CheckConvertCollision()
     {
-       
+        bool collide = false;
+        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+
+        if (GameManager.instance.isSideView)
+            box = new Vector3(0.49f, 0.5f, 0);
+
+        do
+        {
+            RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, Vector3.zero, Quaternion.identity, 0, LayerMask.GetMask("Platform"));
+            collide = ObjectExistInRaycast(rayHit);
+
+            if(collide)
+                GetComponent<Transform>().position += GetComponent<CustomGravity>().up;
+        }
+        while (collide);
     }
 
-    private void OnCollisionExit(Collision collision)
+    // pause the player for given duration
+    public void Pause(float duration)
     {
+        isPaused = true;
+        pauseTimer = duration;
+        savedVelocity = rigid.linearVelocity;
+        rigid.linearVelocity = Vector3.zero;
+    }
+
+    public void CallGPauseAction()
+    {
+        StartCoroutine(GPauseAction());
+    }
+
+    IEnumerator GPauseAction()
+    {
+        GameManager.instance.gpauseActive = true;
+
+        updateAction -= CheckInvert;
+        invertEvent!.Invoke();
+        Debug.Log("1clear");
+
+        yield return new WaitForSeconds(10f);
+        Debug.Log("2clear");
         
+        invertEvent!.Invoke();
+        yield return new WaitForSeconds(2f);
+        updateAction += CheckInvert;
+        Debug.Log("3clear");
+
+        GameManager.instance.gpauseActive = false;
     }
 
+    // CHANGED: TriggerEnter is activated in the item's script
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.Pause && !isPaused)
@@ -243,6 +288,11 @@ public class Movable : MonoBehaviour
             savedVelocity = rigid.linearVelocity;
             rigid.linearVelocity = Vector3.zero;
         }
-    }
 
+        if (other.GetComponent<NonConsum>()?.type == NonConsum.Type.GPause)
+        {
+            customGravity.GPause();
+        }
+    }
+    */
 }
