@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3327376883078817561}
   - component: {fileID: 967905746991314557}
   - component: {fileID: 4055386822256132467}
+  - component: {fileID: 2936375008717041273}
+  - component: {fileID: 9041603925573477807}
   m_Layer: 0
   m_Name: PinkDoor
   m_TagString: Untagged
@@ -347,5 +349,33 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 2}
+  m_Size: {x: 1, y: 14, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2936375008717041273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257225175470670110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba0eda364cb98545800abf919fa60d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 0
+  inverted: 0
+--- !u!114 &9041603925573477807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257225175470670110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcefc0637d04a14cb52d05dfb4663cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  isComplete: 0
