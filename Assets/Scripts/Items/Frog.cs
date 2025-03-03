@@ -18,11 +18,11 @@ public class Frog : Consumable
         player.jumpUnit = frogJumpUnit;
         Debug.Log("Frog Item applied: Jump unit set to " + player.jumpUnit);
 
-        // °³±¸¸® ¸ðÀÚ Âø¿ë
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (frogHatPrefab != null)
         {
             GameObject frogHat = Instantiate(frogHatPrefab, player.transform);
-            frogHat.transform.localPosition = new Vector3(0, 1.5f, 0); // ¸Ó¸® À§Ä¡¿¡ ¸ðÀÚ ¹èÄ¡
+            frogHat.transform.localPosition = new Vector3(0, 1.5f, 0); // ï¿½Ó¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
             Debug.Log("Frog hat instantiated for player");
         }
 
