@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class RotateTransparent : Transparent
 {
-    [SerializeField] private bool isSideViewObject;
+    private enum mode { fade, instant }
+    [SerializeField] private mode _mode;
+    [SerializeField] private bool _isSideViewObject;
 
     private void Start()
     {
@@ -18,23 +20,25 @@ public class RotateTransparent : Transparent
 
         isActing = true;
 
-        if (!sideview && !isSideViewObject || sideview && isSideViewObject) //when appear
+        if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
             gameObject.SetActive(true);
 
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
-            Color color = mat.color;
-            float amount = Mathf.Lerp(0f, 1f, i / totalTime); //appear
-            if (sideview && isSideViewObject || !sideview && !isSideViewObject) //disappear
-                amount = 1f - amount;
+            if (_mode == mode.fade)
+            {
+                Color color = mat.color;
+                float amount = Mathf.Lerp(0f, 1f, i / totalTime); //appear
+                if (sideview && _isSideViewObject || !sideview && !_isSideViewObject) //disappear
+                    amount = 1f - amount;
 
-            color.a = amount;
-            mat.color = color;
-
+                color.a = amount;
+                mat.color = color;
+            }
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
 
-        if (sideview && !isSideViewObject || !sideview && isSideViewObject) //when disappear
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
             gameObject.SetActive(false);
 
         isActing = false;

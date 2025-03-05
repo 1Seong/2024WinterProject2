@@ -339,5 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed009267d5769544b384a78a55385d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTime: 1
   isActing: 0
-  isSideViewObject: 1
+  _mode: 0
+  _isSideViewObject: 1
