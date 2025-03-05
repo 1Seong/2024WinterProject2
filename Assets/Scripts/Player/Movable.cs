@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,6 +14,7 @@ public class Movable : MonoBehaviour
 
     protected Rigidbody rigid;
     protected CustomGravity customGravity;
+    protected const float TARGET_Z = 4.0f;
 
     private bool isPaused = false;
     private float pauseTimer = 0f;
@@ -67,9 +69,7 @@ public class Movable : MonoBehaviour
         if (GameManager.instance.isSideView)
             return;
         
-        float targetZ = 100.0f;
-
-        if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > targetZ || customGravity.gravityState == GravityState.invertG && rigid.position.z < targetZ)
+        if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > TARGET_Z || customGravity.gravityState == GravityState.invertG && rigid.position.z < TARGET_Z)
         {
             invertEvent?.Invoke();
         }

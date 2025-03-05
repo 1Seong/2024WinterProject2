@@ -47,6 +47,9 @@ public class StageManager : MonoBehaviour
             { Episode.Episode4, episode4 },
             { Episode.Episode5, episode5 }
         };
+
+        //debug code
+        stageClearEvent += () => LoadStage("SeongWon0");
     }
 
     public void StageEnter(Episode episode, int index)
@@ -91,6 +94,11 @@ public class StageManager : MonoBehaviour
     {
         string sceneName = currentStageInfo.data.stageName;
 
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void LoadStage(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
 
