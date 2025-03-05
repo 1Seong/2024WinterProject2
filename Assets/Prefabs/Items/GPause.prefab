@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7451214606375905288}
   - component: {fileID: 2403243287534015512}
   - component: {fileID: 8255856122091719911}
+  - component: {fileID: 4164155373150145223}
+  - component: {fileID: 61693415002186394}
   m_Layer: 0
   m_Name: GPause
   m_TagString: Item
@@ -107,7 +109,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 16, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8255856122091719911
 MonoBehaviour:
@@ -121,4 +123,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7185d9921771b47a613983fea203a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isConsumable: 0
+  color: 0
+--- !u!114 &4164155373150145223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216464849688875215}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba0eda364cb98545800abf919fa60d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 0
+--- !u!114 &61693415002186394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216464849688875215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed009267d5769544b384a78a55385d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 1
+  isActing: 0
+  _mode: 0
+  _isSideViewObject: 0

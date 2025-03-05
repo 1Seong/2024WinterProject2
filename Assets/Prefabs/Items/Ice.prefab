@@ -363,6 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6623528147571864026}
+  - component: {fileID: 8080285010685272188}
   m_Layer: 6
   m_Name: Ice
   m_TagString: Untagged
@@ -386,3 +387,19 @@ Transform:
   - {fileID: 7035957761683282468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8080285010685272188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193326551105480410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed009267d5769544b384a78a55385d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTime: 1
+  isActing: 0
+  _mode: 1
+  _isSideViewObject: 0
