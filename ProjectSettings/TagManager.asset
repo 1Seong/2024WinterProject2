@@ -12,6 +12,7 @@ TagManager:
   - NonConsum
   - Ice
   - Item
+  - UI
   layers:
   - Default
   - TransparentFX

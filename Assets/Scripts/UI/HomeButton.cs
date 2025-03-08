@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class HomeButton : MonoBehaviour
 {
-    public void GoEpisodeBoard()
+    public void LoadEpisodeBoard()
     {
         SceneManager.LoadScene("EpisodeBoard");
     }
