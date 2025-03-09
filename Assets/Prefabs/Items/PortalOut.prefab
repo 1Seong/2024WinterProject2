@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 467099310867802634}
   - component: {fileID: 4920211599650509223}
   - component: {fileID: 8433216058913334082}
+  - component: {fileID: 6931306209125066892}
   m_Layer: 0
   m_Name: PortalOut
   m_TagString: Item
@@ -106,5 +107,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 16, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6931306209125066892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765344997636703946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba0eda364cb98545800abf919fa60d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 0

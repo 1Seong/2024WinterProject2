@@ -24,6 +24,8 @@ public class StageManager : MonoBehaviour
     public GameObject wallPrefab;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 
+    [SerializeField] private Door[] doors;
+
     private Dictionary<Episode, StageData[]> _epStagePair;
 
     public event Action stageEnterEvent;
@@ -45,6 +47,9 @@ public class StageManager : MonoBehaviour
             { Episode.Episode4, episode4 },
             { Episode.Episode5, episode5 }
         };
+
+        //debug code
+        stageClearEvent += () => LoadStage("SeongWon0");
     }
 
     public void StageEnter(Episode episode, int index)
@@ -61,7 +66,11 @@ public class StageManager : MonoBehaviour
 
     public void CheckStageClear()
     {
-
+        foreach(var door in doors)
+        {
+            if (!door.isComplete) return;
+        }
+        StageClear();
     }
 
     public void StageClear()
@@ -85,6 +94,11 @@ public class StageManager : MonoBehaviour
     {
         string sceneName = currentStageInfo.data.stageName;
 
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void LoadStage(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
 

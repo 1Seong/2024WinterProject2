@@ -24,7 +24,7 @@ public class CustomGravity : MonoBehaviour
         set
         {
             _gravityState = value;
-            switch(value)
+            switch (value)
             {
                 case GravityState.invertG:
                     _currentGravity = new Vector3(0, 0, 9.81f);
@@ -53,7 +53,7 @@ public class CustomGravity : MonoBehaviour
 
     void Awake()
     {
-        if(tag == "Player")
+        if (tag == "Player1" || tag == "Player2")
             movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
     }

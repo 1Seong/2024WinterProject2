@@ -4,8 +4,9 @@ public class Swap : Consumable
 {
     GameObject player1, player2;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         PlayerTriggerEvent += _ => SwapActivate();
     }
 

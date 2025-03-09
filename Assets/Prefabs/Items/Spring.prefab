@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 1081521929253617636}
   - component: {fileID: 8230632082871085644}
   - component: {fileID: -453654669034775450}
+  - component: {fileID: 238864954611845592}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Item
@@ -285,5 +286,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb281ab8c47ea6f4697b9d3f35b9caf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isConsumable: 0
+  color: 0
   springJumpUnit: 10
+--- !u!114 &238864954611845592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347869255024758824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8536f5bb9b699734a88f32ba369ede7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitInnerWall: 0
+  onInnerWall: 0
