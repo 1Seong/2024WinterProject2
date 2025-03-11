@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7960404884381059504}
   - component: {fileID: 9004262624684311851}
   - component: {fileID: 3327376883078817561}
-  - component: {fileID: 967905746991314557}
   - component: {fileID: 4055386822256132467}
   - component: {fileID: 2514249727576233476}
   - component: {fileID: -933479340048220881}
@@ -311,28 +310,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257225175470670110}
   m_Mesh: {fileID: 0}
---- !u!64 &967905746991314557
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257225175470670110}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!65 &4055386822256132467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -348,12 +325,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 16, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 16, z: 0.1}
+  m_Center: {x: 0, y: 0, z: -0.45}
 --- !u!114 &2514249727576233476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTime: 1
   isActing: 0
-  isSideViewObject: 0
+  _mode: 0
+  _isSideViewObject: 0
 --- !u!1 &1768452078753693639
 GameObject:
   m_ObjectHideFlags: 0

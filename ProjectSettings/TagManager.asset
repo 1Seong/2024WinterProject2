@@ -7,13 +7,13 @@ TagManager:
   - Bottom
   - Top
   - Background
-  - Inner
   - OtherWall
   - NonConsum
   - Ice
   - Item
   - Player1
   - Player2
+  - Inner
   layers:
   - Default
   - TransparentFX

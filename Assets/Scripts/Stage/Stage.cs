@@ -87,7 +87,7 @@ public class Stage : MonoBehaviour
         if (data.player2Exist)
         {
             CreateWall(true);
-            CreateWall(false);
+            
         }
 
         ProjectionSetting();
@@ -214,6 +214,7 @@ public class Stage : MonoBehaviour
 
             // Create new Object
             GameObject wall = Instantiate(StageManager.instance.wallPrefab);
+            wall.tag = "Inner";
 
             if(onXY)
                 wall.transform.SetParent(projectionWallParentXY);

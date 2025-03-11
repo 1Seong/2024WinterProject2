@@ -16,11 +16,13 @@ public class Door : MonoBehaviour
     private void Start()
     {
         isComplete = false;
+        StageManager.instance.doors.Add(this);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (playerSelectable.CheckColor(other, (int)color) == false) return;
+        
         enterTime = Time.time;
     }
 

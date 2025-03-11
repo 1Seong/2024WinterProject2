@@ -88,7 +88,7 @@ public class Movable : MonoBehaviour
         }
 
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        Vector3 box = new Vector3(0.49f, 0.4f, 0.5f);
 
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
@@ -97,11 +97,19 @@ public class Movable : MonoBehaviour
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
-        if (rayHit.Length != 0 && rayHit[0].distance < 0.07f && rayHit[0].transform.tag == "Inner")
-            onInnerWall = true;
-        else
-            onInnerWall = false;
-        
+        if (rayHit.Length != 0)
+        {
+            foreach(var hit in rayHit)
+            {
+                
+                if(hit.collider.tag == "Inner" && hit.distance < 0.07f)
+                {
+                    onInnerWall = true;
+                    return;
+                }
+            }
+        }
+        onInnerWall = false;
     }
 
     private void CheckInnerWallHoriz()
@@ -115,7 +123,7 @@ public class Movable : MonoBehaviour
         // Use box cast to check inner walls
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
    
-        if (rayHit.Length != 0 && rayHit[0].transform.tag == "Inner" && rayHit[0].distance < 0.06f)
+        if (rayHit.Length != 0 && rayHit[0].collider.tag == "Inner" && rayHit[0].distance < 0.06f)
             hitInnerWall = true;
         else
             hitInnerWall = false;
@@ -156,7 +164,7 @@ public class Movable : MonoBehaviour
         if (rayHit.Length == 0) return false;
 
         foreach (var i in rayHit)
-            if (i.distance < 0.1f && i.transform.tag == tag)
+            if (i.distance < 0.1f && i.collider.tag == tag)
                 return true;
 
         return false;
