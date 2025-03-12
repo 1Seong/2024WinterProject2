@@ -15,4 +15,9 @@ public class OptionButton : MonoBehaviour
         optionPanel.SetActive(false);
         Time.timeScale = 1;
     }
+
+    public void Restart()
+    {
+        //restart stage
+    }
 }

@@ -49,7 +49,7 @@ public class StageManager : MonoBehaviour
         };
 
         //debug code
-        stageClearEvent += () => LoadStage("SeongWon0");
+        stageClearEvent += () => 
     }
 
     public void StageEnter(Episode episode, int index)
