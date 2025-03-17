@@ -18,6 +18,7 @@ public class SpringScript : ItemBehavior
         gravity = Physics.gravity.magnitude;
         initialVelocity = Mathf.Sqrt(2 * gravity * springJumpUnit);
         float force = objRb.mass * initialVelocity + 0.5f;
+        objRb.linearVelocity = Vector3.zero;
         objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);  
     }
 }

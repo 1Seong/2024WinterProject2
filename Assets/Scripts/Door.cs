@@ -4,7 +4,7 @@ using static PlayerSelectableInterface;
 
 public class Door : MonoBehaviour
 {
-    enum PlayerColor { pink, blue }
+    enum PlayerColor { pink = 1, blue }
     [SerializeField] private  PlayerColor color;
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
@@ -34,6 +34,9 @@ public class Door : MonoBehaviour
         if (stayTime >= goalTime)
         {
             isComplete = true;
+            GetComponent<Collider>().enabled = false;
+            other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            other.GetComponent<Transparent>().CallFade();
             StageManager.instance.CheckStageClear();
         }
     }

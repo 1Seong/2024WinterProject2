@@ -21,6 +21,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageData[] episode5;
 
     public CurrentStage currentStageInfo;
+    public Stage stage;
     public GameObject wallPrefab;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 

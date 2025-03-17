@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcefc0637d04a14cb52d05dfb4663cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 1
+  color: 2
   isComplete: 0
 --- !u!114 &-933479340048220881
 MonoBehaviour:

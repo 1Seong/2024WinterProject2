@@ -20,7 +20,7 @@ public abstract class ItemBehavior : MonoBehaviour
 
     virtual protected void OnTriggerEnter(Collider other)
     {
-        if (playerSelectable is not PlayerSelectable || !PerformPlayerCheck(other, (int)color)) return;
+        if (playerSelectable is PlayerSelectable && !PerformPlayerCheck(other, (int)color)) return;
 
         Debug.Log("parent trigger!");
         if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")

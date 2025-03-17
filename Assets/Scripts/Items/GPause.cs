@@ -2,19 +2,17 @@ using System.Collections;
 using UnityEngine;
 using static PlayerSelectableInterface;
 
-public class GPause : ItemBehavior
+public class GPause : Consumable
 {
-    Movable player;
-
-    protected override void OnTriggerEnter(Collider other)
+    protected override void Awake()
     {
-        if (GameManager.instance.gpauseActive) return;
-        
-        player = other.GetComponent<Movable>();
-        PlayerTriggerEvent += _ => player.CallGPauseAction();
-        base.OnTriggerEnter(other);
+        base.Awake();
+        PlayerTriggerEvent += _ =>
+        {
+            foreach (var i in StageManager.instance.stage.movables)
+                i.CallGPauseAction();
+        };
     }
-
 
     /////////////////// NOT USED ////////////////////
     /*

@@ -84,8 +84,15 @@ public class PlayerJump : MonoBehaviour
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
-        if (rayHit.Length != 0 && rayHit[0].distance < 0.07f)
-            isJumping = false;
+        if (rayHit.Length != 0)
+            foreach(var i in rayHit)
+            {
+                if (i.distance < 0.07f && tag != i.collider.tag)
+                {
+                    isJumping = false;
+                    break;
+                }
+            }
     }
 
     private void PerformJump()

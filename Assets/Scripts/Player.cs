@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class Player : Movable
 {
-    private void OnEnable()
-    {
-        StageManager.instance.stageClearEvent += GetComponent<Transparent>().CallFade;
-    }
-
     protected override void IceAction()
     {
         Vector3 targetVec = customGravity.down;
@@ -58,10 +53,5 @@ public class Player : Movable
             
             GetComponent<PlayerMove>().enabled = true;
         }
-    }
-
-    private void OnDestroy()
-    {
-        StageManager.instance.stageClearEvent -= GetComponent<Transparent>().CallFade;
     }
 }

@@ -38,11 +38,15 @@ public class Movable : MonoBehaviour
         updateAction += CheckInnerWallHoriz;
         updateAction += IceAction;
         Stage.convertEventLast += CheckConvertCollision;
+
+        StageManager.instance.stage.movables.Add(this);
     }
 
     private void OnDestroy()
     {
         Stage.convertEventLast -= CheckConvertCollision;
+        StageManager.instance.stage.movables.Remove(this);
+        StopCoroutine(GPauseAction());
     }
 
     private void Update()
@@ -175,7 +179,7 @@ public class Movable : MonoBehaviour
         if (rayHit.Length == 0) return false;
 
         foreach (var i in rayHit)
-            if (i.distance < 0.1f)
+            if (i.distance < 0.1f && tag != i.collider.tag)
                 return true;
 
         return false;
@@ -222,7 +226,7 @@ public class Movable : MonoBehaviour
             pauseTimer -= Time.deltaTime;
 
             // Check for space key or timer completion
-            if (Input.GetKeyDown(KeyCode.Space) || pauseTimer <= 0)
+            if (Input.GetKeyDown(KeyCode.Q) || pauseTimer <= 0)
             {
                 isPaused = false;
                 rigid.constraints = RigidbodyConstraints.None;
@@ -271,6 +275,7 @@ public class Movable : MonoBehaviour
         GameManager.instance.gpauseActive = true;
 
         updateAction -= CheckInvert;
+        
         invertEvent!.Invoke();
         Debug.Log("1clear");
 
