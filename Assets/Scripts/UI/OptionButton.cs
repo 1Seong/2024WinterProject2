@@ -2,10 +2,11 @@ using UnityEngine;
 public class OptionButton : MonoBehaviour
 {
     public GameObject optionPanel;
+    GameManager GM = GameManager.instance;
     public void OpenPanel()
     {
         optionPanel.SetActive(true);
-        Time.timeScale = 0;
+        GM.Stop();
         //open up option panel
     }
 
@@ -13,11 +14,20 @@ public class OptionButton : MonoBehaviour
     {
         //transform.parent.gameObject.SetActive(false);
         optionPanel.SetActive(false);
-        Time.timeScale = 1;
+        GM.Resume();
     }
 
     public void Restart()
     {
         //restart stage
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (GM.isPlaying) OpenPanel();
+            else ClosePanel();
+        }
     }
 }

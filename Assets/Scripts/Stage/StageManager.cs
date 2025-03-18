@@ -27,6 +27,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Door[] doors;
 
     private Dictionary<Episode, StageData[]> _epStagePair;
+    public GameObject canvas;
 
     public event Action stageEnterEvent;
     public event Action stageClearEvent;
@@ -49,7 +50,7 @@ public class StageManager : MonoBehaviour
         };
 
         //debug code
-        stageClearEvent += () => 
+        //stageClearEvent += () => 
     }
 
     public void StageEnter(Episode episode, int index)
