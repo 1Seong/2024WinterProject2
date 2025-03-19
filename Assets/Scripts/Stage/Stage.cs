@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,11 +19,13 @@ public class Stage : MonoBehaviour
     private Transform restrictionSide;
     private Transform restrictionTop;
 
-    private GameObject player1;
-    private GameObject player2;
+    public GameObject player1;
+    public GameObject player2;
 
     private bool isActing = false;
     private bool restrict = false;
+
+    public List<Movable> movables;
 
     public static event Action stageStartEvent;
     public static event Action convertEvent;
@@ -50,6 +53,8 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
+        StageManager.instance.stage = this;
+
         stageStartEvent?.Invoke();
     }
 
@@ -87,7 +92,7 @@ public class Stage : MonoBehaviour
         if (data.player2Exist)
         {
             CreateWall(true);
-            CreateWall(false);
+            
         }
 
         ProjectionSetting();
@@ -214,6 +219,7 @@ public class Stage : MonoBehaviour
 
             // Create new Object
             GameObject wall = Instantiate(StageManager.instance.wallPrefab);
+            wall.tag = "Inner";
 
             if(onXY)
                 wall.transform.SetParent(projectionWallParentXY);

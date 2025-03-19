@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
         //Stop speed when button is up
         if (Input.GetButtonUp("Horizontal"))
         {
-            rigid.linearVelocity = new Vector3(rigid.linearVelocity.normalized.x * 0.0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
+            rigid.linearVelocity = new Vector3(0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
         }
     }
 

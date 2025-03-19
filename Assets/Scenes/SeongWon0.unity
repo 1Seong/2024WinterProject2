@@ -4069,10 +4069,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   episode1:
   - {fileID: 11400000, guid: 7b7f7083706ef7e44a95d8948a72a518, type: 2}
-  - {fileID: 11400000, guid: 412edc5d67ab9b64bb2d85a1a4711792, type: 2}
-  - {fileID: 11400000, guid: 5f10c8b3f2fad874386f4e930baa5d78, type: 2}
-  - {fileID: 11400000, guid: 09806b675d8f70a45a9e25dd493a24dc, type: 2}
-  - {fileID: 11400000, guid: 15746a35d7aa8be45b21bb006c571a6c, type: 2}
+  - {fileID: 11400000, guid: e82f8a80db008b3449725d1ed5e4fa89, type: 2}
+  - {fileID: 11400000, guid: 7244e2780e32a504eb644856bac2a26b, type: 2}
+  - {fileID: 11400000, guid: 9c1b96d71c614ee4b82cb292d8fb2ce9, type: 2}
+  - {fileID: 11400000, guid: fde066deef743a748a4a9eaaef53df36, type: 2}
   episode2:
   - {fileID: 11400000, guid: a85df699e65640543b76745de256cc52, type: 2}
   - {fileID: 11400000, guid: 311af042d6d08214f8bdc10ac1d2d6c6, type: 2}
@@ -4097,6 +4097,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0495b6fe438f1c84b801b5c5715d0acc, type: 2}
   - {fileID: 11400000, guid: 4c62160515063f944ba3786617149808, type: 2}
   - {fileID: 11400000, guid: 612f1a91f0c914a4ba022864284c5aa6, type: 2}
+  stage: {fileID: 0}
   wallPrefab: {fileID: 5193326551105480410, guid: 28a2bd3eea982134c965ae160c9732b8, type: 3}
   physicsMat: {fileID: 13400000, guid: 3fb795ed03028674496898671af09e99, type: 2}
   doors: []
@@ -6413,8 +6414,8 @@ MonoBehaviour:
   isSideView: 0
   cameraRotationTime: 0.3
   gpauseActive: 0
-  speed: 2
-  maxSpeed: 2
+  speed: 2.5
+  maxSpeed: 2.5
   player1: {fileID: 5193326551105480410, guid: b547f268192da324c8cf9d2c6bedb91c, type: 3}
   player2: {fileID: 3094623692732916449, guid: 50781ba5e8c5a9746bc66fe93eef6e6f, type: 3}
 --- !u!1 &2134713665

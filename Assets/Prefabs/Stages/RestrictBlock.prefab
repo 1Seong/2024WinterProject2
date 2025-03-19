@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5066061546764032696}
   m_Layer: 6
   m_Name: RestrictBlock
-  m_TagString: Untagged
+  m_TagString: OtherWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,5 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed009267d5769544b384a78a55385d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTime: 1
   isActing: 0
-  isSideViewObject: 0
+  _mode: 0
+  _isSideViewObject: 0

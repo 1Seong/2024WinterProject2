@@ -53,8 +53,8 @@ public class CustomGravity : MonoBehaviour
 
     void Awake()
     {
-        if (tag == "Player1" || tag == "Player2")
-            movable = GetComponent<Movable>();
+        
+        movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
     }
 
@@ -127,6 +127,7 @@ public class CustomGravity : MonoBehaviour
 
     private void InvertAction()
     {
+        Debug.Log("InvertAction Invoked");
         if (gravityState == GravityState.defaultG)
             SetToInvert();
         else

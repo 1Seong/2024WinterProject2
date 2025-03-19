@@ -21,10 +21,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageData[] episode5;
 
     public CurrentStage currentStageInfo;
+    public Stage stage;
     public GameObject wallPrefab;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 
-    [SerializeField] private Door[] doors;
+    public List<Door> doors;
 
     private Dictionary<Episode, StageData[]> _epStagePair;
     public GameObject canvas;
@@ -86,6 +87,7 @@ public class StageManager : MonoBehaviour
         if(GameManager.instance.isPlaying)
             GameManager.instance.isPlaying = false;
 
+        doors.Clear();
         stageExitEvent?.Invoke();
 
         LoadSelectStage();

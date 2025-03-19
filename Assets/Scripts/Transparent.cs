@@ -8,6 +8,7 @@ public class Transparent : MonoBehaviour
 
     public void CallFade()
     {
+        Debug.Log("Fade");
         StartCoroutine(Fade());
     }
 
@@ -21,7 +22,7 @@ public class Transparent : MonoBehaviour
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             Color color = mat.color;
-            float amount = Mathf.Lerp(0f, 1f, i / totalTime);
+            float amount = Mathf.Lerp(1f, 0f, i / totalTime);
 
             color.a = amount;
             mat.color = color;
@@ -29,6 +30,7 @@ public class Transparent : MonoBehaviour
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
 
+        gameObject.SetActive(false);
         isActing = false;
     }
 }
