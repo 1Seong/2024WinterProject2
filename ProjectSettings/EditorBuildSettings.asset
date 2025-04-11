@@ -39,10 +39,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Stages/Episode1/Stage1.unity
     guid: fdb1e2962904ff448b08e6cd80553473
   - enabled: 1
-    path: Assets/Scenes/Stages/Episode1/Stage2.unity
+    path: Assets/Scenes/Stages/Episode1/Stage3.unity
     guid: cafe0a9a2b8174e4aa17e6c7cfb67942
   - enabled: 1
-    path: Assets/Scenes/Stages/Episode1/Stage3.unity
+    path: Assets/Scenes/Stages/Episode1/Stage2.unity
     guid: 276b3025a9311614f888a8bc625f8493
   - enabled: 1
     path: Assets/Scenes/Stages/Episode1/Stage4.unity

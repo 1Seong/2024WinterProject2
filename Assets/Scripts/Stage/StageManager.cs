@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
     public CurrentStage currentStageInfo;
     public Stage stage;
     public GameObject wallPrefab;
+    public GameObject ClearPanel;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 
     public List<Door> doors;
@@ -33,7 +34,8 @@ public class StageManager : MonoBehaviour
     public event Action stageEnterEvent;
     public event Action stageClearEvent;
     public event Action stageExitEvent;
-    
+
+
     private void Awake()
     {
         instance = this;
@@ -50,8 +52,11 @@ public class StageManager : MonoBehaviour
             { Episode.Episode5, episode5 }
         };
 
-        //debug code
-        //stageClearEvent += () => 
+        //stageClearEvent
+    }
+    private void Start()
+    {
+        stageClearEvent += ()=> DataManager.Instance.ChapterUnlock((int)currentStageInfo.episode, currentStageInfo.stageIndex);
     }
 
     public void StageEnter(Episode episode, int index)
@@ -77,8 +82,16 @@ public class StageManager : MonoBehaviour
 
     public void StageClear()
     {
-        GameManager.instance.isPlaying = false;
+        int episode = (int)currentStageInfo.episode;
+        int index = currentStageInfo.stageIndex;
 
+        //연산 추가
+        if 
+        //게임 정지
+        GameManager.instance.isPlaying = false;
+        //UI표시
+        ClearPanel.SetActive(true);
+        
         stageClearEvent?.Invoke();
     }
 
@@ -109,12 +122,15 @@ public class StageManager : MonoBehaviour
     {
 
     }
+    public void LoadNextStage()
+    {
+        string nextSName = currentStageInfo.data.stageName;
+    }
 
     public void Reset()
     {
-        /*
-         * Reset the game
-         */
-        LoadStage();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
 }

@@ -35,16 +35,8 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        /*
-         *  Additional initialization
-         */
-        
-        
+        DataManager.Instance.LoadGameData();
 
-        
-
-        //initialize stages
-        
     }
 
     private void Update()
@@ -74,10 +66,9 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         /*
-         * Resume the game
-         */
+        * Resume the game
+        */
         isPlaying = true;
-
         Time.timeScale = 1;
     }
 
