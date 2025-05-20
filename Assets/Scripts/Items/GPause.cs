@@ -7,9 +7,11 @@ public class GPause : Consumable
     protected override void Awake()
     {
         base.Awake();
-        PlayerTriggerEvent += _ =>
+        PlayerTriggerEvent += (Collider other) =>
         {
-            foreach (var i in StageManager.instance.stage.movables)
+            var movables = color == PlayerColor.blue ? StageManager.instance.stage.defaultMovables : StageManager.instance.stage.invertMovables;
+            
+            foreach (var i in movables)
                 i.CallGPauseAction();
         };
     }

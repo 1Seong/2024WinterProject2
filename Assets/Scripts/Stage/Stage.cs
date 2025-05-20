@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,7 +26,8 @@ public class Stage : MonoBehaviour
     private bool isActing = false;
     private bool restrict = false;
 
-    public List<Movable> movables;
+    public List<Movable> defaultMovables;
+    public List<Movable> invertMovables;
 
     public static event Action stageStartEvent;
     public static event Action convertEvent;
@@ -33,6 +35,8 @@ public class Stage : MonoBehaviour
 
     private void Awake()
     {
+        StageManager.instance.stage = this;
+
         stageStartEvent += Init;
         stageStartEvent += ObjectReposition;
         stageStartEvent += MakeProjection;
@@ -53,8 +57,6 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
-        StageManager.instance.stage = this;
-
         stageStartEvent?.Invoke();
     }
 
@@ -216,6 +218,8 @@ public class Stage : MonoBehaviour
 
             // Add thickness to mesh
             AddThickness(wallMesh, 0.2f, onXY);
+            wallMesh.Optimize();
+            MeshUtility.Optimize(wallMesh);
 
             // Create new Object
             GameObject wall = Instantiate(StageManager.instance.wallPrefab);
@@ -236,7 +240,7 @@ public class Stage : MonoBehaviour
             MeshRenderer mesher = wall.GetComponent<MeshRenderer>();
             mesher.enabled = false;
 
-            MeshCollider coll = wall.AddComponent<MeshCollider>();
+            Collider coll = wall.AddComponent<MeshCollider>();
             coll.material = StageManager.instance.physicsMat;
         }
     }
@@ -328,9 +332,13 @@ public class Stage : MonoBehaviour
     {
         //please add item reposition logic
         player1 = Instantiate(GameManager.instance.player1, data.startPos1, Quaternion.identity);
-        
+        player1.SetActive(true);
         if (data.player2Exist)
+        {
             player2 = Instantiate(GameManager.instance.player2, data.startPos2, Quaternion.identity);
+            player2.SetActive(true);
+        }
+            
 
         if (GameManager.instance.isSideView) // Top view -> Side view
         {

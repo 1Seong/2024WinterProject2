@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.1, z: 0.8}
+  m_Size: {x: 0.75, y: 0.1, z: 0.8}
   m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!114 &2232859631141658327
 MonoBehaviour:
@@ -119,7 +119,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.8, z: 0.1}
+  m_Size: {x: 0.75, y: 0.8, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0.45}
 --- !u!114 &3003714482705461064
 MonoBehaviour:
@@ -148,8 +148,8 @@ GameObject:
   - component: {fileID: 1081521929253617636}
   - component: {fileID: 8230632082871085644}
   - component: {fileID: -453654669034775450}
-  - component: {fileID: 238864954611845592}
   - component: {fileID: 4716338217846072189}
+  - component: {fileID: -4524043744649790466}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Item
@@ -235,7 +235,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3347869255024758824}
-  m_Material: {fileID: 13400000, guid: ad200896323d1714690abde955d14b42, type: 2}
+  m_Material: {fileID: 13400000, guid: 3fb795ed03028674496898671af09e99, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -247,7 +247,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8230632082871085644
 Rigidbody:
@@ -290,20 +290,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   springJumpUnit: 2
---- !u!114 &238864954611845592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347869255024758824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8536f5bb9b699734a88f32ba369ede7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitInnerWall: 0
-  onInnerWall: 0
 --- !u!114 &4716338217846072189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +305,22 @@ MonoBehaviour:
   _gravityState: 0
   up: {x: 0, y: 0, z: 0}
   down: {x: 0, y: 0, z: 0}
+--- !u!114 &-4524043744649790466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347869255024758824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc293aac1a330c14eac80344dc83c7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitInnerWall: 0
+  onInnerWall: 0
+  _horizCollDis: 0.063
+  _vertCollDis: 0.003
 --- !u!1 &5821655054803327062
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +373,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.8, z: 0.1}
+  m_Size: {x: 0.75, y: 0.8, z: 0.1}
   m_Center: {x: 0, y: 0, z: -0.45}
 --- !u!114 &1856389114236631802
 MonoBehaviour:

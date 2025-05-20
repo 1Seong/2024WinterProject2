@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class ItemBehavior : MonoBehaviour
 {
     public enum PlayerColor { noneSelectable, pink, blue };
-    [SerializeField]PlayerColor color;
+    [SerializeField]protected PlayerColor color;
 
     protected PlayerSelectableInterface playerSelectable;
 

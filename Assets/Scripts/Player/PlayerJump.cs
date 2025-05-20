@@ -75,7 +75,7 @@ public class PlayerJump : MonoBehaviour
         isJumping = true;
 
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        Vector3 box = new Vector3(0.47f, 0, 0.5f);
 
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);

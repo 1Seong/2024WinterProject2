@@ -56,11 +56,12 @@ public class CustomGravity : MonoBehaviour
         
         movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
+        gravityState = _gravityState;
     }
 
     private void Start()
     {
-        gravityState = _gravityState;
+        
         //it may cause problem when stage start in top view state
         //if (gravityState == GravityState.defaultG)
         //    gPauseAtDefaultEvent += CallGPauseAction;
@@ -70,7 +71,7 @@ public class CustomGravity : MonoBehaviour
         Stage.convertEvent += ConvertAction;
 
         if(movable != null)
-            movable.invertEvent += Inversion;
+            movable.invertEvent += InvertAction;
     }
 
     private void OnDestroy()
@@ -92,12 +93,22 @@ public class CustomGravity : MonoBehaviour
     {
         gravityState = GravityState.defaultG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
+        if (GameManager.instance.gpauseActive) return;
+
+        StageManager.instance.stage.invertMovables.Remove(GetComponent<Movable>());
+        StageManager.instance.stage.defaultMovables.Add(GetComponent<Movable>());
     }
 
     public void SetToInvert()
     {
         gravityState = GravityState.invertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
+        if (GameManager.instance.gpauseActive) return;
+
+        StageManager.instance.stage.defaultMovables.Remove(GetComponent<Movable>());
+        StageManager.instance.stage.invertMovables.Add(GetComponent<Movable>());
     }
 
     public void SetToConvert()
@@ -106,23 +117,6 @@ public class CustomGravity : MonoBehaviour
 
         gravityState = GravityState.convertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-    }
-
-    private void Inversion()
-    {
-        //if (gravityState == GravityState.defaultG)
-        //{
-        //    gPauseAtDefaultEvent -= CallGPauseAction;
-        //    gPauseAtInvertEvent += CallGPauseAction;
-        //}
-        //else if (gravityState == GravityState.invertG)
-        //{
-        //    gPauseAtDefaultEvent += CallGPauseAction;
-        //    gPauseAtInvertEvent -= CallGPauseAction;
-        //}
-        //else return;
-        
-        InvertAction();
     }
 
     private void InvertAction()
