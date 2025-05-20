@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -219,7 +219,7 @@ public class Stage : MonoBehaviour
             // Add thickness to mesh
             AddThickness(wallMesh, 0.2f, onXY);
             wallMesh.Optimize();
-            MeshUtility.Optimize(wallMesh);
+            //MeshUtility.Optimize(wallMesh);
 
             // Create new Object
             GameObject wall = Instantiate(StageManager.instance.wallPrefab);
@@ -247,65 +247,77 @@ public class Stage : MonoBehaviour
 
     void AddThickness(Mesh mesh, float thickness, bool isOnXY)
     {
-        /*
-         * Add thickness to the mesh
-         */
         Vector3 targetVec = isOnXY ? Vector3.back : Vector3.up;
 
-        // Copy original vertices
         Vector3[] originalVertices = mesh.vertices;
-        Vector3[] newVertices = new Vector3[originalVertices.Length * 2];
-
-        // Add front and back vertices
-        for (int i = 0; i < originalVertices.Length; i++)
-        {
-            newVertices[i] = originalVertices[i]; // Front vertices
-            newVertices[i + originalVertices.Length] = originalVertices[i] + targetVec * thickness; // Back vertices
-        }
-
-        // Copy original triangles for front and back faces
         int[] originalTriangles = mesh.triangles;
-        int[] newTriangles = new int[originalTriangles.Length * 2 + originalVertices.Length * 6];
 
-        // Front face triangles (unchanged)
-        for (int i = 0; i < originalTriangles.Length; i++)
+        int vertexCount = originalVertices.Length;
+        int triangleCount = originalTriangles.Length;
+
+        // 1. 두께 적용된 새로운 정점 생성
+        Vector3[] newVertices = new Vector3[vertexCount * 2];
+        for (int i = 0; i < vertexCount; i++)
         {
-            newTriangles[i] = originalTriangles[i];
+            newVertices[i] = originalVertices[i]; // Front
+            newVertices[i + vertexCount] = originalVertices[i] + targetVec * thickness; // Back
         }
 
-        // Back face triangles (reversed to maintain correct normals)
-        for (int i = 0; i < originalTriangles.Length; i += 3)
+        // 2. 앞면과 뒷면 삼각형
+        List<int> newTriangles = new List<int>();
+
+        // 앞면: 원래와 동일
+        for (int i = 0; i < triangleCount; i++)
+            newTriangles.Add(originalTriangles[i]);
+
+        // 뒷면: 정점 인덱스를 뒤집고, 뒤쪽 정점들을 가리키도록 오프셋
+        for (int i = 0; i < triangleCount; i += 3)
         {
-            newTriangles[originalTriangles.Length + i] = originalTriangles[i] + originalVertices.Length;
-            newTriangles[originalTriangles.Length + i + 1] = originalTriangles[i + 2] + originalVertices.Length;
-            newTriangles[originalTriangles.Length + i + 2] = originalTriangles[i + 1] + originalVertices.Length;
+            newTriangles.Add(originalTriangles[i] + vertexCount);
+            newTriangles.Add(originalTriangles[i + 2] + vertexCount);
+            newTriangles.Add(originalTriangles[i + 1] + vertexCount);
         }
 
-        // Add side faces
-        int offset = originalTriangles.Length * 2;
-        for (int i = 0; i < originalVertices.Length; i++)
+        // 3. side face 생성 – edge 중복 없이 처리
+        HashSet<(int, int)> addedEdges = new HashSet<(int, int)>();
+
+        void AddSideFace(int i0, int i1)
         {
-            int next = (i + 1) % originalVertices.Length;
+            var edge = (Math.Min(i0, i1), Math.Max(i0, i1));
+            if (addedEdges.Contains(edge)) return;
+            addedEdges.Add(edge);
 
-            if (i < next)
-            {
-                // Triangle 1
-                newTriangles[offset++] = i;
-                newTriangles[offset++] = i + originalVertices.Length;
-                newTriangles[offset++] = next;
+            int i0Back = i0 + vertexCount;
+            int i1Back = i1 + vertexCount;
 
-                // Triangle 2
-                newTriangles[offset++] = next;
-                newTriangles[offset++] = i + originalVertices.Length;
-                newTriangles[offset++] = next + originalVertices.Length;
-            }
+            // Triangle 1
+            newTriangles.Add(i0);
+            newTriangles.Add(i1Back);
+            newTriangles.Add(i1);
+
+            // Triangle 2
+            newTriangles.Add(i0);
+            newTriangles.Add(i0Back);
+            newTriangles.Add(i1Back);
         }
 
-        // Apply to mesh
+        for (int i = 0; i < triangleCount; i += 3)
+        {
+            int i0 = originalTriangles[i];
+            int i1 = originalTriangles[i + 1];
+            int i2 = originalTriangles[i + 2];
+
+            AddSideFace(i0, i1);
+            AddSideFace(i1, i2);
+            AddSideFace(i2, i0);
+        }
+
+        // 4. 적용
+        mesh.Clear();
         mesh.vertices = newVertices;
-        mesh.triangles = newTriangles;
-        mesh.RecalculateBounds();
+        mesh.triangles = newTriangles.ToArray();
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
     }
 
     private void ReposProjection()

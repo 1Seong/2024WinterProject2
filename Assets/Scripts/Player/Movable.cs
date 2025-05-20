@@ -27,7 +27,7 @@ public class Movable : MonoBehaviour
     protected bool onIce = false;
 
     [SerializeField] private float _horizCollDis = 0.063f;
-    [SerializeField] private float _vertCollDis = 0.003f;
+    [SerializeField] private float _vertCollDis = 0.01f;
 
     private List<Movable> movables;
 
@@ -107,7 +107,7 @@ public class Movable : MonoBehaviour
 
         //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
 
-        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position + 0.1f * targetVec, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
         if (rayHit.Length != 0)
         {

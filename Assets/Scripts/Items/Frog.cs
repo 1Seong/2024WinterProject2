@@ -6,6 +6,13 @@ public class Frog : Consumable
     public int frogJumpUnit = 2;
     public GameObject frogHatPrefab;
 
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (other.tag != "Player1" || other.tag != "Player2") return;
+        if (other.GetComponent<Player>().frog) return;
+        base.OnTriggerEnter(other);
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -14,17 +21,15 @@ public class Frog : Consumable
 
     private void FrogActivate(Collider other)
     {
-        PlayerJump player = other.GetComponent<PlayerJump>();
-        player.jumpUnit = frogJumpUnit;
-        Debug.Log("Frog Item applied: Jump unit set to " + player.jumpUnit);
+        PlayerJump playerJ = other.GetComponent<PlayerJump>();
+        Player player = other.GetComponent<Player>();
+        playerJ.jumpUnit = frogJumpUnit;
+        Debug.Log("Frog Item applied: Jump unit set to " + playerJ.jumpUnit);
 
-        // ������ ���� ����
-        if (frogHatPrefab != null)
-        {
-            GameObject frogHat = Instantiate(frogHatPrefab, player.transform);
-            frogHat.transform.localPosition = new Vector3(0, 1.5f, 0); // �Ӹ� ��ġ�� ���� ��ġ
-            Debug.Log("Frog hat instantiated for player");
-        }
+         
+        player.frogHat = frogHatPrefab;
+            
+        
 
         Debug.Log("Frog Item applied: Jump unit increased!");
     }

@@ -1,8 +1,24 @@
 using System;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : Movable
 {
+    public bool frog = false;
+
+    private GameObject _frogHat;
+
+    public GameObject frogHat
+    {
+        set
+        {
+            _frogHat = value;
+            if(value != null) Instantiate(value, transform);
+            frog = true;
+        }
+        get => _frogHat;
+    }
+
     protected override void IceAction()
     {
         Vector3 targetVec = customGravity.down;

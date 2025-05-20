@@ -14,6 +14,8 @@ public class SpringScript : ItemBehavior
 
     private void SpringActivate(Collider other)
     {
+        int appliedJumpUnit = other.GetComponent<Player>().frog ? springJumpUnit + 1 : springJumpUnit;
+
         Rigidbody objRb = other.GetComponent<Rigidbody>();
         gravity = Physics.gravity.magnitude;
         initialVelocity = Mathf.Sqrt(2 * gravity * springJumpUnit);
