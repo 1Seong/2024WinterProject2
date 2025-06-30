@@ -21,8 +21,23 @@ SQUARE ERAUQS는 Unity 기반으로 개발 중인 퍼즐 장르의 게임입니�
 
 ---
 
-## 🗂️ 폴더 구조
-<pre> ````markdown ## 📁 폴더 구조 ``` Assets/ ├── Data/ # 게임 설정 데이터, 스테이지 정보 등 ├── Materials/ # Unity 머티리얼 파일 (표면, 광택 등) ├── Prefabs/ # 프리팹 객체들 ├── ProBuilder Data/ # ProBuilder로 생성한 메시 데이터 ├── Scenes/ # Unity 씬들 (Stage1, Stage2 등) ├── Scripts/ # C# 스크립트 (Player, GameManager 등) ├── Settings/ # 입력 설정, 프로젝트 설정 등 ├── Sprites/ # 2D 이미지 리소스 ├── TextMesh Pro/ # 텍스트 렌더링 관련 리소스 ├── TutorialInfo/ # 튜토리얼 관련 정보 및 리소스 ProjectSettings/ Packages/ ``` ```` </pre>
+## 📁 폴더 구조
+
+```
+Assets/
+├── Data/            # 게임 설정 데이터, 스테이지 정보 등
+├── Materials/       # Unity 머티리얼 파일 (표면, 광택 등)
+├── Prefabs/         # 프리팹 객체들
+├── ProBuilder Data/ # ProBuilder로 생성한 메시 데이터
+├── Scenes/          # Unity 씬들 (Stage1, Stage2 등)
+├── Scripts/         # C# 스크립트 (Player, GameManager 등)
+├── Settings/        # 입력 설정, 프로젝트 설정 등
+├── Sprites/         # 2D 이미지 리소스
+├── TextMesh Pro/    # 텍스트 렌더링 관련 리소스
+├── TutorialInfo/    # 튜토리얼 관련 정보 및 리소스
+ProjectSettings/
+Packages/
+```
 
 ---
 
