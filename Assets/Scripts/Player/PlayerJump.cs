@@ -1,13 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.XR;
 
 public class PlayerJump : MonoBehaviour
 {
     public int jumpUnit; // Jump unit - ex) when unit is 'n' -> you can jump over a wall with 'n' height
-
-    private Action updateAction;
-    private Action fixedUpdateAction;
 
     Rigidbody rigid;
     CustomGravity customGravity;
@@ -20,24 +18,6 @@ public class PlayerJump : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         customGravity = GetComponent<CustomGravity>();
     }
-    
-    void Start()
-    {
-        updateAction += () =>
-        {
-            if (Vector3.Dot(rigid.linearVelocity, customGravity.up) <= 0)
-                Landing();
-        };
-        updateAction += RequestJump;
-        fixedUpdateAction += () =>
-        {
-            if (requestJump)
-            {
-                PerformJump();
-                requestJump = false;
-            }
-        };
-    }
 
     void Update()
     {
@@ -45,7 +25,14 @@ public class PlayerJump : MonoBehaviour
             return;
 
         // Jump
-        updateAction?.Invoke();
+        InvokeLanding();
+        RequestJump();
+    }
+
+    private void InvokeLanding()
+    {
+        if (Vector3.Dot(rigid.linearVelocity, customGravity.up) <= 0 || IsPlayerOnInnerWall())
+            Landing();
     }
 
     private void RequestJump()
@@ -64,7 +51,16 @@ public class PlayerJump : MonoBehaviour
         if (!GameManager.instance.isPlaying)
             return;
 
-        fixedUpdateAction?.Invoke();
+        InvokePerformJump();
+    }
+    
+    private void InvokePerformJump()
+    {
+        if (requestJump)
+        {
+            PerformJump();
+            requestJump = false;
+        }
     }
 
     private void Landing()
@@ -72,7 +68,13 @@ public class PlayerJump : MonoBehaviour
         /*
          * Check collision with any platform and make isJumping to false
          */
-        isJumping = true;
+        //isJumping = true;
+
+        if (IsPlayerOnInnerWall())
+        {
+            isJumping = false;
+            return;
+        }
 
         Vector3 targetVec = customGravity.down;
         Vector3 box = new Vector3(0.47f, 0, 0.5f);
@@ -80,14 +82,14 @@ public class PlayerJump : MonoBehaviour
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
 
-        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
+        Debug.DrawRay(rigid.position, targetVec, Color.blue);
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
         if (rayHit.Length != 0)
             foreach(var i in rayHit)
             {
-                if (i.distance < 0.07f && tag != i.collider.tag)
+                if (i.distance < 0.07f && !i.collider.CompareTag(tag))
                 {
                     isJumping = false;
                     break;
@@ -108,5 +110,11 @@ public class PlayerJump : MonoBehaviour
         float force = rigid.mass * initialVelocity + 0.5f;
 
         rigid.AddForce(customGravity.up * force, ForceMode.Impulse);
+    }
+
+    private bool IsPlayerOnInnerWall()
+    {
+        bool res = GetComponent<Movable>().onInnerWall;
+        return res;
     }
 }

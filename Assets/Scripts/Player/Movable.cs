@@ -27,7 +27,7 @@ public class Movable : MonoBehaviour
     protected bool onIce = false;
 
     [SerializeField] private float _horizCollDis = 0.063f;
-    [SerializeField] private float _vertCollDis = 0.01f;
+    [SerializeField] private float _vertCollDis = 0.005f;
 
     private List<Movable> movables;
 
@@ -124,6 +124,7 @@ public class Movable : MonoBehaviour
         onInnerWall = false;
     }
 
+    // TODO: refactor wall detection mech -> use observer pattern and notify to PlayerJump and CustomGravity
     private void CheckInnerWallHoriz()
     {
         /*

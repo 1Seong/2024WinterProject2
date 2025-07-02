@@ -211,5 +211,5 @@ MonoBehaviour:
   hitInnerWall: 0
   onInnerWall: 0
   _horizCollDis: 0.063
-  _vertCollDis: 0.06
+  _vertCollDis: 0.01
   frog: 0
