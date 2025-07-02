@@ -84,7 +84,7 @@ public class PlayerJump : MonoBehaviour
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
 
-        Debug.DrawRay(rigid.position, targetVec, Color.blue);
+        //Debug.DrawRay(rigid.position, targetVec, Color.blue);
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 

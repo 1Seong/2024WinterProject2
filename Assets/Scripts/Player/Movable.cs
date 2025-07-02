@@ -9,7 +9,7 @@ public class Movable : MonoBehaviour
 {
     private const float ICE_ACCELATION = 2f;
 
-    private Action updateAction;
+    protected Action updateAction;
 
     public event Action invertEvent;
 
@@ -37,7 +37,7 @@ public class Movable : MonoBehaviour
         customGravity = GetComponent<CustomGravity>();
     }
 
-    private void Start()
+    virtual protected void Start()
     {
         updateAction += CheckInvert;
         updateAction += CheckInnerWallVert;
@@ -114,7 +114,7 @@ public class Movable : MonoBehaviour
             foreach(var hit in rayHit)
             {
                 
-                if(hit.collider.tag == "Inner" && hit.distance < _vertCollDis)
+                if(hit.collider.CompareTag("Inner") && hit.distance < _vertCollDis)
                 {
                     onInnerWall = true;
                     return;
@@ -149,7 +149,7 @@ public class Movable : MonoBehaviour
             foreach (var hit in rayHit)
             {
 
-                if (hit.collider.tag == "Inner" && hit.distance < _horizCollDis)
+                if (hit.collider.CompareTag("Inner") && hit.distance < _horizCollDis)
                 {
                     hitInnerWall = true;
                     return;

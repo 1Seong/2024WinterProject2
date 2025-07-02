@@ -150,9 +150,9 @@ GameObject:
   - component: {fileID: -453654669034775450}
   - component: {fileID: 4716338217846072189}
   - component: {fileID: -4524043744649790466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spring
-  m_TagString: Item
+  m_TagString: Spring
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitInnerWall: 0
   onInnerWall: 0
+  onIce: 0
   _horizCollDis: 0.063
   _vertCollDis: 0.003
 --- !u!1 &5821655054803327062

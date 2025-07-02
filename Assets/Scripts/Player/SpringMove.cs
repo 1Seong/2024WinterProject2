@@ -1,7 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpringMove : Movable
 {
+    protected override void Start()
+    {
+        base.Start();
+        updateAction += CheckConsideredAsWall;
+    }
+
     private void OnCollisionExit(Collision collision)
     {
         if (onIce) return;
@@ -40,5 +48,41 @@ public class SpringMove : Movable
 
             
         }
+    }
+
+    // TODO : refactor - this is also raycast thing
+    private void CheckConsideredAsWall()
+    {
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.49f) : new Vector3(0.49f, 0.49f, 0.1f);
+
+        RaycastHit[] rayHitLeft = Physics.BoxCastAll(rigid.position, box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit[] rayHitRight = Physics.BoxCastAll(rigid.position, box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+
+        bool existLeft = IsExistWallsAndSpringInRayHit(rayHitLeft);
+        bool existRight = IsExistWallsAndSpringInRayHit(rayHitRight);
+
+        if (existLeft || existRight)
+        {
+            rigid.constraints |= RigidbodyConstraints.FreezePositionX;
+        }
+        else
+        {
+            rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
+        }
+    }
+
+    private bool IsExistWallsAndSpringInRayHit(RaycastHit[] rayHit)
+    {
+        if (rayHit.Length != 0)
+        {
+            foreach (var hit in rayHit)
+            {
+                if ((hit.collider.CompareTag("Inner") || hit.collider.CompareTag("SideWall") || hit.collider.CompareTag("Spring")) && hit.distance < 0.01f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

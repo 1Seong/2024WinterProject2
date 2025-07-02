@@ -31,7 +31,7 @@ public class Player : Movable
             if (rayHit.Length == 0) return false;
 
             foreach (var i in rayHit)
-                if (i.distance < 0.1f && i.collider.CompareTag("Ice"))
+                if (i.distance < 0.2f && i.collider.CompareTag("Ice"))
                     return true;
 
             return false;
@@ -42,7 +42,7 @@ public class Player : Movable
             if (rayHit.Length == 0) return false;
 
             foreach (var i in rayHit)
-                if (i.distance < 0.1f && !i.collider.CompareTag(tag))
+                if (i.distance < 0.2f && !i.collider.CompareTag(tag))
                     return true;
 
             return false;
@@ -51,7 +51,7 @@ public class Player : Movable
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
 
-        //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
+        Debug.DrawRay(rigid.position, targetVec, Color.green);
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
