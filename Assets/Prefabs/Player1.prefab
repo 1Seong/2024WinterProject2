@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpUnit: 1
   isJumping: 0
+  iceJumpMultiplier: 1.2
 --- !u!114 &6179612498199818924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitInnerWall: 0
   onInnerWall: 0
+  onIce: 0
   _horizCollDis: 0.063
   _vertCollDis: 0.01
   frog: 0

@@ -19,6 +19,7 @@ public class Player : Movable
         get => _frogHat;
     }
 
+    // TODO : refactor - do raycasting once and extract info from each classes
     protected override void IceAction()
     {
         Vector3 targetVec = customGravity.down;
@@ -30,7 +31,7 @@ public class Player : Movable
             if (rayHit.Length == 0) return false;
 
             foreach (var i in rayHit)
-                if (i.distance < 0.1f && i.transform.tag == "Ice")
+                if (i.distance < 0.1f && i.collider.CompareTag("Ice"))
                     return true;
 
             return false;
@@ -41,7 +42,7 @@ public class Player : Movable
             if (rayHit.Length == 0) return false;
 
             foreach (var i in rayHit)
-                if (i.distance < 0.1f)
+                if (i.distance < 0.1f && !i.collider.CompareTag(tag))
                     return true;
 
             return false;
@@ -64,8 +65,8 @@ public class Player : Movable
         }
         else if (onIce && PlatformExist(rayHit) && !iceExist) // onIce : true -> false
         {
-            onIce = false;
             rigid.linearVelocity = Vector3.zero;
+            onIce = false;
             
             GetComponent<PlayerMove>().enabled = true;
         }

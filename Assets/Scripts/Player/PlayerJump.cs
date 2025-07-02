@@ -13,6 +13,8 @@ public class PlayerJump : MonoBehaviour
     private bool requestJump = false; // true when user enters jump button - request jump to fixedUpdate
     public bool isJumping = false; // cannot perform another jump when isJumping is true
 
+    [SerializeField] private float iceJumpMultiplier = 1.2f;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -109,7 +111,18 @@ public class PlayerJump : MonoBehaviour
         float initialVelocity = Mathf.Sqrt(2 * gravity * jumpUnit);
         float force = rigid.mass * initialVelocity + 0.5f;
 
+        if (IsOnIce())
+        {
+            force *= iceJumpMultiplier;
+        }
+
         rigid.AddForce(customGravity.up * force, ForceMode.Impulse);
+    }
+
+    private bool IsOnIce()
+    {
+        bool res = GetComponent<Movable>().onIce;
+        return res;
     }
 
     private bool IsPlayerOnInnerWall()

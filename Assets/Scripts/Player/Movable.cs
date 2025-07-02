@@ -24,7 +24,7 @@ public class Movable : MonoBehaviour
     public bool hitInnerWall = false; // boolean for check horizontal collision with inner walls
     public bool onInnerWall = false; // boolean for check vertical collision with inner walls
 
-    protected bool onIce = false;
+    public bool onIce = false;
 
     [SerializeField] private float _horizCollDis = 0.063f;
     [SerializeField] private float _vertCollDis = 0.005f;
@@ -221,11 +221,13 @@ public class Movable : MonoBehaviour
         //check on inner wall
         CheckOnInnerWall();
 
+        
         if (onIce)
         {
             int dir = rigid.linearVelocity.x > 0 ? 1 : -1;
             rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
         }
+        
     }
 
     private void CheckOnInnerWall()
