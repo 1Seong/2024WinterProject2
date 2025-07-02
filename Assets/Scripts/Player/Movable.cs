@@ -143,7 +143,7 @@ public class Movable : MonoBehaviour
 
         // Use box cast to check inner walls
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-   
+
         if (rayHit.Length != 0)
         {
             foreach (var hit in rayHit)
@@ -159,6 +159,7 @@ public class Movable : MonoBehaviour
         hitInnerWall = false;
     }
     
+    // TODO : refactor - Ice
     protected virtual void IceAction()
     {
         Vector3 targetVec = customGravity.down;
@@ -189,7 +190,8 @@ public class Movable : MonoBehaviour
         }
     }
 
-    protected bool ObjectExistInRaycast(RaycastHit[] rayHit, String tag)
+    // TODO : refactor - make a raycast utility class to capsulate raycast behaviors
+    protected bool ObjectExistInRaycast(RaycastHit[] rayHit, string tag)
     {
         if (rayHit.Length == 0) return false;
 

@@ -8,7 +8,7 @@ public class Frog : Consumable
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Player1" || other.tag != "Player2") return;
+        if (other.tag != "Player1" && other.tag != "Player2") return;
         if (other.GetComponent<Player>().frog) return;
         base.OnTriggerEnter(other);
     }
