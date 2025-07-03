@@ -27,18 +27,32 @@ public class RotateWhileConvert : MonoBehaviour
          * Rotate Camera and make bottom and top wall transparent
          */
         bool sideview = GameManager.instance.isSideView;
-        float targetRot = (sideview && !inverted || !sideview && inverted) ? -90.0f : 90.0f;
+        float targetRot = sideview ? -90f : 90f;
         float totalTime = GameManager.instance.cameraRotationTime;
-
+       
         isActing = true;
+
+        if(!sideview)
+        {
+            if (inverted) transform.Translate(new Vector3(0, 0, -0.5f), Space.World);
+            else transform.Translate(new Vector3(0, 0, -6.5f), Space.World);
+        }
+
+        if (sideview) transform.Translate(new Vector3(0, 0.5f, 0));
 
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
-            if (!sideview) transform.Translate(new Vector3(0, -1, 0));
-            transform.Rotate(new Vector3(targetRot, 0, 0));
-            if (sideview) transform.Translate(new Vector3(0, 1, 0));
-
+            transform.Rotate(new Vector3(targetRot / ((totalTime / Time.fixedDeltaTime) + 1), 0, 0));
+           
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
+        }
+
+        if (!sideview) transform.Translate(new Vector3(0, -0.5f, 0));
+
+        if (sideview)
+        {
+            if (inverted) transform.Translate(new Vector3(0, 0, 0.5f), Space.World);
+            else transform.Translate(new Vector3(0, 0, 6.5f), Space.World);
         }
 
         isActing = false;
