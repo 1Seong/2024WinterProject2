@@ -330,13 +330,18 @@ public class Stage : MonoBehaviour
         if (projectionsXY.Length == 1) return;
 
         Transform player1pos = player1.transform;
+        Transform player2pos = player2.transform;
 
-        projectionsXY[1].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player1pos.position.z);
+        int wallNum = (projectionsXY.Length - 1) / 2;
 
-        if (data.player2Exist)
+        for (int i = 1; i < wallNum + 1; i++)
         {
-            Transform player2pos = player2.transform;
-            projectionsXY[2].position = new Vector3(projectionsXY[1].position.x, projectionsXY[1].position.y, player2pos.position.z);
+            // for player 1
+            projectionsXY[i].position = new Vector3(projectionsXY[i].position.x, projectionsXY[i].position.y, player1pos.position.z);
+
+            // for player 2
+            projectionsXY[i + wallNum].position = new Vector3(projectionsXY[i+ wallNum].position.x, projectionsXY[i + wallNum].position.y, player2pos.position.z);
+          
         }
     }
 
