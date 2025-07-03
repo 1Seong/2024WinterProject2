@@ -351,7 +351,7 @@ public class Stage : MonoBehaviour
             player2.SetActive(true);
         }
             
-
+        /*
         if (GameManager.instance.isSideView) // Top view -> Side view
         {
             restrictionSide.gameObject.SetActive(true);
@@ -362,6 +362,7 @@ public class Stage : MonoBehaviour
             restrictionSide.gameObject.SetActive(false);
             restrictionTop.gameObject.SetActive(true);
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)

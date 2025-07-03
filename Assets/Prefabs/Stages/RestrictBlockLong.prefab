@@ -343,3 +343,4 @@ MonoBehaviour:
   isActing: 0
   _mode: 0
   _isSideViewObject: 1
+  _maxAlpha: 0.7

@@ -34,3 +34,5 @@ public class Transparent : MonoBehaviour
         isActing = false;
     }
 }
+
+// TODO : refactor - convert actions

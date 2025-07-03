@@ -53,7 +53,7 @@ public class SpringMove : Movable
     // TODO : refactor - this is also raycast thing
     private void CheckConsideredAsWall()
     {
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.49f) : new Vector3(0.49f, 0.49f, 0.1f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.4f) : new Vector3(0.49f, 0.4f, 0.1f);
 
         RaycastHit[] rayHitLeft = Physics.BoxCastAll(rigid.position, box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
         RaycastHit[] rayHitRight = Physics.BoxCastAll(rigid.position, box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
@@ -77,7 +77,7 @@ public class SpringMove : Movable
         {
             foreach (var hit in rayHit)
             {
-                if ((hit.collider.CompareTag("Inner") || hit.collider.CompareTag("SideWall") || hit.collider.CompareTag("Spring")) && hit.distance < 0.01f)
+                if ((hit.collider.CompareTag("Inner") || hit.collider.CompareTag("SideWall") || (hit.collider.transform != transform && hit.collider.CompareTag("Spring"))) && hit.distance < 0.01f)
                 {
                     return true;
                 }

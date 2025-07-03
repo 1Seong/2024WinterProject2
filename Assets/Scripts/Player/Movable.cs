@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Movable : MonoBehaviour
 {
-    private const float ICE_ACCELATION = 2f;
+    [SerializeField] private float ICE_ACCELATION = 2.0f;
 
     protected Action updateAction;
 
