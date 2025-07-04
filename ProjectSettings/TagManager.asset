@@ -16,6 +16,7 @@ TagManager:
   - OtherWall
   - SideWall
   - Spring
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2171312488585347372}
   m_Layer: 0
   m_Name: PinkDoor
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,6 +374,7 @@ MonoBehaviour:
   isActing: 0
   _mode: 0
   _isSideViewObject: 0
+  _maxAlpha: 0
 --- !u!1 &1768452078753693639
 GameObject:
   m_ObjectHideFlags: 0
