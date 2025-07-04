@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   episodeNum: 2
   stageIndex: 1
-  stageName: Stage2
+  stageName: 3-2
   conversionActive: 0
   startPos1: {x: 1.5, y: 0, z: 0.5}
   player2Exist: 1

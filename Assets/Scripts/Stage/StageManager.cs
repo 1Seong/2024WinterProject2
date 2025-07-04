@@ -56,7 +56,11 @@ public class StageManager : MonoBehaviour
     }
     private void Start()
     {
-        stageClearEvent += ()=> DataManager.Instance.ChapterUnlock((int)currentStageInfo.episode, currentStageInfo.stageIndex);
+        //init for Title Stage
+        currentStageInfo.episode = Episode.Episode1;
+        currentStageInfo.stageIndex = 0;
+        
+        stageClearEvent += ()=> UnlockNextStage();
     }
 
     public void StageEnter(Episode episode, int index)
@@ -65,9 +69,7 @@ public class StageManager : MonoBehaviour
         currentStageInfo.stageIndex = index;
         currentStageInfo.data = _epStagePair[currentStageInfo.episode][currentStageInfo.stageIndex];
 
-        stageEnterEvent?.Invoke();
-
-        GameManager.instance.isPlaying = true;
+        if(GameManager.instance) GameManager.instance.isPlaying = true;
         LoadStage();
     }
 
@@ -82,11 +84,9 @@ public class StageManager : MonoBehaviour
 
     public void StageClear()
     {
+        Debug.Log("stage cleared!");
         int episode = (int)currentStageInfo.episode;
         int index = currentStageInfo.stageIndex;
-
-        //연산 추가
-        if 
         //게임 정지
         GameManager.instance.isPlaying = false;
         //UI표시
@@ -122,15 +122,45 @@ public class StageManager : MonoBehaviour
     {
 
     }
-    public void LoadNextStage()
+
+    public void UnlockNextStage()
     {
-        string nextSName = currentStageInfo.data.stageName;
+        Episode nextEpisode = currentStageInfo.episode;
+        int nextIndex = currentStageInfo.stageIndex;
+        if (nextIndex == 4)
+        {
+            nextEpisode = nextEpisode + 1;
+            nextIndex = 0;
+        }
+        else
+        {
+            nextIndex++;
+        }
+        DataManager.Instance.ChapterUnlock(nextEpisode, nextIndex);
+    }
+
+    public void EnterNextStage()
+    {
+        Episode nextEpisode = currentStageInfo.episode;
+        int nextIndex = currentStageInfo.stageIndex;
+        if(nextIndex == 4)
+        {
+            nextEpisode = nextEpisode + 1;
+            nextIndex = 0;
+        }
+        else
+        {
+            nextIndex++;
+        }
+        
+        Debug.Log("Loading " + nextEpisode.ToString()+ ("-") + nextIndex.ToString()+1 );
+
+        StageEnter(nextEpisode, nextIndex);
     }
 
     public void Reset()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
     }
 }
