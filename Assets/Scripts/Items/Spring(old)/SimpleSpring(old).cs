@@ -18,10 +18,10 @@ public class SimpleSpring : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var obj = other.gameObject;
-        if (obj.tag == "Player")
+        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
-            springAction(obj);
+            if(GetComponent<PlayerJump>() != null) GetComponent<PlayerJump>().isJumping = true;
+            springAction(other.gameObject);
         }
     }
     private void OnCollisionEnter(Collision collision)

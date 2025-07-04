@@ -8,11 +8,12 @@ public class RotateTransparent : Transparent
     [SerializeField] private bool _isSideViewObject;
     [SerializeField] private float _maxAlpha = 1f;
 
-    private Material[] mats;
+    private Material[] mats = null;
 
     private void Awake()
     {
-        mats = GetComponent<MeshRenderer>().materials;
+        if(GetComponent<MeshRenderer>() != null)
+            mats = GetComponent<MeshRenderer>().materials;
     }
 
     private void Start()
@@ -21,12 +22,13 @@ public class RotateTransparent : Transparent
 
         if (_isSideViewObject)
         {
-            foreach(var mat in mats)
-            {
-                Color color = mat.color;
-                color.a = 0f;
-                mat.color = color;
-            }
+            if(mats != null)
+                foreach(var mat in mats)
+                {
+                    Color color = mat.color;
+                    color.a = 0f;
+                    mat.color = color;
+                }
         }
 
     }
@@ -61,21 +63,22 @@ public class RotateTransparent : Transparent
 
         if(_mode == mode.instant)
         {
-            foreach(var mat in mats)
-            {
-                Color color = mat.color;
-
-                if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+            if(mats != null)
+                foreach(var mat in mats)
                 {
-                    color.a = 0f;
-                }
-                else // appear
-                {
-                    color.a = 1f;
-                }
+                    Color color = mat.color;
 
-                mat.color = color;
-            }
+                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+                    {
+                        color.a = 0f;
+                    }
+                    else // appear
+                    {
+                        color.a = 1f;
+                    }
+
+                    mat.color = color;
+                }
         }
 
         if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
