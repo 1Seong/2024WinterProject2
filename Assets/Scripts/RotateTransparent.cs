@@ -59,6 +59,25 @@ public class RotateTransparent : Transparent
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
 
+        if(_mode == mode.instant)
+        {
+            foreach(var mat in mats)
+            {
+                Color color = mat.color;
+
+                if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+                {
+                    color.a = 0f;
+                }
+                else // appear
+                {
+                    color.a = 1f;
+                }
+
+                mat.color = color;
+            }
+        }
+
         if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
             gameObject.GetComponent<Collider>().enabled = false;
 
