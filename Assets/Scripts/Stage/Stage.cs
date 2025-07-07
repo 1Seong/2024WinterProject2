@@ -140,6 +140,9 @@ public class Stage : MonoBehaviour
 
     private void ProjectionSetting()
     {
+        var player1Pos = player1.transform.position;
+        var player2Pos = player2.transform.position;
+
         if (GameManager.instance.isSideView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
@@ -150,6 +153,8 @@ public class Stage : MonoBehaviour
         {
             projectionWallParentXY.gameObject.SetActive(false);
             projectionWallParentXZ.gameObject.SetActive(true);
+            player1.transform.position = new Vector3(player1Pos.x, 0, player1Pos.z);
+            player2.transform.position = new Vector3(player2Pos.x, 0, player2Pos.z);
         }
     }
 

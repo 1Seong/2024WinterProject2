@@ -100,10 +100,10 @@ public class Movable : MonoBehaviour
         }
 
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.44f, 0, 0.5f);
+        Vector3 box = new Vector3(0.44f, 0, 0.44f);
 
         if (GameManager.instance.isSideView)
-            box = new Vector3(0.44f, 0.5f, 0);
+            box = new Vector3(0.44f, 0.44f, 0);
 
         //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
 
@@ -136,7 +136,7 @@ public class Movable : MonoBehaviour
             return;
         }
 
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.49f) : new Vector3(0.49f, 0.49f, 0.1f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.44f, 0.1f, 0.44f) : new Vector3(0.44f, 0.44f, 0.1f);
         Vector3 targetVec = Input.GetAxisRaw("Horizontal") > 0 ? Vector3.right : Vector3.left;
 
         Debug.DrawRay(rigid.position, targetVec, Color.yellow);
@@ -281,7 +281,7 @@ public class Movable : MonoBehaviour
             collide = ObjectExistInRaycast(rayHit);
 
             if(collide)
-                GetComponent<Transform>().position += GetComponent<CustomGravity>().up;
+                transform.position += GetComponent<CustomGravity>().up;
         }
         while (collide);
     }
