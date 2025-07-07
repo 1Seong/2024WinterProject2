@@ -24,8 +24,28 @@ public class Portal : ItemBehavior
             Rigidbody playerRb = player.GetComponent<Rigidbody>();
             if (playerRb != null)
             {
+                var linkedPos = linkedPortal.position;
+
                 // Teleport the player to the linked portal's position
-                player.transform.position = linkedPortal.position;
+                // Teleport when sideview
+                if(GameManager.instance.isSideView)
+                {
+                    // default
+                    if (playerRb.position.z == 0.5f)
+                    {
+                        player.transform.position = new Vector3(linkedPos.x, linkedPos.y, 0.5f);
+                    }
+                    // inverted
+                    else
+                    {
+                        player.transform.position = new Vector3(linkedPos.x, linkedPos.y, 7.5f);
+                    }
+
+                }
+                else // topview
+                {
+                    player.transform.position = new Vector3(linkedPos.x, 0f, linkedPos.z);
+                }
 
                 // Start cooldown
                 canTeleport = false;

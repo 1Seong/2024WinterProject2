@@ -9,11 +9,14 @@ public class RotateTransparent : Transparent
     [SerializeField] private float _maxAlpha = 1f;
 
     private Material[] mats = null;
+    private SpriteRenderer[] renderers = null;
 
     private void Awake()
     {
         if(GetComponent<MeshRenderer>() != null)
             mats = GetComponent<MeshRenderer>().materials;
+
+        renderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -28,6 +31,13 @@ public class RotateTransparent : Transparent
                     Color color = mat.color;
                     color.a = 0f;
                     mat.color = color;
+                }
+            if(renderers != null)
+                foreach (var r in renderers)
+                {
+                    Color color = r.color;
+                    color.a = 0f;
+                    r.color = color;
                 }
         }
 
@@ -57,6 +67,17 @@ public class RotateTransparent : Transparent
                     color.a = amount;
                     mat.color = color;
                 }
+                if (renderers != null)
+                    foreach (var r in renderers)
+                    {
+                        Color color = r.color;
+                        float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime); //appear
+                        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //disappear
+                            amount = _maxAlpha - amount;
+
+                        color.a = amount;
+                        r.color = color;
+                    }
             }
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
@@ -78,6 +99,23 @@ public class RotateTransparent : Transparent
                     }
 
                     mat.color = color;
+                }
+
+            if(renderers != null)
+                foreach (var r in renderers)
+                {
+                    Color color = r.color;
+
+                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+                    {
+                        color.a = 0f;
+                    }
+                    else // appear
+                    {
+                        color.a = 1f;
+                    }
+
+                    r.color = color;
                 }
         }
 
