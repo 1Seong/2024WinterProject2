@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
 
+    [Header("# Debug Options")]
+    public bool dynamicInnerWallInstantiation = false;
+
 
     private void Awake()
     {

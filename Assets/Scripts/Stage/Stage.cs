@@ -38,21 +38,31 @@ public class Stage : MonoBehaviour
         StageManager.instance.stage = this;
 
         stageStartEvent += Init;
-        stageStartEvent += ObjectReposition;
-        stageStartEvent += MakeProjection;
+        stageStartEvent += SpawnPlayer;
 
         convertEvent += CallCameraRotate;
         convertEvent += ProjectionSetting;
+        convertEvent += PlayerConvertReposition;
+
+        if (GameManager.instance.dynamicInnerWallInstantiation)
+        {
+            stageStartEvent += MakeProjection;
+        }
     }
 
     private void OnDestroy()
     {
         stageStartEvent -= Init;
-        stageStartEvent -= ObjectReposition;
-        stageStartEvent -= MakeProjection;
+        stageStartEvent -= SpawnPlayer;
 
         convertEvent -= CallCameraRotate;
         convertEvent -= ProjectionSetting;
+        convertEvent -= PlayerConvertReposition;
+
+        if (GameManager.instance.dynamicInnerWallInstantiation)
+        {
+            stageStartEvent -= MakeProjection;
+        }
     }
 
     private void Start()
@@ -140,19 +150,32 @@ public class Stage : MonoBehaviour
 
     private void ProjectionSetting()
     {
-        var player1Pos = player1.transform.position;
-        var player2Pos = player2.transform.position;
-
         if (GameManager.instance.isSideView) // Top view -> Side view
         {
             projectionWallParentXY.gameObject.SetActive(true);
             projectionWallParentXZ.gameObject.SetActive(false);
-            ReposProjection();
+
+            if(GameManager.instance.dynamicInnerWallInstantiation)
+                ReposProjection();
         }
         else // Side view -> Top view
         {
             projectionWallParentXY.gameObject.SetActive(false);
             projectionWallParentXZ.gameObject.SetActive(true);
+        }
+    }
+
+    private void PlayerConvertReposition()
+    {
+        var player1Pos = player1.transform.position;
+        var player2Pos = player2.transform.position;
+
+        if (GameManager.instance.isSideView) // Top view -> Side view
+        {
+           
+        }
+        else // Side view -> Top view
+        {
             player1.transform.position = new Vector3(player1Pos.x, 0, player1Pos.z);
             player2.transform.position = new Vector3(player2Pos.x, 0, player2Pos.z);
         }
@@ -350,7 +373,7 @@ public class Stage : MonoBehaviour
         }
     }
 
-    private void ObjectReposition()
+    private void SpawnPlayer()
     {
         //please add item reposition logic
         player1 = Instantiate(GameManager.instance.player1, data.startPos1, Quaternion.identity);
