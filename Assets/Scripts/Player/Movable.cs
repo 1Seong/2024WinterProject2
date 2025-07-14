@@ -40,14 +40,18 @@ public class Movable : MonoBehaviour
     virtual protected void Start()
     {
         updateAction += CheckInvert;
-        updateAction += CheckInnerWallVert;
-        updateAction += CheckInnerWallHoriz;
         updateAction += IceAction;
         Stage.convertEventLast += CheckConvertCollision;
 
         movables = GetComponent<CustomGravity>().gravityState == GravityState.defaultG ? StageManager.instance.stage.defaultMovables : StageManager.instance.stage.invertMovables;
 
         movables.Add(this);
+
+        if(GameManager.instance.dynamicInnerWallInstantiation)
+        {
+            updateAction += CheckInnerWallVert;
+            updateAction += CheckInnerWallHoriz;
+        }
     }
 
     private void OnDestroy()
@@ -219,15 +223,21 @@ public class Movable : MonoBehaviour
             return;
 
         //check on inner wall
-        CheckOnInnerWall();
+        if(GameManager.instance.dynamicInnerWallInstantiation)
+            CheckOnInnerWall();
 
         
         if (onIce)
         {
-            int dir = rigid.linearVelocity.x > 0 ? 1 : -1;
-            rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
+            MoveOnIce();
         }
         
+    }
+
+    private void MoveOnIce()
+    {
+        int dir = rigid.linearVelocity.x > 0 ? 1 : -1;
+        rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
     }
 
     private void CheckOnInnerWall()
