@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,28 +12,7 @@ public class StageManager : MonoBehaviour
         public StageData data;
     }
 
-    private static StageManager _instance;
-
-    public static StageManager instance
-    {
-        get
-        {
-            if(_instance == null )
-            {
-                _instance  = FindFirstObjectByType<StageManager>();
-
-                if(_instance == null)
-                {
-                    GameObject obj = new GameObject("StageManager");
-                    _instance = obj.AddComponent<StageManager>();
-                    
-                    DontDestroyOnLoad(obj);
-                }
-            }
-
-            return _instance;
-        }
-    }
+    public static StageManager instance;
 
     [SerializeField] private StageData[] episode1;
     [SerializeField] private StageData[] episode2;
@@ -57,15 +35,8 @@ public class StageManager : MonoBehaviour
     
     private void Awake()
     {
-        if(_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        instance = this;
+        DontDestroyOnLoad(this);
 
         currentStageInfo = new CurrentStage();
 
@@ -84,41 +55,14 @@ public class StageManager : MonoBehaviour
 
     public void StageEnter(Episode episode, int index)
     {
-        InitData(episode, index);
+        currentStageInfo.episode = episode;
+        currentStageInfo.stageIndex = index;
+        currentStageInfo.data = _epStagePair[currentStageInfo.episode][currentStageInfo.stageIndex];
 
         stageEnterEvent?.Invoke();
 
         GameManager.instance.isPlaying = true;
         LoadStage();
-    }
-
-    private void InitData(Episode episode, int index)
-    {
-        currentStageInfo.episode = episode;
-        currentStageInfo.stageIndex = index;
-        currentStageInfo.data = _epStagePair[currentStageInfo.episode][currentStageInfo.stageIndex];
-    }
-
-    private static void FindAndInitData()
-    {
-        var name = SceneManager.GetActiveScene().name;
-
-        if (name.StartsWith("Stage"))
-        {
-            var episodeStagePair = name.Split("-");
-            episodeStagePair[0] = episodeStagePair[0].Substring(5);
-
-            var episodeInt = int.Parse(episodeStagePair[0]);
-            var episodeEnum = (Episode)episodeInt;
-
-            var stageInt = int.Parse(episodeStagePair[1]);
-
-            InitData(episodeEnum, stageInt);
-
-            stageEnterEvent?.Invoke();
-
-            GameManager.instance.isPlaying = true;
-        }
     }
 
     public void CheckStageClear()
