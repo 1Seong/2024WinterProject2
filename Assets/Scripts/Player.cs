@@ -23,7 +23,7 @@ public class Player : Movable
     protected override void IceAction()
     {
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        Vector3 box = new Vector3(0.49f, 0.1f, 0.5f);
         bool iceExist;
 
         Func<RaycastHit[], bool> IceExist = (RaycastHit[] rayHit) =>
@@ -42,14 +42,14 @@ public class Player : Movable
             if (rayHit.Length == 0) return false;
 
             foreach (var i in rayHit)
-                if (i.distance < 0.2f && !i.collider.CompareTag(tag))
+                if (i.distance < 0.1f && !i.collider.CompareTag(tag))
                     return true;
 
             return false;
         };
 
         if (GameManager.instance.isSideView)
-            box = new Vector3(0.49f, 0.5f, 0);
+            box = new Vector3(0.49f, 0.5f, 0.1f);
 
         Debug.DrawRay(rigid.position, targetVec, Color.green);
 
@@ -65,6 +65,7 @@ public class Player : Movable
         }
         else if (onIce && PlatformExist(rayHit) && !iceExist) // onIce : true -> false
         {
+
             rigid.linearVelocity = Vector3.zero;
             onIce = false;
             

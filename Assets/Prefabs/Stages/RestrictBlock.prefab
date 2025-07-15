@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8759846630789582369}
   - component: {fileID: 5467788433619916287}
   - component: {fileID: -5066061546764032696}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RestrictBlock
   m_TagString: OtherWall
   m_Icon: {fileID: 0}

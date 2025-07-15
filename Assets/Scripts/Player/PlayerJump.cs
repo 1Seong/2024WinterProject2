@@ -113,6 +113,7 @@ public class PlayerJump : MonoBehaviour
 
         if (IsOnIce())
         {
+            //Debug.Log("Ice Jump Multiplier: " + iceJumpMultiplier);
             force *= iceJumpMultiplier;
         }
 
