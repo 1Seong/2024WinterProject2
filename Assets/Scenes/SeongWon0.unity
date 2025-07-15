@@ -6418,7 +6418,7 @@ MonoBehaviour:
   maxSpeed: 2.5
   player1: {fileID: 5193326551105480410, guid: b547f268192da324c8cf9d2c6bedb91c, type: 3}
   player2: {fileID: 3094623692732916449, guid: 50781ba5e8c5a9746bc66fe93eef6e6f, type: 3}
-  dynamicInnerWallInstantiation: 0
+  dynamicInnerWallInstantiation: 1
 --- !u!1 &2134713665
 GameObject:
   m_ObjectHideFlags: 0
