@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5049273419745003593}
   - component: {fileID: 3881540855685167386}
-  - component: {fileID: 2232859631141658327}
   - component: {fileID: 2667346907145450669}
   m_Layer: 0
   m_Name: SpringTrigger2
@@ -55,19 +54,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.1, z: 15}
   m_Center: {x: 0, y: 0.45, z: 0}
---- !u!114 &2232859631141658327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949879326942009257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761502f84eb51ad449d28f6139c05e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  springJumpUnit: 4
 --- !u!114 &2667346907145450669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +81,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7007273747407529145}
   - component: {fileID: 2223088901100461024}
-  - component: {fileID: 3003714482705461064}
   m_Layer: 0
   m_Name: SpringTrigger1
   m_TagString: Untagged
@@ -139,19 +124,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.8, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0.45}
---- !u!114 &3003714482705461064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574761041347177042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761502f84eb51ad449d28f6139c05e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  springJumpUnit: 4
 --- !u!1 &3347869255024758824
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +323,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8997895008490263798}
   - component: {fileID: 6845174795556371412}
-  - component: {fileID: 1856389114236631802}
   m_Layer: 0
   m_Name: SpringTrigger3
   m_TagString: Untagged
@@ -395,16 +366,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.8, z: 0.1}
   m_Center: {x: 0, y: 0, z: -0.45}
---- !u!114 &1856389114236631802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5821655054803327062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761502f84eb51ad449d28f6139c05e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  springJumpUnit: 4

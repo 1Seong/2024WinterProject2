@@ -121,7 +121,7 @@ public class CustomGravity : MonoBehaviour
 
     private void InvertAction()
     {
-        Debug.Log("InvertAction Invoked");
+        //Debug.Log("InvertAction Invoked");
         if (gravityState == GravityState.defaultG)
             SetToInvert();
         else
