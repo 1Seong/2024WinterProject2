@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: -453654669034775450}
   - component: {fileID: 4716338217846072189}
   - component: {fileID: -4524043744649790466}
+  - component: {fileID: 4278990840566860240}
   m_Layer: 6
   m_Name: Spring
   m_TagString: Spring
@@ -313,7 +314,21 @@ MonoBehaviour:
   onIce: 0
   _horizCollDis: 0.063
   _vertCollDis: 0.003
-  connectedWall: 0
+--- !u!114 &4278990840566860240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347869255024758824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3e4ecb2cde71d4298c0751a2034886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mode: 1
+  _leftColl: {fileID: 0}
+  _rightColl: {fileID: 0}
 --- !u!1 &5821655054803327062
 GameObject:
   m_ObjectHideFlags: 0

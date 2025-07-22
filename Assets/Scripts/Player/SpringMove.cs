@@ -10,8 +10,6 @@ public class SpringMove : Movable
     protected override void Start()
     {
         base.Start();
-        onConnectedAction += ConnectedToWall;
-        onDisconnectedAction += DisconnectedToWall;
     }
 
     
@@ -59,13 +57,4 @@ public class SpringMove : Movable
         dir = newDir;
     }
 
-    private void ConnectedToWall()
-    {
-        rigid.constraints |= RigidbodyConstraints.FreezePositionX;
-    }
-
-    private void DisconnectedToWall()
-    {
-        rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
-    }
 }

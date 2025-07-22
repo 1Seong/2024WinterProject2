@@ -31,10 +31,6 @@ public class Movable : MonoBehaviour
 
     private List<Movable> movables;
 
-    public bool connectedWall = false;
-    protected Action onConnectedAction;
-    protected Action onDisconnectedAction;
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -45,7 +41,7 @@ public class Movable : MonoBehaviour
     {
         updateAction += CheckInvert;
         updateAction += IceAction;
-        //updateAction += CheckConsideredAsWall;
+       
         Stage.convertEventLast += CheckConvertCollision;
 
         movables = GetComponent<CustomGravity>().gravityState == GravityState.defaultG ? StageManager.instance.stage.defaultMovables : StageManager.instance.stage.invertMovables;
@@ -334,51 +330,6 @@ public class Movable : MonoBehaviour
         Debug.Log("3clear");
 
         GameManager.instance.gpauseActive = false;
-    }
-
-    // Used template method pattern
-    private void CheckConsideredAsWall()
-    {
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.4f) : new Vector3(0.49f, 0.4f, 0.1f);
-
-        RaycastHit[] rayHitLeft = Physics.BoxCastAll(rigid.position, box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-        RaycastHit[] rayHitRight = Physics.BoxCastAll(rigid.position, box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-
-        bool existLeft = IsExistWallsInRayHit(rayHitLeft);
-        bool existRight = IsExistWallsInRayHit(rayHitRight);
-
-        if (existLeft || existRight)
-        {
-            connectedWall = true;
-            onConnectedAction?.Invoke();
-        }
-        else
-        {
-            connectedWall = false;
-            onDisconnectedAction?.Invoke();
-        }
-    }
-
-    private bool IsExistWallsInRayHit(RaycastHit[] rayHit)
-    {
-        if (rayHit.Length != 0)
-        {
-            foreach (var hit in rayHit)
-            {
-                // "platform" is considered as a wall
-                // except - "Player1", "Player2", and "Spring" - need to check if they are connected to a wall
-                if (hit.distance > 0.01f) continue;
-                if (hit.collider.CompareTag("Spring") || hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2"))
-                {
-                    if (hit.collider.transform == transform) continue; // ignore self detection
-
-                    if (hit.collider.GetComponent<Movable>().connectedWall) return true;
-                }
-                else
-                    return true;
-            }
-        }
-        return false;
     }
 
     // CHANGED: TriggerEnter is activated in the item's script

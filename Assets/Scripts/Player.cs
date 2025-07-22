@@ -6,6 +6,7 @@ public class Player : Movable
 {
     public bool frog = false;
 
+    private int dir = 0;
     private GameObject _frogHat;
 
     public GameObject frogHat
@@ -57,13 +58,15 @@ public class Player : Movable
 
         iceExist = IceExist(rayHit);
 
+        int newDir = rigid.linearVelocity.x > 0 ? 1 : (rigid.linearVelocity.x == 0 ? 0 : -1);
+
         if (!onIce && iceExist && rigid.linearVelocity.x != 0) // onIce : false -> true
         {
             onIce = true;
            
             GetComponent<PlayerMove>().enabled = false;
         }
-        else if (onIce && (PlatformExist(rayHit) && !iceExist || rigid.linearVelocity.x == 0)) // onIce : true -> false
+        else if (onIce && (PlatformExist(rayHit) && !iceExist || newDir * dir <= 0)) // onIce : true -> false
         {
             Debug.Log("On Ice false");
             rigid.linearVelocity = Vector3.zero;
@@ -71,5 +74,7 @@ public class Player : Movable
             
             GetComponent<PlayerMove>().enabled = true;
         }
+
+        dir = newDir;
     }
 }
