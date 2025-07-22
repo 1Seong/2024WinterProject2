@@ -215,4 +215,5 @@ MonoBehaviour:
   onIce: 0
   _horizCollDis: 0.06
   _vertCollDis: 0.007
+  connectedWall: 0
   frog: 0

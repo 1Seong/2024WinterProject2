@@ -22,7 +22,7 @@ public abstract class ItemBehavior : MonoBehaviour
     {
         if (playerSelectable is PlayerSelectable && !PerformPlayerCheck(other, (int)color)) return;
 
-        Debug.Log("parent trigger!");
+        //Debug.Log("parent trigger!");
         if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         { 
             PlayerTriggerEvent?.Invoke(other);

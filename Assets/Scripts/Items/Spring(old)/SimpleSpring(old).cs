@@ -24,11 +24,7 @@ public class SimpleSpring : MonoBehaviour
             springAction(other.gameObject);
         }
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
+    
     private void springAction(GameObject obj)
     {
         int appliedJumpUnit = obj.GetComponent<Player>().frog ? springJumpUnit + 1 : springJumpUnit;

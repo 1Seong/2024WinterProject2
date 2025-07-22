@@ -313,6 +313,7 @@ MonoBehaviour:
   onIce: 0
   _horizCollDis: 0.063
   _vertCollDis: 0.003
+  connectedWall: 0
 --- !u!1 &5821655054803327062
 GameObject:
   m_ObjectHideFlags: 0

@@ -63,9 +63,9 @@ public class Player : Movable
            
             GetComponent<PlayerMove>().enabled = false;
         }
-        else if (onIce && PlatformExist(rayHit) && !iceExist) // onIce : true -> false
+        else if (onIce && (PlatformExist(rayHit) && !iceExist || rigid.linearVelocity.x == 0)) // onIce : true -> false
         {
-
+            Debug.Log("On Ice false");
             rigid.linearVelocity = Vector3.zero;
             onIce = false;
             

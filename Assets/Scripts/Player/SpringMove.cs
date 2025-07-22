@@ -1,15 +1,20 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class SpringMove : Movable
 {
+    private int dir = 0;
+
     protected override void Start()
     {
         base.Start();
-        updateAction += CheckConsideredAsWall;
+        onConnectedAction += ConnectedToWall;
+        onDisconnectedAction += DisconnectedToWall;
     }
 
+    
     private void OnCollisionExit(Collision collision)
     {
         if (onIce) return;
@@ -19,6 +24,7 @@ public class SpringMove : Movable
             GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
         }
     }
+    
 
     protected override void IceAction()
     {
@@ -35,54 +41,31 @@ public class SpringMove : Movable
 
         iceExist = ObjectExistInRaycast(rayHit, "Ice");
 
+        int newDir = rigid.linearVelocity.x > 0 ? 1 : (rigid.linearVelocity.x == 0 ? 0 : -1);
+
         if (!onIce && iceExist && rigid.linearVelocity.x != 0) // onIce : false -> true
         {
             onIce = true;
 
            
         }
-        else if (onIce && ObjectExistInRaycast(rayHit) && !iceExist) // onIce : true -> false
+        else if (onIce && (ObjectExistInRaycast(rayHit) && !iceExist || dir * newDir <= 0)) // onIce : true -> false
         {
+            Debug.Log("Spring on ice false");
             onIce = false;
             rigid.linearVelocity = Vector3.zero;
-
-            
         }
+
+        dir = newDir;
     }
 
-    // TODO : refactor - this is also raycast thing
-    private void CheckConsideredAsWall()
+    private void ConnectedToWall()
     {
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.49f, 0.1f, 0.4f) : new Vector3(0.49f, 0.4f, 0.1f);
-
-        RaycastHit[] rayHitLeft = Physics.BoxCastAll(rigid.position, box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-        RaycastHit[] rayHitRight = Physics.BoxCastAll(rigid.position, box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-
-        bool existLeft = IsExistWallsAndSpringInRayHit(rayHitLeft);
-        bool existRight = IsExistWallsAndSpringInRayHit(rayHitRight);
-
-        if (existLeft || existRight)
-        {
-            rigid.constraints |= RigidbodyConstraints.FreezePositionX;
-        }
-        else
-        {
-            rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
-        }
+        rigid.constraints |= RigidbodyConstraints.FreezePositionX;
     }
 
-    private bool IsExistWallsAndSpringInRayHit(RaycastHit[] rayHit)
+    private void DisconnectedToWall()
     {
-        if (rayHit.Length != 0)
-        {
-            foreach (var hit in rayHit)
-            {
-                if ((hit.collider.CompareTag("Inner") || hit.collider.CompareTag("SideWall") || (hit.collider.transform != transform && hit.collider.CompareTag("Spring"))) && hit.distance < 0.01f)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
     }
 }
