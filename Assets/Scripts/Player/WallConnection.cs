@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class WallConnection : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class WallConnection : MonoBehaviour
     private void Update()
     {
         if (!_doUpdate) return;
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.03f, 0.1f, 0.4f) : new Vector3(0.03f, 0.4f, 0.1f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.03f, 0.1f, 0.44f) : new Vector3(0.03f, 0.44f, 0.1f);
 
         RaycastHit[] rayHitLeft = Physics.BoxCastAll(_rigid.position + new Vector3(-0.5f, 0f, 0f), box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
         RaycastHit[] rayHitRight = Physics.BoxCastAll(_rigid.position + new Vector3(0.5f, 0f, 0f), box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
@@ -127,9 +128,41 @@ public class WallConnection : MonoBehaviour
         }
     }
 
-    public bool IsExistLeft() { return _leftColl != null; }
+    public bool IsExistLeft() 
+    {
+        if (_leftColl == null)
+            return false;
+        else
+        {
+            if (_leftColl.CompareTag("Spring"))
+            {
+                if (_leftColl.GetComponent<WallConnection>().IsExistLeft())
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
+    }
 
-    public bool IsExistRight() { return _rightColl != null; }
+    public bool IsExistRight()
+    {
+        if (_rightColl == null)
+            return false;
+        else
+        {
+            if (_rightColl.CompareTag("Spring"))
+            {
+                if (_rightColl.GetComponent<WallConnection>().IsExistRight())
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
+    }
 
     public void SetUpdate(bool b) { _doUpdate = b; }
 }
