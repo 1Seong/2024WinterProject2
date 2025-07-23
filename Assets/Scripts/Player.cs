@@ -70,6 +70,8 @@ public class Player : Movable
         {
             Debug.Log("On Ice false");
             rigid.linearVelocity = Vector3.zero;
+            rigid.constraints |= RigidbodyConstraints.FreezePositionX;
+
             onIce = false;
             
             GetComponent<PlayerMove>().enabled = true;

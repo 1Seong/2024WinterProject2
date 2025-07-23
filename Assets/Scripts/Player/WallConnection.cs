@@ -78,11 +78,18 @@ public class WallConnection : MonoBehaviour
                 // "platform" is considered as a wall
                 // except - "Player1", "Player2", and "Spring" - need to check if they are connected to a wall
                 if (hit.distance > 0.001f) continue;
+                if (hit.collider.CompareTag("Ice")) continue;
                 if (hit.collider.CompareTag("Spring") || hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2"))
                 {
                     if (hit.collider.transform == transform) continue; // ignore self detection
 
-                    if (hit.collider.GetComponent<WallConnection>().connectedToWall) return hit;
+                    if (hit.collider.GetComponent<WallConnection>().connectedToWall)
+                    {
+                        if (hit.collider.GetComponent<WallConnection>().ConnectedWith(GetComponent<Collider>())) // prevent deadlock
+                            continue;
+                        else
+                            return hit;
+                    }
                 }
                 else // other platforms
                     return hit;
@@ -98,11 +105,11 @@ public class WallConnection : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (_mode == Mode.Player)
+        if (_mode == Mode.Spring)
         {
-            if (!collision.collider.CompareTag("Spring")) return;
+            if (!collision.collider.CompareTag("Player1") && !collision.collider.CompareTag("Player2")) return;
 
-            collision.collider.GetComponent<WallConnection>().SetUpdate(true);
+            SetUpdate(true);
         }
     }
 
@@ -162,6 +169,12 @@ public class WallConnection : MonoBehaviour
             else
                 return true;
         }
+    }
+
+    public bool ConnectedWith(Collider coll)
+    {
+        if (coll == _leftColl || coll == _rightColl) return true;
+        else return false;
     }
 
     public void SetUpdate(bool b) { _doUpdate = b; }
