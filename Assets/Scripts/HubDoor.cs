@@ -27,9 +27,7 @@ public class HubDoor : MonoBehaviour
     private void Awake()
     {
        gs = GetComponent<GrayScript>();
-       if (gs != null)
-            gs.turnGray();
-       else
+       if(gs == null)
             Debug.LogWarning("GrayScript Not Found");
     }
     private void Start()
@@ -38,6 +36,7 @@ public class HubDoor : MonoBehaviour
         if (color == PlayerColor.pink) lockDoor();
         else if (!DataManager.Instance.getIsUnlocked(ep, stage))
         {
+            Debug.Log(ep.ToString() + " " + stage.ToString() + " blue door is locked");
             lockDoor();
         }
     }
@@ -94,16 +93,16 @@ public class HubDoor : MonoBehaviour
 
     private void lockDoor()
     {
-        Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
         if (locked) return;
         locked = true;
         gs.turnGray();
+        Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
     }
     private void unlockDoor()
     {
         if (!locked) return;
-        Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
         locked = false;
         gs.turnDeGray();
+        Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
     }
 }

@@ -1226,6 +1226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueHubDoor (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1311,6 +1315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueHubDoor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1908,6 +1916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueHubDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -4740,6 +4752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueHubDoor (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5343,6 +5359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueHubDoor (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: mat
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
