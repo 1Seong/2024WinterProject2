@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class OptionButton : MonoBehaviour
 {
     public GameObject optionPanel;
@@ -28,5 +29,10 @@ public class OptionButton : MonoBehaviour
             if (GameManager.instance.isPlaying) OpenPanel();
             else ClosePanel();
         }
+    }
+    public void LoadHubStage()
+    {
+        ClosePanel();
+        SceneManager.LoadScene("HubStage");
     }
 }

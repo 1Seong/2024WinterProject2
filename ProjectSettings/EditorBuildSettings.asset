@@ -12,21 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/SeongWon0.unity
     guid: 9e2cd1e51ffdc254087b2edd4552ead2
   - enabled: 1
-    path: Assets/Scenes/EpisodeBoard.unity
-    guid: 9437b4286c5493746b5c4524d8d9c62a
-  - enabled: 1
+    path: Assets/Scenes/HubStage.unity
+    guid: 05c0a20a96d21264c95ae29da927e067
+  - enabled: 0
     path: Assets/Scenes/Episodes/Episode1.unity
     guid: e291ccee6a86441488ff14b62a33093c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Episodes/Episode2.unity
     guid: 7c2716f4b55d68b46bd968118e028558
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Episodes/Episode3.unity
     guid: b1309d4f0a012c54bbfcb5b886a97212
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Episodes/Episode4.unity
     guid: 82c388485b660dc4db4eb3dd8ce43d70
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Episodes/Episode5.unity
     guid: 41b540001e56e024d918b40901f95cae
   - enabled: 1
