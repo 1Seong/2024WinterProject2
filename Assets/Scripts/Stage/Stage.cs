@@ -122,7 +122,7 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
-        if (!data.conversionActive || isActing || restrict) return;
+        //if (!data.conversionActive || isActing || restrict) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {

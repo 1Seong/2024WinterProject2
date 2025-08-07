@@ -4,6 +4,7 @@ using static PlayerSelectableInterface;
 
 public class Door : MonoBehaviour
 {
+    //TODO: Door.cs와 상속 관련 refactor 고려
     enum PlayerColor { pink = 1, blue }
     [SerializeField] private  PlayerColor color;
 
