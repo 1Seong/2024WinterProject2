@@ -19,7 +19,7 @@ public class OptionButton : MonoBehaviour
 
     public void Restart()
     {
-        //restart stage
+        StageManager.instance.Reset();
     }
 
     private void Update()
@@ -34,5 +34,10 @@ public class OptionButton : MonoBehaviour
     {
         ClosePanel();
         SceneManager.LoadScene("HubStage");
+    }
+
+    public void NextStage()
+    {
+        StageManager.instance.EnterNextStage();
     }
 }
