@@ -319,15 +319,28 @@ public class Movable : MonoBehaviour
         updateAction -= CheckInvert;
         
         invertEvent!.Invoke();
-        Debug.Log("1clear");
+        //Debug.Log("1clear");
 
-        yield return new WaitForSeconds(10f);
-        Debug.Log("2clear");
+        for(float i = 0; i <= 10f; i += Time.deltaTime)
+        {
+            while (GameManager.instance.isSideView)
+                yield return null;
+
+            yield return null;
+        }
         
         invertEvent!.Invoke();
-        yield return new WaitForSeconds(2f);
+
+        for (float i = 0; i <= 2f; i += Time.deltaTime)
+        {
+            while (GameManager.instance.isSideView)
+                yield return null;
+
+            yield return null;
+        }
+
         updateAction += CheckInvert;
-        Debug.Log("3clear");
+        //Debug.Log("3clear");
 
         GameManager.instance.gpauseActive = false;
     }
