@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fb5616fdc96c940a0757a9edea3427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ICE_ACCELATION: 2
+  ICE_ACCELATION: 3
   hitInnerWall: 0
   onInnerWall: 0
   onIce: 0
@@ -232,3 +232,5 @@ MonoBehaviour:
   _mode: 0
   _leftColl: {fileID: 0}
   _rightColl: {fileID: 0}
+  _doUpdate: 1
+  _connectedToWall: 0

@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
         //Stop speed when button is up
         if (Input.GetButtonUp("Horizontal"))
         {
-            rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
+            rigid.constraints |= RigidbodyConstraints.FreezePositionX;
             rigid.linearVelocity = new Vector3(0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
         }
     }
@@ -47,11 +47,15 @@ public class PlayerMove : MonoBehaviour
          * Move player horizontally
          */
         float h = Input.GetAxisRaw("Horizontal");
-
+        
         Vector3 dirVec = Vector3.right * GameManager.instance.speed * h;
 
         if (!movable.hitInnerWall)
+        {
+            if(h != 0f)
+                rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
             rigid.AddForce(dirVec, ForceMode.Impulse);
+        }
         else
             rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
     }
