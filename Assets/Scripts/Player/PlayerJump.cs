@@ -111,7 +111,7 @@ public class PlayerJump : MonoBehaviour
         float initialVelocity = Mathf.Sqrt(2 * gravity * jumpUnit);
         float force = rigid.mass * initialVelocity + 0.5f;
 
-        if (IsOnIce())
+        if (IsOnIce() && !GetComponent<Player>().frog)
         {
             //Debug.Log("Ice Jump Multiplier: " + iceJumpMultiplier);
             force *= iceJumpMultiplier;
