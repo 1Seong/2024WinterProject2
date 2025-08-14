@@ -509,7 +509,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 152240470}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 385884483}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1458,7 +1458,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 430390796}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1606,7 +1606,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 441820575}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1912,7 +1912,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 501900126}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -2060,7 +2060,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 501999639}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -2445,7 +2445,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 594207626}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -2593,7 +2593,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 658122201}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -2899,7 +2899,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 828207774}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -3339,7 +3339,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1180366073}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -3826,7 +3826,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1354631344}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -3974,7 +3974,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1460480265}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -4202,7 +4202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1560073299}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -4350,7 +4350,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1579491206}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -4656,7 +4656,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1682216063}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -4883,7 +4883,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1741426361}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -5031,7 +5031,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1744373183}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -5258,7 +5258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1809689911}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -5406,7 +5406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1812218464}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -5633,7 +5633,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 1867340327}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -5860,7 +5860,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 2089452495}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -6008,7 +6008,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 2092087031}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -6156,7 +6156,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 2094777770}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -6304,7 +6304,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 63273908}
+      - m_Target: {fileID: 2118193183}
         m_TargetAssemblyTypeName: StageButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1

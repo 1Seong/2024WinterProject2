@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RotateWhileConvert : MonoBehaviour
 {
-    [SerializeField] private bool inverted;
+    //[SerializeField] private bool inverted;
     private bool isActing;
     private Vector3 originalPos;
 
