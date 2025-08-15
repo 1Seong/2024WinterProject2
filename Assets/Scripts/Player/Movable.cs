@@ -72,6 +72,9 @@ public class Movable : MonoBehaviour
         }
         
         updateAction?.Invoke();
+
+        if (GameManager.instance.isSideView)
+            CheckConvertCollision();
     }
 
     private void CheckInvert()
@@ -287,7 +290,23 @@ public class Movable : MonoBehaviour
         }
     }
 
-    
+    private void CheckConvertCollision()
+    {
+        bool collide = false;
+        Vector3 box = new Vector3(0.35f, 0.1f, 0.35f);
+
+        if (GameManager.instance.isSideView)
+            box = new Vector3(0.35f, 0.35f, 0.1f);
+
+        Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
+        collide = ObjectExistInRaycast(hits);
+
+        if (collide)
+        {
+            Debug.Log("Collide!");
+            transform.position += GetComponent<CustomGravity>().up;
+        }
+    }
 
     // pause the player for given duration
     public void Pause(float duration)
@@ -336,19 +355,6 @@ public class Movable : MonoBehaviour
         GameManager.instance.gpauseActive = false;
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.collider.CompareTag("Player1"))
-            return;
-
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Vector3 moveUp = GetComponent<CustomGravity>().up * 0.05f;
-            transform.position += moveUp;
-        }
-    }
-
-
     // CHANGED: TriggerEnter is activated in the item's script
     /*
     private void OnTriggerEnter(Collider other)
@@ -366,26 +372,5 @@ public class Movable : MonoBehaviour
             customGravity.GPause();
         }
     }
-
-    // LEGACY
-    private void CheckConvertCollision()
-    {
-        bool collide = false;
-        Vector3 box = new Vector3(0.35f, 0.1f, 0.35f);
-
-        if (GameManager.instance.isSideView)
-            box = new Vector3(0.35f, 0.35f, 0.1f);
-
-        Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
-        collide = ObjectExistInRaycast(hits);
-
-        if (collide)
-        {
-            Debug.Log("Collide!");
-            transform.position += GetComponent<CustomGravity>().up;
-        }
-    }
-
-
     */
 }
