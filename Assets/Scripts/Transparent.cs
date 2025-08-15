@@ -8,7 +8,7 @@ public class Transparent : MonoBehaviour
 
     public void CallFade()
     {
-        Debug.Log("Fade");
+        //Debug.Log("Fade");
         StartCoroutine(Fade());
     }
 

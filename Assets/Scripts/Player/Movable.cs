@@ -41,8 +41,6 @@ public class Movable : MonoBehaviour
     {
         updateAction += CheckInvert;
         updateAction += IceAction;
-       
-        Stage.convertEventLast += CheckConvertCollision;
 
         movables = GetComponent<CustomGravity>().gravityState == GravityState.defaultG ? StageManager.instance.stage.defaultMovables : StageManager.instance.stage.invertMovables;
 
@@ -57,7 +55,6 @@ public class Movable : MonoBehaviour
 
     private void OnDestroy()
     {
-        Stage.convertEventLast -= CheckConvertCollision;
         movables.Remove(this);
         StopCoroutine(GPauseAction());
     }
@@ -75,6 +72,9 @@ public class Movable : MonoBehaviour
         }
         
         updateAction?.Invoke();
+
+        if (GameManager.instance.isSideView)
+            CheckConvertCollision();
     }
 
     private void CheckInvert()
@@ -208,10 +208,21 @@ public class Movable : MonoBehaviour
 
     protected bool ObjectExistInRaycast(RaycastHit[] rayHit)
     {
-        if (rayHit.Length == 0) return false;
+        if (rayHit == null || rayHit.Length == 0) return false;
 
         foreach (var i in rayHit)
-            if (i.distance < 0.1f && tag != i.collider.tag)
+            if (i.distance < 0.1f && !i.collider.CompareTag(tag))
+                return true;
+
+        return false;
+    }
+
+    protected bool ObjectExistInRaycast(Collider[] hits)
+    {
+        if (hits == null || hits.Length == 0) return false;
+
+        foreach (var i in hits)
+            if (!i.CompareTag(tag) && !i.CompareTag("Ice") && !i.CompareTag("Player2"))
                 return true;
 
         return false;
@@ -282,20 +293,19 @@ public class Movable : MonoBehaviour
     private void CheckConvertCollision()
     {
         bool collide = false;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        Vector3 box = new Vector3(0.35f, 0.1f, 0.35f);
 
         if (GameManager.instance.isSideView)
-            box = new Vector3(0.49f, 0.5f, 0);
+            box = new Vector3(0.35f, 0.35f, 0.1f);
 
-        do
+        Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
+        collide = ObjectExistInRaycast(hits);
+
+        if (collide)
         {
-            RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, Vector3.zero, Quaternion.identity, 0, LayerMask.GetMask("Platform"));
-            collide = ObjectExistInRaycast(rayHit);
-
-            if(collide)
-                transform.position += GetComponent<CustomGravity>().up;
+            Debug.Log("Collide!");
+            transform.position += GetComponent<CustomGravity>().up;
         }
-        while (collide);
     }
 
     // pause the player for given duration
