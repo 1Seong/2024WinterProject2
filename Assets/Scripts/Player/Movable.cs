@@ -72,9 +72,6 @@ public class Movable : MonoBehaviour
         }
         
         updateAction?.Invoke();
-
-        if (GameManager.instance.isSideView)
-            CheckConvertCollision();
     }
 
     private void CheckInvert()
@@ -242,7 +239,9 @@ public class Movable : MonoBehaviour
         {
             MoveOnIce();
         }
-        
+
+        if (GameManager.instance.isSideView)
+            CheckConvertCollision();
     }
 
     private void MoveOnIce()
@@ -293,17 +292,14 @@ public class Movable : MonoBehaviour
     private void CheckConvertCollision()
     {
         bool collide = false;
-        Vector3 box = new Vector3(0.35f, 0.1f, 0.35f);
-
-        if (GameManager.instance.isSideView)
-            box = new Vector3(0.35f, 0.35f, 0.1f);
+        Vector3 box = new Vector3(0.4f, 0.4f, 0.4f);
 
         Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
         collide = ObjectExistInRaycast(hits);
 
         if (collide)
         {
-            Debug.Log("Collide!");
+            //Debug.Log("Collide!");
             transform.position += GetComponent<CustomGravity>().up;
         }
     }
