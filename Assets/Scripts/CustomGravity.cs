@@ -117,6 +117,9 @@ public class CustomGravity : MonoBehaviour
 
         gravityState = GravityState.convertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+
+        StageManager.instance.stage.defaultMovables.Remove(GetComponent<Movable>());
+        StageManager.instance.stage.invertMovables.Remove(GetComponent<Movable>());
     }
 
     private void InvertAction()

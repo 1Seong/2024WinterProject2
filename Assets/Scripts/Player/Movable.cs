@@ -325,7 +325,7 @@ public class Movable : MonoBehaviour
         updateAction -= CheckInvert;
         
         invertEvent!.Invoke();
-        //Debug.Log("1clear");
+        Debug.Log("1clear");
 
         for(float i = 0; i <= 10f; i += Time.deltaTime)
         {
@@ -337,7 +337,7 @@ public class Movable : MonoBehaviour
         
         invertEvent!.Invoke();
 
-        for (float i = 0; i <= 2f; i += Time.deltaTime)
+        for (float i = 0; i <= 1f; i += Time.deltaTime)
         {
             while (GameManager.instance.isSideView)
                 yield return null;
