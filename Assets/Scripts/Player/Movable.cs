@@ -292,7 +292,7 @@ public class Movable : MonoBehaviour
     private void CheckConvertCollision()
     {
         bool collide = false;
-        Vector3 box = new Vector3(0.4f, 0.4f, 0.4f);
+        Vector3 box = new Vector3(0.37f, 0.37f, 0.37f);
 
         Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
         collide = ObjectExistInRaycast(hits);
