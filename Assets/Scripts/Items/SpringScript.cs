@@ -10,12 +10,6 @@ public class SpringScript : ItemBehavior
     {
         base.Awake();
         PlayerTriggerEvent += SpringActivate;
-        Stage.convertEvent += ConvertSpringCollider;
-    }
-
-    private void OnDestroy()
-    {
-        Stage.convertEvent -= ConvertSpringCollider;
     }
 
     private void SpringActivate(Collider other)
@@ -33,13 +27,5 @@ public class SpringScript : ItemBehavior
         Debug.Log("force : " + force);
         objRb.linearVelocity = Vector3.zero;
         objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);  
-    }
-
-    private void ConvertSpringCollider()
-    {
-        if(GameManager.instance.isSideView) // top -> side
-            GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 16f);
-        else
-            GetComponent<BoxCollider>().size = new Vector3(1f, 1f, 1f);
     }
 }

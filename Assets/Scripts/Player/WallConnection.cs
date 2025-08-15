@@ -121,7 +121,7 @@ public class WallConnection : MonoBehaviour
 
             var springCon = collision.collider.GetComponent<WallConnection>();
             var moveDir = Input.GetAxisRaw("Horizontal");
-            Debug.Log("stay - moveDir " + moveDir);
+            //Debug.Log("stay - moveDir " + moveDir);
             if(moveDir > 0 && !springCon.IsExistRight())
             {
                 springCon.SetUpdate(false);
