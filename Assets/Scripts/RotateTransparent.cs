@@ -53,6 +53,9 @@ public class RotateTransparent : Transparent
         if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
             gameObject.GetComponent<Collider>().enabled = true;
 
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
+            gameObject.GetComponent<Collider>().enabled = false;
+
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
             if (_mode == mode.fade)
@@ -118,9 +121,6 @@ public class RotateTransparent : Transparent
                     r.color = color;
                 }
         }
-
-        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
-            gameObject.GetComponent<Collider>().enabled = false;
 
         isActing = false;
     }

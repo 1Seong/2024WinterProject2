@@ -39,7 +39,7 @@ public class WallConnection : MonoBehaviour
     private void Update()
     {
         if (!_doUpdate) return;
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.03f, 0.1f, 0.44f) : new Vector3(0.03f, 0.44f, 0.1f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.03f, 0.1f, 0.44f) : new Vector3(0.03f, 0.44f, 7.5f);
 
         RaycastHit[] rayHitLeft = Physics.BoxCastAll(_rigid.position + new Vector3(-0.5f, 0f, 0f), box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
         RaycastHit[] rayHitRight = Physics.BoxCastAll(_rigid.position + new Vector3(0.5f, 0f, 0f), box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
@@ -81,7 +81,7 @@ public class WallConnection : MonoBehaviour
                 if (hit.collider.CompareTag("Ice")) continue;
                 if (hit.collider.CompareTag("Spring") || hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2"))
                 {
-                    if (hit.collider.transform == transform) continue; // ignore self detection
+                    if (hit.collider.transform == transform || hit.transform == transform) continue; // ignore self detection
 
                     if (hit.collider.GetComponent<WallConnection>().connectedToWall)
                     {
