@@ -52,7 +52,7 @@ public class Player : Movable
         if (GameManager.instance.isSideView)
             box = new Vector3(0.4f, 0.5f, 0.1f);
 
-        Debug.DrawRay(rigid.position, targetVec, Color.green);
+        //Debug.DrawRay(rigid.position, targetVec, Color.green);
 
         RaycastHit[] rayHit = Physics.BoxCastAll(rigid.position, box, targetVec, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
@@ -68,7 +68,7 @@ public class Player : Movable
         }
         else if (onIce && (PlatformExist(rayHit) && !iceExist || newDir * dir <= 0)) // onIce : true -> false
         {
-            Debug.Log("On Ice false");
+            //Debug.Log("On Ice false");
             rigid.linearVelocity = Vector3.zero;
             rigid.constraints |= RigidbodyConstraints.FreezePositionX;
 

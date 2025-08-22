@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class Movable : MonoBehaviour
 {
     [SerializeField] private float ICE_ACCELATION = 2.0f;
+    [SerializeField] private float ICE_MAXSPEED = 3.5f;
 
     protected Action updateAction;
 
@@ -249,7 +250,9 @@ public class Movable : MonoBehaviour
         if (rigid.linearVelocity.x == 0) return;
 
         int dir = rigid.linearVelocity.x > 0 ? 1 : -1;
-        rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
+
+        if(rigid.linearVelocity.x <= ICE_MAXSPEED)
+            rigid.AddForce(new Vector3(ICE_ACCELATION * dir, 0, 0), ForceMode.Acceleration);
     }
 
     private void CheckOnInnerWall()
@@ -292,7 +295,7 @@ public class Movable : MonoBehaviour
     private void CheckConvertCollision()
     {
         bool collide = false;
-        Vector3 box = new Vector3(0.37f, 0.37f, 0.37f);
+        Vector3 box = new Vector3(0.36f, 0.36f, 0.36f);
 
         Collider[] hits = Physics.OverlapBox( rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
         collide = ObjectExistInRaycast(hits);
