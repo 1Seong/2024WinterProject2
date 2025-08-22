@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SeongWon0.unity
     guid: 9e2cd1e51ffdc254087b2edd4552ead2
   - enabled: 1
+    path: Assets/Scenes/HubStage.unity
+    guid: 05c0a20a96d21264c95ae29da927e067
+  - enabled: 0
     path: Assets/Scenes/Stages/Episode1/Stage1-1.unity
     guid: fdb1e2962904ff448b08e6cd80553473
   - enabled: 1

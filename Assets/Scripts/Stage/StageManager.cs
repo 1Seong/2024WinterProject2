@@ -23,13 +23,13 @@ public class StageManager : MonoBehaviour
     public CurrentStage currentStageInfo;
     public Stage stage;
     public GameObject wallPrefab;
-    public GameObject ClearPanel;
+    public GameObject canvas;
+    public GameObject clearPanel;
     public PhysicsMaterial physicsMat; // Physics material (No friction)
 
     public List<Door> doors;
 
     private Dictionary<Episode, StageData[]> _epStagePair;
-    public GameObject canvas;
 
     public event Action stageEnterEvent;
     public event Action stageClearEvent;
@@ -59,7 +59,11 @@ public class StageManager : MonoBehaviour
         //init for Title Stage
         currentStageInfo.episode = Episode.Episode1;
         currentStageInfo.stageIndex = 0;
-        
+
+        //find Canvas & Clear Panel
+        canvas = GameObject.Find("Canvas");
+        clearPanel = canvas.transform.Find("ClearPanel").gameObject;
+
         stageClearEvent += ()=> UnlockNextStage();
     }
 
@@ -92,7 +96,7 @@ public class StageManager : MonoBehaviour
         //게임 정지
         GameManager.instance.isPlaying = false;
         //UI표시
-        ClearPanel.SetActive(true);
+        clearPanel.SetActive(true);
         
         stageClearEvent?.Invoke();
     }
