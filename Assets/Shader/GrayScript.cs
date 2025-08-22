@@ -4,7 +4,7 @@ using UnityEngine;
 public class GrayScript : MonoBehaviour
 {
     public Material mat;
-    public float duration = 1.0f;
+    public float duration = 0.5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

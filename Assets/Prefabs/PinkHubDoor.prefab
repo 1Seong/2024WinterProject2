@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 0}
-  duration: 1
+  duration: 0.5
 --- !u!114 &3850334669050556923
 MonoBehaviour:
   m_ObjectHideFlags: 0
