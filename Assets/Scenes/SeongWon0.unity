@@ -4099,10 +4099,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 612f1a91f0c914a4ba022864284c5aa6, type: 2}
   stage: {fileID: 0}
   wallPrefab: {fileID: 5193326551105480410, guid: 28a2bd3eea982134c965ae160c9732b8, type: 3}
-  ClearPanel: {fileID: 0}
+  canvas: {fileID: 0}
+  clearPanel: {fileID: 0}
   physicsMat: {fileID: 13400000, guid: 3fb795ed03028674496898671af09e99, type: 2}
   doors: []
-  canvas: {fileID: 0}
 --- !u!4 &1464646211
 Transform:
   m_ObjectHideFlags: 0
