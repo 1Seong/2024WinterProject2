@@ -241,10 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4ed08de5f4b834cb2fdd561b6c0dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  defaultMovables: []
-  invertMovables: []
 --- !u!54 &6217181253166715293
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,16 +310,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 8309016216133705614}
     m_Modifications:
     - target: {fileID: 2585764404365097307, guid: 5ab4cab83b8de2a488a39da37879bc1c, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2585764404365097307, guid: 5ab4cab83b8de2a488a39da37879bc1c, type: 3}
       propertyPath: m_VersionIndex
-      value: 157
-      objectReference: {fileID: 0}
-    - target: {fileID: 2853803331078049605, guid: 5ab4cab83b8de2a488a39da37879bc1c, type: 3}
-      propertyPath: m_Mesh
-      value: 
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 4876981057871693113, guid: 5ab4cab83b8de2a488a39da37879bc1c, type: 3}
       propertyPath: m_Name
@@ -369,6 +357,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9038796682399248055, guid: 5ab4cab83b8de2a488a39da37879bc1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dc378c78dd48ef0479d069922fbb3377, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
