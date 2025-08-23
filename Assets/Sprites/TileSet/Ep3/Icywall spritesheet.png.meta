@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81f6cdda0017b494cb2f7606171b4e38
+guid: df07257fd18ed8c4caa46b56ef6c83cb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_0
+      name: Icywall spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -125,18 +125,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a273a71de0a9a614bb793bc4e2224822
-      internalID: -500113291
+      spriteID: 5da808d98ec6f0046bc58f83be56166c
+      internalID: -1226203300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_1
+      name: Icywall spritesheet_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -147,18 +147,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bc430cb1688fad4195b1ffefd2e8c1f
-      internalID: 1157024185
+      spriteID: 43c378f95857cd64cad288991d1e917c
+      internalID: 1981483228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_2
+      name: Icywall spritesheet_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -169,18 +169,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15cee64f908dfe441a58af89dc25b44d
-      internalID: -1387153748
+      spriteID: 28e7887784fccb740a706c9e0a0c2a69
+      internalID: -1082160862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_3
+      name: Icywall spritesheet_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -191,18 +191,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e01dae1cab7a1cb4b834818b035683c9
-      internalID: -742431077
+      spriteID: 78962968fae4cdc43ae09c4d89fb6a5a
+      internalID: -1721979133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_4
+      name: Icywall spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4016636fcb5e8de4c8a835ec08f51b96
+      internalID: -2024598892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -213,18 +235,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a42f9141688b4c8459d307bc0a1a5039
-      internalID: 1443552589
+      spriteID: 42b3537d25614584fad4d28192e11ab3
+      internalID: -199897532
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_5
+      name: Icywall spritesheet_6
       rect:
         serializedVersion: 2
         x: 16
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -235,18 +257,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3ddbd4796e65214b836fba154fb6431
-      internalID: -531895110
+      spriteID: 5d3c99f306d93c04997f744a3542e371
+      internalID: -1368887481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_6
+      name: Icywall spritesheet_7
       rect:
         serializedVersion: 2
         x: 32
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -257,18 +279,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cbdfc0957ed4d947b8531e19445d0ad
-      internalID: -261694594
+      spriteID: 8812d38cab099fb40b669ecbc0391259
+      internalID: 972386782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_7
+      name: Icywall spritesheet_8
       rect:
         serializedVersion: 2
         x: 48
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -279,8 +301,140 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db176007685beb6439f2f3319a1ca3c6
-      internalID: 1791965097
+      spriteID: ff67a1b9ab4c22e4a95cc59b56ece9d3
+      internalID: 2069243782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ffbe1a49ebb9b947b283797df1222bf
+      internalID: -357905632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14d094e760b2c344286693c16f67a789
+      internalID: 1769708447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f247adbb8131bb4fa5c1e30c61dff4a
+      internalID: -2051308266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8027658a90d7c8f40b771939c796b111
+      internalID: -1820063291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a66f0d18637c3140af7ab7808228b24
+      internalID: 929599894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icywall spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31d4ab6a74bd024428420864939442ff
+      internalID: -1046398093
       vertices: []
       indices: 
       edges: []
@@ -289,7 +443,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9cbd25d2c8a98554eaa1008063a6dd01
+    spriteID: 3808f4d9e1f93f844891b7ed359587c5
     internalID: 0
     vertices: []
     indices: 
@@ -299,14 +453,21 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RestrictedWall spritesheet_0: -500113291
-      RestrictedWall spritesheet_1: 1157024185
-      RestrictedWall spritesheet_2: -1387153748
-      RestrictedWall spritesheet_3: -742431077
-      RestrictedWall spritesheet_4: 1443552589
-      RestrictedWall spritesheet_5: -531895110
-      RestrictedWall spritesheet_6: -261694594
-      RestrictedWall spritesheet_7: 1791965097
+      Icywall spritesheet_0: -1226203300
+      Icywall spritesheet_1: 1981483228
+      Icywall spritesheet_10: 1769708447
+      Icywall spritesheet_11: -2051308266
+      Icywall spritesheet_12: -1820063291
+      Icywall spritesheet_13: 929599894
+      Icywall spritesheet_14: -1046398093
+      Icywall spritesheet_2: -1082160862
+      Icywall spritesheet_3: -1721979133
+      Icywall spritesheet_4: -2024598892
+      Icywall spritesheet_5: -199897532
+      Icywall spritesheet_6: -1368887481
+      Icywall spritesheet_7: 972386782
+      Icywall spritesheet_8: 2069243782
+      Icywall spritesheet_9: -357905632
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

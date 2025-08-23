@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81f6cdda0017b494cb2f7606171b4e38
+guid: da2526abbc9aef34a8ed9da81949703f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_0
+      name: Mothywall spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -125,18 +125,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a273a71de0a9a614bb793bc4e2224822
-      internalID: -500113291
+      spriteID: b8792e967c0c75f4aa2952c570f954fd
+      internalID: 1610104093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_1
+      name: Mothywall spritesheet_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -147,18 +147,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bc430cb1688fad4195b1ffefd2e8c1f
-      internalID: 1157024185
+      spriteID: 2c44874f049a8c54f9f268fd48879a21
+      internalID: 1848880109
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_2
+      name: Mothywall spritesheet_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -169,18 +169,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15cee64f908dfe441a58af89dc25b44d
-      internalID: -1387153748
+      spriteID: 9c4e05ec9d29e884e8c990233e3a6aad
+      internalID: 1832404137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_3
+      name: Mothywall spritesheet_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 29
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -191,18 +191,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e01dae1cab7a1cb4b834818b035683c9
-      internalID: -742431077
+      spriteID: 528365a81d4d82941a224f8040ff1dd2
+      internalID: -1548162151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_4
+      name: Mothywall spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c39ecc4b497d949bddfaa0442ce887
+      internalID: -571305186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -213,18 +235,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a42f9141688b4c8459d307bc0a1a5039
-      internalID: 1443552589
+      spriteID: edc98417435d4c84ab6811a011872a03
+      internalID: 1557185697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_5
+      name: Mothywall spritesheet_6
       rect:
         serializedVersion: 2
         x: 16
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -235,18 +257,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3ddbd4796e65214b836fba154fb6431
-      internalID: -531895110
+      spriteID: 5d57d601cd779894aad48d3cec7548b9
+      internalID: -1987996567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_6
+      name: Mothywall spritesheet_7
       rect:
         serializedVersion: 2
         x: 32
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -257,18 +279,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cbdfc0957ed4d947b8531e19445d0ad
-      internalID: -261694594
+      spriteID: 538ae620288470a4abfe3924d2e66470
+      internalID: 900004836
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_7
+      name: Mothywall spritesheet_8
       rect:
         serializedVersion: 2
         x: 48
-        y: 13
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -279,8 +301,140 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db176007685beb6439f2f3319a1ca3c6
-      internalID: 1791965097
+      spriteID: 83e9fca0bd9679b42a1b2f0246afa8e2
+      internalID: -659734107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 733993f1e41f3f04f82fd54e8b50b791
+      internalID: 116598606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d23d834a2cffa74fb5158fa6a93273c
+      internalID: 1242072514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3477f97ca24c37e48a11481035445ad6
+      internalID: -229244258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d216b68a4a4df4aa5e859c219f7dee
+      internalID: -1585891554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65e20163ef5467d4ea0f2029964dcff2
+      internalID: -66435489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mothywall spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c62ac0e2ef95df41bd19db86000ff71
+      internalID: -1478968219
       vertices: []
       indices: 
       edges: []
@@ -289,7 +443,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9cbd25d2c8a98554eaa1008063a6dd01
+    spriteID: 66d941a22e8ded8499fb2a66c9ae4e6c
     internalID: 0
     vertices: []
     indices: 
@@ -299,14 +453,21 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RestrictedWall spritesheet_0: -500113291
-      RestrictedWall spritesheet_1: 1157024185
-      RestrictedWall spritesheet_2: -1387153748
-      RestrictedWall spritesheet_3: -742431077
-      RestrictedWall spritesheet_4: 1443552589
-      RestrictedWall spritesheet_5: -531895110
-      RestrictedWall spritesheet_6: -261694594
-      RestrictedWall spritesheet_7: 1791965097
+      Mothywall spritesheet_0: 1610104093
+      Mothywall spritesheet_1: 1848880109
+      Mothywall spritesheet_10: 1242072514
+      Mothywall spritesheet_11: -229244258
+      Mothywall spritesheet_12: -1585891554
+      Mothywall spritesheet_13: -66435489
+      Mothywall spritesheet_14: -1478968219
+      Mothywall spritesheet_2: 1832404137
+      Mothywall spritesheet_3: -1548162151
+      Mothywall spritesheet_4: -571305186
+      Mothywall spritesheet_5: 1557185697
+      Mothywall spritesheet_6: -1987996567
+      Mothywall spritesheet_7: 900004836
+      Mothywall spritesheet_8: -659734107
+      Mothywall spritesheet_9: 116598606
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
