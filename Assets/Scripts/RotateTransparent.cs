@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RotateTransparent : Transparent
 {
@@ -8,16 +9,23 @@ public class RotateTransparent : Transparent
     [SerializeField] private bool _isSideViewObject;
     [SerializeField] private float _maxAlpha = 1f;
 
-    private Material[] mats = null;
-    private SpriteRenderer[] renderers = null;
+    private Collider coll;
+    private Material[] mats;
+    private SpriteRenderer[] renderers;
+    private Tilemap[] tilemaps;
 
     private void Awake()
     {
-        if(GetComponent<MeshRenderer>() != null)
-            mats = GetComponent<MeshRenderer>().materials;
+        MeshRenderer mr;
+        coll = GetComponent<Collider>();
+        if(TryGetComponent(out mr))
+            mats = mr.materials;
 
         renderers = GetComponentsInChildren<SpriteRenderer>();
+        tilemaps = GetComponentsInChildren<Tilemap>();
     }
+
+
 
     private void Start()
     {
@@ -25,20 +33,59 @@ public class RotateTransparent : Transparent
 
         if (_isSideViewObject)
         {
-            if(mats != null)
+            if(mats is not null)
                 foreach(var mat in mats)
                 {
                     Color color = mat.color;
                     color.a = 0f;
                     mat.color = color;
                 }
-            if(renderers != null)
+            if(renderers is not null)
                 foreach (var r in renderers)
                 {
                     Color color = r.color;
                     color.a = 0f;
                     r.color = color;
                 }
+            if(tilemaps is not null)
+                foreach (var tilemap in tilemaps)
+                {
+                    Color color = tilemap.color;
+                    color.a = 0f;
+                    tilemap.color = color;
+                }
+        }
+
+    }
+
+    public override void CallFade()
+    {
+        bool sideview = GameManager.instance.isSideView;
+
+        if(coll != null)
+        {
+            if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
+                coll.enabled = true;
+
+            if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
+                coll.enabled = false;
+        }
+
+        if (_mode == mode.fade)
+            StartCoroutine(Fade());
+        else
+        {
+            if (mats is not null)
+                foreach (var m in mats)
+                    instantImpl(m);
+
+            if (renderers is not null)
+                foreach (var r in renderers)
+                    instantImpl(r);
+
+            if (tilemaps is not null)
+                foreach (var t in tilemaps)
+                    instantImpl(t);
         }
 
     }
@@ -50,16 +97,9 @@ public class RotateTransparent : Transparent
 
         isActing = true;
 
-        if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
-            gameObject.GetComponent<Collider>().enabled = true;
-
-        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
-            gameObject.GetComponent<Collider>().enabled = false;
-
         for (float i = 0; i <= totalTime; i += Time.fixedDeltaTime)
         {
-            if (_mode == mode.fade)
-            {
+            if(mats is not null)
                 foreach(var mat in mats)
                 {
                     Color color = mat.color;
@@ -70,59 +110,86 @@ public class RotateTransparent : Transparent
                     color.a = amount;
                     mat.color = color;
                 }
-                if (renderers != null)
-                    foreach (var r in renderers)
-                    {
-                        Color color = r.color;
-                        float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime); //appear
-                        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //disappear
-                            amount = _maxAlpha - amount;
 
-                        color.a = amount;
-                        r.color = color;
-                    }
-            }
-            yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
-        }
-
-        if(_mode == mode.instant)
-        {
-            if(mats != null)
-                foreach(var mat in mats)
-                {
-                    Color color = mat.color;
-
-                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
-                    {
-                        color.a = 0f;
-                    }
-                    else // appear
-                    {
-                        color.a = 1f;
-                    }
-
-                    mat.color = color;
-                }
-
-            if(renderers != null)
+            if (renderers is not null)
                 foreach (var r in renderers)
                 {
                     Color color = r.color;
+                    float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime); //appear
+                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //disappear
+                        amount = _maxAlpha - amount;
 
-                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
-                    {
-                        color.a = 0f;
-                    }
-                    else // appear
-                    {
-                        color.a = 1f;
-                    }
-
+                    color.a = amount;
                     r.color = color;
                 }
+
+            if(tilemaps is not null)
+                foreach (var t in tilemaps)
+                {
+                    Color color = t.color;
+                    float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime); //appear
+                    if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //disappear
+                        amount = _maxAlpha - amount;
+
+                    color.a = amount;
+                    t.color = color;
+                }
+
+            yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
 
         isActing = false;
+    }
+
+    private void instantImpl(Material o)
+    {
+        var color = o.color;
+        var sideview = GameManager.instance.isSideView;
+
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+        {
+            color.a = 0f;
+        }
+        else // appear
+        {
+            color.a = 1f;
+        }
+
+        o.color = color;
+    }
+
+    private void instantImpl(SpriteRenderer o)
+    {
+        var color = o.color;
+        var sideview = GameManager.instance.isSideView;
+
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+        {
+            color.a = 0f;
+        }
+        else // appear
+        {
+            color.a = 1f;
+        }
+
+        o.color = color;
+    }
+
+    private void instantImpl(Tilemap o)
+    {
+        var color = o.color;
+        var sideview = GameManager.instance.isSideView;
+
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+        {
+            color.a = 0f;
+        }
+        else // appear
+        {
+            color.a = 1f;
+        }
+
+        o.color = color;
     }
 
     private void OnDestroy()

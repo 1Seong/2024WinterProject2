@@ -6,7 +6,7 @@ public class Transparent : MonoBehaviour
     [SerializeField] private float totalTime = 1f;
     public bool isActing;
 
-    public void CallFade()
+    public virtual void CallFade()
     {
         //Debug.Log("Fade");
         StartCoroutine(Fade());
