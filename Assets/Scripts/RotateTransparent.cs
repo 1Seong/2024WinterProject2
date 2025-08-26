@@ -40,7 +40,7 @@ public class RotateTransparent : Transparent
 
     }
 
-    public override void CallFade()
+    public new void CallFade()
     {
         bool sideview = GameManager.instance.isSideView;
 
@@ -72,7 +72,7 @@ public class RotateTransparent : Transparent
 
     }
 
-    protected override IEnumerator Fade()
+    protected new IEnumerator Fade()
     {
         bool sideview = GameManager.instance.isSideView;
         float totalTime = GameManager.instance.cameraRotationTime;

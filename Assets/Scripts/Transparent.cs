@@ -13,6 +13,8 @@ public class Transparent : MonoBehaviour
     protected SpriteRenderer[] renderers;
     protected Tilemap[] tilemaps;
 
+    public bool active = true;
+
     protected void Awake()
     {
         MeshRenderer mr;
@@ -24,18 +26,19 @@ public class Transparent : MonoBehaviour
         tilemaps = GetComponentsInChildren<Tilemap>();
     }
 
-    public virtual void CallFade()
+    public void CallFade()
     {
         //Debug.Log("Fade");
         StartCoroutine(Fade());
     }
 
-    public virtual void CallEmerge()
+    public void CallEmerge()
     {
+        if (active) return;
         StartCoroutine(Emerge());
     }
 
-    protected virtual IEnumerator Fade()
+    protected IEnumerator Emerge()
     {
         isActing = true;
 
@@ -74,9 +77,10 @@ public class Transparent : MonoBehaviour
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
         isActing = false;
+        active = true;
     }
 
-    private IEnumerator Emerge()
+    protected IEnumerator Fade()
     {
         isActing = true;
 
@@ -115,6 +119,7 @@ public class Transparent : MonoBehaviour
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
         isActing = false;
+        active = false;
     }
 }
 

@@ -339,6 +339,7 @@ public class Movable : MonoBehaviour
         }
         
         invertEvent!.Invoke();
+        GameManager.instance.GpauseActive = false;
 
         for (float i = 0; i <= 1f; i += Time.deltaTime)
         {
@@ -350,8 +351,6 @@ public class Movable : MonoBehaviour
 
         updateAction += CheckInvert;
         //Debug.Log("3clear");
-
-        GameManager.instance.GpauseActive = false;
     }
 
     // CHANGED: TriggerEnter is activated in the item's script
