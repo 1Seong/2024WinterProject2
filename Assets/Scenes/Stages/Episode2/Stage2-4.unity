@@ -14344,6 +14344,7 @@ GameObject:
   - component: {fileID: 1385866144}
   - component: {fileID: 1385866143}
   - component: {fileID: 1385866146}
+  - component: {fileID: 1385866147}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -14469,6 +14470,15 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!45 &1385866147
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385866142}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 299c3ba2a74952141a385170885cc2dc, type: 2}
 --- !u!43 &1649555180
 Mesh:
   m_ObjectHideFlags: 0
