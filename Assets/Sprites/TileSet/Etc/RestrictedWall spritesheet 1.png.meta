@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81f6cdda0017b494cb2f7606171b4e38
+guid: c6104d6e39f7e374fa86b26eb7c84b0e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_0
+      name: RestrictedWall spritesheet 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40547d3758c1b9a4f877420d270145c8
-      internalID: -641182408
+      spriteID: 673c0335b3f52ff47bce2b630c97e768
+      internalID: -2029750402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_1
+      name: RestrictedWall spritesheet 1_1
       rect:
         serializedVersion: 2
         x: 15
@@ -147,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 223bc80e0d1d9134c90438d6667ed621
-      internalID: 1591681152
+      spriteID: 5a9fc34a2cbe67242b5eb2343bfe0f77
+      internalID: -548452286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_2
+      name: RestrictedWall spritesheet 1_2
       rect:
         serializedVersion: 2
         x: 30
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e74975a60fef8f3479bec14ff34d840b
-      internalID: -1836437558
+      spriteID: d4ed135575adcd04bb53cfa8c38ee19d
+      internalID: 528720197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_3
+      name: RestrictedWall spritesheet 1_3
       rect:
         serializedVersion: 2
         x: 45
@@ -191,14 +191,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a831f07eb8320d4d9692561152e9e09
-      internalID: -279307085
+      spriteID: 01258b02eb5bfbd449575f99572b3702
+      internalID: -1111461521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_4
+      name: RestrictedWall spritesheet 1_4
       rect:
         serializedVersion: 2
         x: 60
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03fe4febe1cce06459ffcc121207753d
-      internalID: -970031994
+      spriteID: 001fb00d669364a429e77f77b0f84dc5
+      internalID: 1250021511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_5
+      name: RestrictedWall spritesheet 1_5
       rect:
         serializedVersion: 2
         x: 0
@@ -235,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c9e22f2d58786f41807b76e42cd2311
-      internalID: 1073806390
+      spriteID: 5ba6e163c0218e846a1c411ddc8006c3
+      internalID: 1197796606
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_6
+      name: RestrictedWall spritesheet 1_6
       rect:
         serializedVersion: 2
         x: 15
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 056d7b48ab2b0874eadd3fba132853b5
-      internalID: 365854381
+      spriteID: fc40018e7f136bb4a8f8a36132de46dd
+      internalID: 2051289909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_7
+      name: RestrictedWall spritesheet 1_7
       rect:
         serializedVersion: 2
         x: 30
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f40556ed8fba1f44ac5b14443e8ba46
-      internalID: 758706787
+      spriteID: 413587f106f70cb4a9d85d46264f9801
+      internalID: 805798228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_8
+      name: RestrictedWall spritesheet 1_8
       rect:
         serializedVersion: 2
         x: 45
@@ -301,14 +301,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d78b785eddc98d44896f6def9ee58e8d
-      internalID: 1421138261
+      spriteID: ff69efc3b16dd7a4bbb5e70a0443a897
+      internalID: 924897175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_9
+      name: RestrictedWall spritesheet 1_9
       rect:
         serializedVersion: 2
         x: 60
@@ -323,14 +323,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 767c29ab02685174c915eab0cf8fa4e4
-      internalID: 1533284251
+      spriteID: dc64c9ac0b05271469d04922d4771949
+      internalID: 618660026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_10
+      name: RestrictedWall spritesheet 1_10
       rect:
         serializedVersion: 2
         x: 0
@@ -345,14 +345,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4cf3fc79ec6d0f46babaa7d30983e87
-      internalID: 1091050951
+      spriteID: 5e5b0192cf517f84eaffaa0d4d0e2113
+      internalID: -824545409
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_11
+      name: RestrictedWall spritesheet 1_11
       rect:
         serializedVersion: 2
         x: 15
@@ -367,14 +367,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 760c659c2b72531478acff7aa4baa608
-      internalID: -171575168
+      spriteID: a89c2f2b767b61e4490ce84b7a321d72
+      internalID: -1172981354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_12
+      name: RestrictedWall spritesheet 1_12
       rect:
         serializedVersion: 2
         x: 30
@@ -389,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd3e4c0615512f94fb1722df6d0403e2
-      internalID: 1777842680
+      spriteID: 0aae701c184c1a24dabd0996ba78305f
+      internalID: 900977579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_13
+      name: RestrictedWall spritesheet 1_13
       rect:
         serializedVersion: 2
         x: 45
@@ -411,14 +411,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e245232fe9c6c0246988e75e759b8fcf
-      internalID: 1521545969
+      spriteID: b38e77a6b9bc3ea46a937ca0f110b178
+      internalID: 635706517
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RestrictedWall spritesheet_14
+      name: RestrictedWall spritesheet 1_14
       rect:
         serializedVersion: 2
         x: 60
@@ -433,8 +433,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66460525136e34148b54cffcc8cd0138
-      internalID: 362535587
+      spriteID: d46e2e0e75d429944b21f3c6c90cb135
+      internalID: 1984533750
       vertices: []
       indices: 
       edges: []
@@ -443,7 +443,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c7b2d931c0a888f4ca0d76271e43d3b2
+    spriteID: 92eacf3425ea2d64192935b90bacd0c7
     internalID: 0
     vertices: []
     indices: 
@@ -453,21 +453,21 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RestrictedWall spritesheet_0: -641182408
-      RestrictedWall spritesheet_1: 1591681152
-      RestrictedWall spritesheet_10: 1091050951
-      RestrictedWall spritesheet_11: -171575168
-      RestrictedWall spritesheet_12: 1777842680
-      RestrictedWall spritesheet_13: 1521545969
-      RestrictedWall spritesheet_14: 362535587
-      RestrictedWall spritesheet_2: -1836437558
-      RestrictedWall spritesheet_3: -279307085
-      RestrictedWall spritesheet_4: -970031994
-      RestrictedWall spritesheet_5: 1073806390
-      RestrictedWall spritesheet_6: 365854381
-      RestrictedWall spritesheet_7: 758706787
-      RestrictedWall spritesheet_8: 1421138261
-      RestrictedWall spritesheet_9: 1533284251
+      RestrictedWall spritesheet 1_0: -2029750402
+      RestrictedWall spritesheet 1_1: -548452286
+      RestrictedWall spritesheet 1_10: -824545409
+      RestrictedWall spritesheet 1_11: -1172981354
+      RestrictedWall spritesheet 1_12: 900977579
+      RestrictedWall spritesheet 1_13: 635706517
+      RestrictedWall spritesheet 1_14: 1984533750
+      RestrictedWall spritesheet 1_2: 528720197
+      RestrictedWall spritesheet 1_3: -1111461521
+      RestrictedWall spritesheet 1_4: 1250021511
+      RestrictedWall spritesheet 1_5: 1197796606
+      RestrictedWall spritesheet 1_6: 2051289909
+      RestrictedWall spritesheet 1_7: 805798228
+      RestrictedWall spritesheet 1_8: 924897175
+      RestrictedWall spritesheet 1_9: 618660026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
