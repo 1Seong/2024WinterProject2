@@ -323,7 +323,7 @@ public class Movable : MonoBehaviour
 
     IEnumerator GPauseAction()
     {
-        GameManager.instance.gpauseActive = true;
+        GameManager.instance.GpauseActive = true;
 
         updateAction -= CheckInvert;
         
@@ -351,7 +351,7 @@ public class Movable : MonoBehaviour
         updateAction += CheckInvert;
         //Debug.Log("3clear");
 
-        GameManager.instance.gpauseActive = false;
+        GameManager.instance.GpauseActive = false;
     }
 
     // CHANGED: TriggerEnter is activated in the item's script

@@ -1,15 +1,31 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static PlayerSelectableInterface;
 
 public class GPause : Consumable
 {
+    public static event Action GpauseBlueEvent;
+    public static event Action GpausePinkEvent;
+
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += (Collider other) =>
         {
-            var movables = color == PlayerColor.blue ? StageManager.instance.stage.defaultMovables : StageManager.instance.stage.invertMovables;
+            List<Movable> movables;
+            if(color == PlayerColor.blue)
+            {
+                movables = StageManager.instance.stage.defaultMovables;
+                GpauseBlueEvent?.Invoke();
+            }
+            else
+            {
+                movables = StageManager.instance.stage.invertMovables;
+                GpausePinkEvent?.Invoke();
+            }
             
             foreach (var i in movables)
                 i.CallGPauseAction();

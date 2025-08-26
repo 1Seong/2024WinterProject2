@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,12 +6,24 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public event Action GPauseOffEvent;
 
     [Header("# Game Control")]
     public bool isPlaying; // True when user is playing a stage
     public bool isSideView;
     public float cameraRotationTime;
-    public bool gpauseActive = false;
+
+    private bool _gpauseActive = false;
+    public bool GpauseActive
+    {
+        get => _gpauseActive;
+        set
+        {
+            _gpauseActive = value;
+            if (!value)
+                GPauseOffEvent?.Invoke();
+        }
+    }
     //public float gameTime;
 
     [Header("# Player Info")]

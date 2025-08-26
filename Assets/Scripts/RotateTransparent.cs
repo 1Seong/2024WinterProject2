@@ -7,24 +7,6 @@ public class RotateTransparent : Transparent
     private enum mode { fade, instant }
     [SerializeField] private mode _mode;
     [SerializeField] private bool _isSideViewObject;
-    [SerializeField] private float _maxAlpha = 1f;
-
-    private Collider coll;
-    private Material[] mats;
-    private SpriteRenderer[] renderers;
-    private Tilemap[] tilemaps;
-
-    private void Awake()
-    {
-        MeshRenderer mr;
-        coll = GetComponent<Collider>();
-        if(TryGetComponent(out mr))
-            mats = mr.materials;
-
-        renderers = GetComponentsInChildren<SpriteRenderer>();
-        tilemaps = GetComponentsInChildren<Tilemap>();
-    }
-
 
 
     private void Start()

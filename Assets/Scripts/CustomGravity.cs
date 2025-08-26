@@ -94,7 +94,7 @@ public class CustomGravity : MonoBehaviour
         gravityState = GravityState.defaultG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
-        if (GameManager.instance.gpauseActive) return;
+        if (GameManager.instance.GpauseActive) return;
 
         StageManager.instance.stage.invertMovables.Remove(GetComponent<Movable>());
         StageManager.instance.stage.defaultMovables.Add(GetComponent<Movable>());
@@ -105,7 +105,7 @@ public class CustomGravity : MonoBehaviour
         gravityState = GravityState.invertG;
         rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
-        if (GameManager.instance.gpauseActive) return;
+        if (GameManager.instance.GpauseActive) return;
 
         StageManager.instance.stage.defaultMovables.Remove(GetComponent<Movable>());
         StageManager.instance.stage.invertMovables.Add(GetComponent<Movable>());
