@@ -32,7 +32,7 @@ public class HubDoor : MonoBehaviour
     }
     private void Start()
     {
-        // 문이 핑크색이거나 아직 해금 안되었다면 잠근다
+        // 문이 핑크색이거나 파란색인데 아직 해금 안되었다면 잠근다
         if (color == PlayerColor.pink) lockDoor();
         else if (!DataManager.Instance.getIsUnlocked(ep, stage))
         {
@@ -96,13 +96,13 @@ public class HubDoor : MonoBehaviour
         if (locked) return;
         locked = true;
         gs.turnGray();
-        Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
+        //Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
     }
     private void unlockDoor()
     {
         if (!locked) return;
         locked = false;
         gs.turnDeGray();
-        Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
+        //Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
     }
 }

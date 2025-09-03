@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 public class OptionButton : MonoBehaviour
 {
     public GameObject optionPanel;
+    private bool isMasterMute;
+    private bool isBgmMute;
+    private bool isSfxMute;
+
     public void OpenPanel()
     {
         optionPanel.SetActive(true);
@@ -39,5 +43,10 @@ public class OptionButton : MonoBehaviour
     public void NextStage()
     {
         StageManager.instance.EnterNextStage();
+    }
+
+    public void muteButton()
+    {
+
     }
 }

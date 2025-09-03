@@ -1073,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
       propertyPath: mat
       value: 
-      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1292,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
       propertyPath: mat
       value: 
-      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1837,7 +1837,11 @@ PrefabInstance:
     - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
       propertyPath: mat
       value: 
-      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125204564064192188, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: a0a377cbb8fbc5a479a07aec272d6bb4, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -4694,7 +4698,7 @@ PrefabInstance:
     - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
       propertyPath: mat
       value: 
-      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5102,7 +5106,7 @@ PrefabInstance:
     - target: {fileID: 5415623388934136618, guid: 31359e7c048a930449117f9212fa19ae, type: 3}
       propertyPath: mat
       value: 
-      objectReference: {fileID: 2100000, guid: 7de2868d18234a645b0c9e10ab53ec4e, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5197,10 +5201,10 @@ SceneRoots:
   - {fileID: 139310773}
   - {fileID: 155777444}
   - {fileID: 1241903714}
+  - {fileID: 1506077965}
   - {fileID: 1563188070}
   - {fileID: 1487039692}
   - {fileID: 397865056}
-  - {fileID: 1506077965}
   - {fileID: 325710331}
   - {fileID: 641673463}
   - {fileID: 717523177}

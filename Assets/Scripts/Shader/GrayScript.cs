@@ -4,7 +4,7 @@ using UnityEngine;
 public class GrayScript : MonoBehaviour
 {
     public Material mat;
-    public float duration = 0.5f;
+    public float duration = 1.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,7 +34,7 @@ public class GrayScript : MonoBehaviour
             yield return null;
         }
 
-        mat.SetFloat("_GrayAmount", 0);
+        mat.SetFloat("_GrayAmount", 0.0f);
         //Debug.Log("gray complete!");
     }
 
@@ -44,11 +44,11 @@ public class GrayScript : MonoBehaviour
         while (t < duration)
         {
             mat.SetFloat("_GrayAmount", t);
-            t += Time.deltaTime;
+            t += Time.deltaTime*(1.0f/duration);
             yield return null;
         }
 
-        mat.SetFloat("_GrayAmount", 1);
+        mat.SetFloat("_GrayAmount", 1.0f);
         //Debug.Log("degray complete!");
     }
 }
