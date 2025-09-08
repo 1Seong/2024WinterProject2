@@ -7495,6 +7495,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2530086520409180730, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3063019063758039432, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -10135,6 +10139,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[15].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 6833043588283664091, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7058701085434444787, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_IsActive
       value: 0
