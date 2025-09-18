@@ -36,7 +36,7 @@ public class HubDoor : MonoBehaviour
         if (color == PlayerColor.pink) lockDoor();
         else if (!DataManager.Instance.getIsUnlocked(ep, stage))
         {
-            Debug.Log(ep.ToString() + " " + stage.ToString() + " blue door is locked");
+            Debug.Log(ep.ToString() + " " + stage.ToString() + " locking blue door...");
             lockDoor();
         }
     }
@@ -96,7 +96,7 @@ public class HubDoor : MonoBehaviour
         if (locked) return;
         locked = true;
         gs.turnGray();
-        //Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
+        Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
     }
     private void unlockDoor()
     {

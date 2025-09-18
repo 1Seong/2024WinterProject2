@@ -6,10 +6,9 @@ public class GrayScript : MonoBehaviour
     public Material mat;
     public float duration = 1.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         mat = GetComponentInChildren<SpriteRenderer>().material;
-        //turnGray();
     }
 
     public void turnGray()
