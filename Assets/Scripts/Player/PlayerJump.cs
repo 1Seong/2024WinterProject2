@@ -79,7 +79,7 @@ public class PlayerJump : MonoBehaviour
         }
 
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.47f, 0, 0.5f);
+        Vector3 box = new Vector3(0.44f, 0, 0.5f);
 
         if (GameManager.instance.isSideView)
             box = new Vector3(0.49f, 0.5f, 0);
@@ -91,6 +91,8 @@ public class PlayerJump : MonoBehaviour
         if (rayHit.Length != 0)
             foreach(var i in rayHit)
             {
+                if (i.collider.CompareTag("Spring"))
+                    continue;
                 if (i.distance < 0.07f && !i.collider.CompareTag(tag))
                 {
                     isJumping = false;

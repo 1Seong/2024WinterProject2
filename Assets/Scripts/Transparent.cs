@@ -120,6 +120,9 @@ public class Transparent : MonoBehaviour
         }
         isActing = false;
         active = false;
+
+        if(gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2"))
+            gameObject.SetActive(false);
     }
 }
 

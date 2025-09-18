@@ -286,6 +286,8 @@ public class Movable : MonoBehaviour
                 isPaused = false;
                 rigid.constraints = RigidbodyConstraints.None;
                 rigid.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+                if (CompareTag("Player1") || CompareTag("Player2"))
+                    GetComponent<PlayerMove>().enabled = true;
                 rigid.linearVelocity = savedVelocity;
                 pauseTimer = 0f;
             }
@@ -310,6 +312,8 @@ public class Movable : MonoBehaviour
     // pause the player for given duration
     public void Pause(float duration)
     {
+        if (CompareTag("Player1") || CompareTag("Player2"))
+            GetComponent<PlayerMove>().enabled = false;
         isPaused = true;
         pauseTimer = duration;
         savedVelocity = rigid.linearVelocity;
@@ -319,6 +323,11 @@ public class Movable : MonoBehaviour
     public void CallGPauseAction()
     {
         StartCoroutine(GPauseAction());
+    }
+
+    public void CallPauseInvert()
+    {
+        StartCoroutine(PauseInvert());
     }
 
     IEnumerator GPauseAction()
@@ -351,6 +360,21 @@ public class Movable : MonoBehaviour
 
         updateAction += CheckInvert;
         //Debug.Log("3clear");
+    }
+
+    IEnumerator PauseInvert()
+    {
+        updateAction -= CheckInvert;
+
+        for (float i = 0; i <= 11f; i += Time.deltaTime)
+        {
+            while (GameManager.instance.isSideView)
+                yield return null;
+
+            yield return null;
+        }
+
+        updateAction += CheckInvert;
     }
 
     // CHANGED: TriggerEnter is activated in the item's script

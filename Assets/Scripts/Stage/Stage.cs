@@ -72,28 +72,16 @@ public class Stage : MonoBehaviour
 
     private void Init()
     {
-        /*
-         * Stage Hierarchy structure
-         * - 0. Bottom Wall
-         * - 1. Top Wall
-         * - 2. Side Wall
-         * - 3. Inner Wall
-         * - 4. Background Wall
-         * - 5. Projection Wall XY
-         * - 6. Projection Wall XZ
-         * - 7. Restriction Side
-         * - 8. Restriction Top
-         */
         data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
         bottomWall = transform.GetChild(0);
         topWall = transform.GetChild(1);
-        innerWall = transform.GetChild(3).GetComponentsInChildren<Transform>();
-        projectionWallParentXY = transform.GetChild(5);
-        projectionWallParentXZ = transform.GetChild(6);
-        restrictionSide = transform.GetChild(7);
-        restrictionTop = transform.GetChild(8);
+        //innerWall = transform.GetChild(3).GetComponentsInChildren<Transform>();
+        projectionWallParentXY = transform.GetChild(4);
+        projectionWallParentXZ = transform.GetChild(5);
+        restrictionSide = transform.GetChild(6);
+        restrictionTop = transform.GetChild(7);
     }
 
     private void MakeProjection()
@@ -122,8 +110,7 @@ public class Stage : MonoBehaviour
          * Check convert condition
          */
         // Convert viewpoint when press 'E' and players should be on bottom platform
-        //if (!data.conversionActive || isActing || restrict) return;
-        if (isActing || restrict) return;
+        if (!data.conversionActive || isActing || restrict) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
         {

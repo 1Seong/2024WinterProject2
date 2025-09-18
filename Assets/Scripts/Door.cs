@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using static PlayerSelectableInterface;
@@ -37,8 +38,14 @@ public class Door : MonoBehaviour
             isComplete = true;
             GetComponent<Collider>().enabled = false;
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            other.GetComponent<PlayerMove>().enabled = false;
             other.GetComponent<Transparent>().CallFade();
-            StageManager.instance.CheckStageClear();
+            Invoke("CheckStageClear", 1f);
         }
+    }
+
+    private void CheckStageClear()
+    {
+        StageManager.instance.CheckStageClear();
     }
 }

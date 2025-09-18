@@ -16,19 +16,25 @@ public class GPause : Consumable
         PlayerTriggerEvent += (Collider other) =>
         {
             List<Movable> movables;
+            List<Movable> pauseTarget;
             if(color == PlayerColor.blue)
             {
                 movables = StageManager.instance.stage.defaultMovables;
+                pauseTarget = StageManager.instance.stage.invertMovables;
                 GpauseBlueEvent?.Invoke();
             }
             else
             {
                 movables = StageManager.instance.stage.invertMovables;
+                pauseTarget = StageManager.instance.stage.defaultMovables;
                 GpausePinkEvent?.Invoke();
             }
             
             foreach (var i in movables)
                 i.CallGPauseAction();
+
+            foreach (var i in pauseTarget)
+                i.CallPauseInvert();
         };
     }
 
