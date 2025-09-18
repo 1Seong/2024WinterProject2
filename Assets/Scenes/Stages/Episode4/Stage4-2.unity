@@ -7335,6 +7335,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[5].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 1638412905754422109, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: m_Name
+      value: RestrictTilemap(0)
+      objectReference: {fileID: 0}
     - target: {fileID: 2066195596895936898, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -10594,6 +10598,10 @@ PrefabInstance:
     - target: {fileID: 8445319493979500685, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_Tiles.Array.data[15].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657719623630410954, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8888294130216775390, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_Size.x
@@ -17581,8 +17589,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 945946732}
     m_Modifications:
     - target: {fileID: 1751601042187331573, guid: ef1594d4838125741bf4d435bf5af8e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751601042187331573, guid: ef1594d4838125741bf4d435bf5af8e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.5
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1751601042187331573, guid: ef1594d4838125741bf4d435bf5af8e2, type: 3}
       propertyPath: m_LocalPosition.y

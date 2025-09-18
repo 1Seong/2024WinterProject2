@@ -3014,6 +3014,14 @@ PrefabInstance:
       propertyPath: m_SelectedVertices.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3543460430913028742, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543460430913028742, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 3807452547572919272, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_Mesh
       value: 
