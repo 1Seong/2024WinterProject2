@@ -32,6 +32,11 @@ public class HubDoor : MonoBehaviour
     }
     private void Start()
     {
+        if (DataManager.Instance.getIsDevMode())
+        {
+            unlockDoor();
+            return;
+        }
         // 문이 핑크색이거나 파란색인데 아직 해금 안되었다면 잠근다
         if (color == PlayerColor.pink) lockDoor();
         else if (!DataManager.Instance.getIsUnlocked(ep, stage))
@@ -45,19 +50,20 @@ public class HubDoor : MonoBehaviour
     {
         if (playerSelectable.CheckColor(other, (int)color) == false) return;
         enterTime = Time.time;
-        if( color == PlayerColor.blue )
-        {
-            for (int i = 0; i < 5; i ++)
+        if(!DataManager.Instance.getIsDevMode() && color == PlayerColor.blue ) // DevMode가 아닐때만 pink doors 확인
+            {
+            for (int i = 0; i < 5; i++)
             {
                 if (pinkDoors.Length != 5) return;
                 pinkDoors[i].ep = ep;
                 pinkDoors[i].stage = i;
-                if (DataManager.Instance.getIsUnlocked(ep, i)) 
+                if (DataManager.Instance.getIsUnlocked(ep, i))
                 {
                     pinkDoors[i].unlockDoor();
                 }
-                else 
+                else
                     pinkDoors[i].lockDoor();
+
             }
                 
         }

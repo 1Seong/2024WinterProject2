@@ -241,6 +241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4ed08de5f4b834cb2fdd561b6c0dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1: {fileID: 5193326551105480410, guid: b547f268192da324c8cf9d2c6bedb91c, type: 3}
+  player2: {fileID: 3094623692732916449, guid: 50781ba5e8c5a9746bc66fe93eef6e6f, type: 3}
+  defaultMovables: []
+  invertMovables: []
 --- !u!54 &6217181253166715293
 Rigidbody:
   m_ObjectHideFlags: 0

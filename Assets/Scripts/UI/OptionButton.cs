@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 public class OptionButton : MonoBehaviour
 {
@@ -45,8 +46,8 @@ public class OptionButton : MonoBehaviour
         StageManager.instance.EnterNextStage();
     }
 
-    public void muteButton()
+    public void toggleDevMode()
     {
-
+        DataManager.Instance.changeIsDevMode();
     }
 }

@@ -4,16 +4,13 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    static AudioManager instance;
+    public enum EMixerType { MasterVolume, BgmVolume, SfxVolume }
+    public static AudioManager instance;
     AudioSource bgm;
     public AudioMixer mixer;
-    public AudioMixerGroup masterGroup;
-    public AudioMixerGroup bgmGroup;
-    public AudioMixerGroup sfxGroup;
-
-    private bool isMasterMute = false;
-    private bool isBgmMute = false;
-    private bool isSfxMute = false;
+    
+    private bool[] isMute = new bool[3]; // 0:Master, 1:BGM, 2:SFX
+    private float[] volumes = new float[3];
 
     private void Awake()
     {
@@ -48,9 +45,21 @@ public class AudioManager : MonoBehaviour
         mixer.SetFloat("SfxVolume", Mathf.Log10(value) * 20);
     }
 
-    public void ToggleMasterVolume()
+    public void ToggleMute(EMixerType mixerType)
     {
-        
+        int n = (int)mixerType;
+        if (!isMute[n])
+        {
+            isMute[n] = true;
+            mixer.GetFloat(mixerType.ToString(), out float volume);
+            volumes[n] = volume;
+            mixer.SetFloat(mixerType.ToString(), -80.0f);
+        }
+        else
+        {
+            isMute[n] = false;
+            mixer.SetFloat(mixerType.ToString(), volumes[n]);
+        }
     }
 
 }
