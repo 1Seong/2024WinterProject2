@@ -23,6 +23,7 @@ public class DataManager : MonoBehaviour
     }
     //////////////////////////////////////////////////
     [SerializeField] private Data data;
+    [SerializeField] private bool isDevMode = false;
     string GameDataFileName = "GameData.json";
     
 
@@ -83,5 +84,17 @@ public class DataManager : MonoBehaviour
         //for (int i = 0; i < 25; i++)
         //        Debug.Log(data.isUnlock[i]);
         return data.isUnlock[(int)episode * 5 + stageNum];
+    }
+
+    public void changeIsDevMode()
+    {
+        isDevMode = !isDevMode;
+        if (isDevMode) Debug.Log("DevMode On");
+        else Debug.Log("DevMode Off");
+    }
+
+    public bool getIsDevMode()
+    {
+        return isDevMode;
     }
 }
