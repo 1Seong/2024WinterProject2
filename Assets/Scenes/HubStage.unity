@@ -1729,7 +1729,6 @@ MonoBehaviour:
   isPlaying: 1
   isSideView: 1
   cameraRotationTime: 0
-  gpauseActive: 0
   speed: 2
   maxSpeed: 5
   player1: {fileID: 5193326551105480410, guid: b547f268192da324c8cf9d2c6bedb91c, type: 3}

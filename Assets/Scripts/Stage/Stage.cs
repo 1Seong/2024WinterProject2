@@ -82,6 +82,8 @@ public class Stage : MonoBehaviour
         projectionWallParentXZ = transform.GetChild(5);
         restrictionSide = transform.GetChild(6);
         restrictionTop = transform.GetChild(7);
+
+        ProjectionSetting();
     }
 
     private void MakeProjection()
@@ -142,6 +144,8 @@ public class Stage : MonoBehaviour
         {
             projectionWallParentXY.gameObject.SetActive(true);
             projectionWallParentXZ.gameObject.SetActive(false);
+            restrictionSide.gameObject.SetActive(true);
+            restrictionTop.gameObject.SetActive(false);
 
             if(GameManager.instance.dynamicInnerWallInstantiation)
                 ReposProjection();
@@ -150,6 +154,8 @@ public class Stage : MonoBehaviour
         {
             projectionWallParentXY.gameObject.SetActive(false);
             projectionWallParentXZ.gameObject.SetActive(true);
+            restrictionSide.gameObject.SetActive(false);
+            restrictionTop.gameObject.SetActive(true);
         }
     }
 
