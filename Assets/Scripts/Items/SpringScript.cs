@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpringScript : ItemBehavior
 {
     public int springJumpUnit;
+    public float bias = 1f;
     private float gravity, intial, initialVelocity;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -22,7 +23,7 @@ public class SpringScript : ItemBehavior
         gravity = Physics.gravity.magnitude;
         Debug.Log("applied jump unit : " + appliedJumpUnit);
         initialVelocity = Mathf.Sqrt(2 * gravity * appliedJumpUnit);
-        float force = objRb.mass * initialVelocity + 0.5f;
+        float force = objRb.mass * initialVelocity + bias;
 
         Debug.Log("force : " + force);
         objRb.linearVelocity = Vector3.zero;

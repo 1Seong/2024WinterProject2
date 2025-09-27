@@ -27,11 +27,11 @@ public class SpringMove : Movable
     protected override void IceAction()
     {
         Vector3 targetVec = customGravity.down;
-        Vector3 box = new Vector3(0.49f, 0, 0.5f);
+        Vector3 box = new Vector3(0.42f, 0, 0.5f);
         bool iceExist;
 
         if (GameManager.instance.isSideView)
-            box = new Vector3(0.49f, 0.5f, 0);
+            box = new Vector3(0.42f, 0.5f, 0);
 
         //Debug.DrawRay(rigid.position, targetVec, Color.yellow);
 
