@@ -5,6 +5,8 @@ using System;
 public class DataManager : MonoBehaviour
 {
     /////////////////singleton 패턴 구현////////////////
+    public static DataManager Instance;
+    /*
     static GameObject container;
     static DataManager instance;
     public static DataManager Instance
@@ -21,14 +23,24 @@ public class DataManager : MonoBehaviour
             return instance;
         }
     }
+    */
     //////////////////////////////////////////////////
     [SerializeField] private Data data;
     [SerializeField] private bool isDevMode = false;
     string GameDataFileName = "GameData.json";
-    
+
 
     private void Awake()
     {
+        if (!Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         LoadGameData();
     }
 

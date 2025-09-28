@@ -48,6 +48,8 @@ public class OptionButton : MonoBehaviour
 
     public void toggleDevMode()
     {
+        GameObject toggleBar = EventSystem.current.currentSelectedGameObject;
+        toggleBar.GetComponent<Transform>().localScale *= -1;
         DataManager.Instance.changeIsDevMode();
     }
 }
