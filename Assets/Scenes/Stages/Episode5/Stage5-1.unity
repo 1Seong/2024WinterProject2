@@ -3102,6 +3102,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.000061035156
       objectReference: {fileID: 0}
+    - target: {fileID: 4047254035811636763, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 834969889, guid: b98e7f0cbb050774f8cf2385f3031c96, type: 3}
     - target: {fileID: 4217474545436150867, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -3130,10 +3134,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 139.99994
       objectReference: {fileID: 0}
+    - target: {fileID: 5426341527153586476, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 127068548, guid: 68f5a38acfe0f424c952f3413fc826d5, type: 3}
+    - target: {fileID: 6316403925322610771, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d20f09816dd447c418250b32598e3124, type: 2}
     - target: {fileID: 6575292673081268939, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8152479842972899829, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4d71df94b927bda4e83f66f18a0938c9, type: 2}
     - target: {fileID: 8279291740952550779, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_Name
       value: Canvas
