@@ -5,10 +5,28 @@ using static PlayerSelectableInterface;
 public class Pause : Consumable
 {
     [SerializeField] private float pauseTime = 5.0f;
-    Movable player;
 
     [SerializeField] private Animator switchAnim;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        PlayerTriggerEvent += pauseActivate;
+    }
+
+    private void pauseActivate(Collider other)
+    {
+        switchAnim.SetTrigger("Activate");
+
+        var anims = other.GetComponentsInChildren<Animator>();
+        foreach (var anim in anims)
+        {
+            anim.SetBool("Pause", true);
+        }
+
+        other.GetComponent<Movable>().Pause(pauseTime);
+    }
+    /*
     protected override void OnTriggerEnter(Collider other)
     {
         switchAnim.SetTrigger("Activate");
@@ -23,7 +41,7 @@ public class Pause : Consumable
         PlayerTriggerEvent += _ => player.Pause(pauseTime);
         base.OnTriggerEnter(other);
     }
-
+    */
     //////////////////// NOT USED //////////////////////////
    /*
     IEnumerator PauseRoutine(GameObject obj)

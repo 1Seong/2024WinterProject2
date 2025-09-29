@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1224326209884400384}
   - component: {fileID: 8680465295702136486}
   - component: {fileID: 103544867557619690}
-  - component: {fileID: -9121362806348019617}
+  - component: {fileID: 2940387307667212708}
   m_Layer: 0
   m_Name: PauseSwitch
   m_TagString: Item
@@ -124,7 +124,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-9121362806348019617
+--- !u!114 &2940387307667212708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,6 +133,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6216464849688875215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fba0eda364cb98545800abf919fa60d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 06a176c22a99c0345bd87ef139f44ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: 0
+  blueAc: {fileID: 9100000, guid: dc94b7ee95e7ca343941695a9f716c1b, type: 2}
+  redAc: {fileID: 22100000, guid: c35b94cb1a1e81e45a6d2b2ef2fd02a1, type: 2}
+  blueSprite: {fileID: 0}
+  redSprite: {fileID: 0}

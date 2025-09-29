@@ -28,7 +28,7 @@ public abstract class ItemBehavior : MonoBehaviour
         else
             playerSelectable = new PlayerSelectable();
 
-        if(animator != null)
+        if(animator != null && animator.Length != 0)
         {
             if (color == PlayerColor.blue)
                 foreach(var a in animator)
