@@ -35,7 +35,7 @@ public class Stage : MonoBehaviour
 
     private void Awake()
     {
-        StageManager.instance.stage = this;
+        //StageManager.instance.stage = this;
 
         stageStartEvent += Init;
         stageStartEvent += SpawnPlayer;
@@ -67,6 +67,7 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
+        StageManager.instance.stage = this;
         stageStartEvent?.Invoke();
     }
 

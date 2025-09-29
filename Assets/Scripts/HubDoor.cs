@@ -14,6 +14,7 @@ public class HubDoor : MonoBehaviour
     [SerializeField] public int stage;
     //[SerializeField] private HubDoor[] blueDoors;
     [SerializeField] private HubDoor[] pinkDoors;
+    [SerializeField] private GameObject lockObject;
     
     private bool locked = false;
     private bool epSelected = false;
@@ -91,6 +92,7 @@ public class HubDoor : MonoBehaviour
         {
             GetComponent<Collider>().enabled = false;
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            other.GetComponent<PlayerMove>().enabled = false;
             other.GetComponent<Transparent>().CallFade();
             //StageManager.instance.CheckStageClear();
 
@@ -111,6 +113,7 @@ public class HubDoor : MonoBehaviour
     private void lockDoor()
     {
         if (locked) return;
+        lockObject.SetActive(true);
         locked = true;
         gs.turnGray();
         Debug.Log(ep.ToString() + " " + stage.ToString() + " Locked");
@@ -118,6 +121,7 @@ public class HubDoor : MonoBehaviour
     private void unlockDoor()
     {
         if (!locked) return;
+        lockObject.SetActive(false);
         locked = false;
         gs.turnDeGray();
         //Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
