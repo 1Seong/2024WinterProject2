@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PauseRedAC
+  m_Controller: {fileID: 9100000, guid: dc94b7ee95e7ca343941695a9f716c1b, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 526f01c9062aa3c47865075172033286, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4ecc2a9ecae7aff4b9e039b434e8b01a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 82f1f3fc22df2c94dbc6461bdca36d0d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c3e9626f485e1094abd3e3f60e94a06e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6ffa30631717c0e4da47f6f3e970b965, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 41380770e17435b4990b4f943100075b, type: 2}

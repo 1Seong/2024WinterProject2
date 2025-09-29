@@ -65,6 +65,12 @@ public class Player : Movable
             onIce = true;
            
             GetComponent<PlayerMove>().enabled = false;
+
+            var anims = GetComponentsInChildren<Animator>();
+            foreach(var anim in anims)
+            {
+                anim.SetBool("Ice", true);
+            }
         }
         else if (onIce && (PlatformExist(rayHit) && !iceExist || newDir * dir <= 0)) // onIce : true -> false
         {
@@ -75,6 +81,12 @@ public class Player : Movable
             onIce = false;
             
             GetComponent<PlayerMove>().enabled = true;
+
+            var anims = GetComponentsInChildren<Animator>();
+            foreach (var anim in anims)
+            {
+                anim.SetBool("Ice", false);
+            }
         }
 
         dir = newDir;

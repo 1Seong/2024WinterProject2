@@ -3,9 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using static PlayerSelectableInterface;
 
-public class GPause : Consumable
+public class GPause : ItemBehavior
 {
     public static event Action GpauseBlueEvent;
     public static event Action GpausePinkEvent;
@@ -15,6 +16,13 @@ public class GPause : Consumable
         base.Awake();
         PlayerTriggerEvent += (Collider other) =>
         {
+            var anim = GetComponentInChildren<Animator>();
+            if (anim != null)
+                anim.SetTrigger("Activate");
+
+            var cam = Camera.main;
+            cam.transform.DOShakePosition(0.4f, 0.2f);
+
             List<Movable> movables;
             List<Movable> pauseTarget;
             if(color == PlayerColor.blue)
@@ -37,6 +45,7 @@ public class GPause : Consumable
                 i.CallPauseInvert();
         };
     }
+
 
     /////////////////// NOT USED ////////////////////
     /*

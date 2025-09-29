@@ -18,6 +18,10 @@ public class SpringScript : ItemBehavior
         int appliedJumpUnit = other.GetComponent<Player>().frog ? springJumpUnit + 1 : springJumpUnit;
 
         other.GetComponent<PlayerJump>().isJumping = true;
+        var anims = other.GetComponentsInChildren<Animator>();
+        foreach (var anim in anims)
+            anim.SetBool("JumpPad", true);
+
 
         Rigidbody objRb = other.GetComponent<Rigidbody>();
         gravity = Physics.gravity.magnitude;

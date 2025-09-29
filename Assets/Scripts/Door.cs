@@ -15,6 +15,13 @@ public class Door : MonoBehaviour
     private float enterTime, stayTime;
     public bool isComplete;
 
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
+
     private void Start()
     {
         isComplete = false;
@@ -24,7 +31,8 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (playerSelectable.CheckColor(other, (int)color) == false) return;
-        
+
+        anim.SetBool("Open", true);
         enterTime = Time.time;
     }
 
@@ -42,6 +50,11 @@ public class Door : MonoBehaviour
             other.GetComponent<Transparent>().CallFade();
             Invoke("CheckStageClear", 1f);
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        anim.SetBool("Open", false);
     }
 
     private void CheckStageClear()

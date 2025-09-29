@@ -26,8 +26,12 @@ public class Frog : Consumable
         playerJ.jumpUnit = frogJumpUnit;
         Debug.Log("Frog Item applied: Jump unit set to " + playerJ.jumpUnit);
 
-         
-        player.frogHat = frogHatPrefab;
+        var anims = other.GetComponentsInChildren<Animator>();
+        foreach(var anim in anims)
+        {
+            anim.SetTrigger("Frog");
+        }
+        //player.frogHat = frogHatPrefab;
             
         
 

@@ -289,7 +289,15 @@ public class Movable : MonoBehaviour
                 rigid.constraints = RigidbodyConstraints.None;
                 rigid.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
                 if (CompareTag("Player1") || CompareTag("Player2"))
+                {
                     GetComponent<PlayerMove>().enabled = true;
+
+                    var anims = GetComponentsInChildren<Animator>();
+                    foreach(var anim in anims)
+                    {
+                        anim.SetBool("Pause", false);
+                    }
+                }
                 rigid.linearVelocity = savedVelocity;
                 pauseTimer = 0f;
             }

@@ -96,6 +96,12 @@ public class PlayerJump : MonoBehaviour
                 if (i.distance < 0.07f && !i.collider.CompareTag(tag))
                 {
                     isJumping = false;
+                    
+                    var anims = GetComponentsInChildren<Animator>();
+                    if (anims[0].GetBool("JumpPad"))
+                        foreach (var anim in anims)
+                            anim.SetBool("JumpPad", false);
+
                     break;
                 }
             }
