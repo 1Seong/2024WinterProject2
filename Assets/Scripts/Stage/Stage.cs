@@ -39,6 +39,7 @@ public class Stage : MonoBehaviour
 
         stageStartEvent += Init;
         stageStartEvent += SpawnPlayer;
+        stageStartEvent += StageManager.instance.FindCanvas;
 
         convertEvent += CallCameraRotate;
         convertEvent += ProjectionSetting;

@@ -61,8 +61,7 @@ public class StageManager : MonoBehaviour
         currentStageInfo.stageIndex = 0;
 
         //find Canvas & Clear Panel
-        canvas = GameObject.Find("Canvas");
-        clearPanel = canvas.transform.Find("ClearPanel").gameObject;
+        FindCanvas();
 
         stageClearEvent += ()=> UnlockNextStage();
     }
@@ -76,7 +75,7 @@ public class StageManager : MonoBehaviour
         Debug.Log(currentStageInfo.stageIndex);
         Debug.Log(currentStageInfo.data.stageName);
         if (GameManager.instance) GameManager.instance.isPlaying = true;
-        LoadStage();
+        LoadStage();        
     }
 
     public void CheckStageClear()
@@ -172,5 +171,13 @@ public class StageManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void FindCanvas()
+    {
+        canvas = GameObject.Find("Canvas");
+        clearPanel = canvas.transform.Find("ClearPanel").gameObject;
+        if (canvas == null) Debug.LogWarning("StageManager이 Canvas 찾기 실패");
+        if (clearPanel == null) Debug.LogWarning("StageManager이 ClearPanel 찾기 실패");
     }
 }
