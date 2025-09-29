@@ -19,6 +19,9 @@ public class HubDoor : MonoBehaviour
     private bool epSelected = false;
     private GrayScript gs;
 
+    private Animator anim;
+    
+
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
     private float goalTime = 2.0f;
@@ -26,6 +29,7 @@ public class HubDoor : MonoBehaviour
 
     private void Awake()
     {
+       anim = GetComponentInChildren<Animator>();
        gs = GetComponent<GrayScript>();
        if(gs == null)
             Debug.LogWarning("GrayScript Not Found");
@@ -67,6 +71,13 @@ public class HubDoor : MonoBehaviour
             }
                 
         }
+        if(!locked)
+            anim.SetBool("Open", true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        anim.SetBool("Open", false);
     }
 
     private void OnTriggerStay(Collider other)
