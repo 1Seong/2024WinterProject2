@@ -5,6 +5,7 @@ public class CrewsButton : MonoBehaviour
 {
     public void LoadCrewsScene()
     {
-        SceneManager.LoadScene("Crews");
+        CircleTransition.Instance.LoadScene("Crews");
+        //SceneManager.LoadScene("Crews");
     }
 }

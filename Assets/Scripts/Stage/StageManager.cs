@@ -120,12 +120,14 @@ public class StageManager : MonoBehaviour
 
         string sceneName = currentStageInfo.data.stageName;
         Debug.Log(sceneName);
-        SceneManager.LoadScene(sceneName);
+        CircleTransition.Instance.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
     }
 
     private void LoadStage(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        CircleTransition.Instance.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
     }
 
     private void LoadSelectStage()
@@ -171,6 +173,7 @@ public class StageManager : MonoBehaviour
     public void Reset()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        CircleTransition.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

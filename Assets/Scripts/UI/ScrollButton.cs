@@ -16,7 +16,8 @@ public class ScrollButton : MonoBehaviour
             Episode episode = (Episode)int.Parse(ep) - 1;
             if (DataManager.Instance.getIsUnlocked(episode, 0))
             {
-                SceneManager.LoadScene(sceneName);
+                CircleTransition.Instance.LoadScene(sceneName);
+                //SceneManager.LoadScene(sceneName);
             }
             else Debug.Log("Locked Episode");
         }

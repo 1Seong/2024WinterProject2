@@ -6,6 +6,7 @@ public class HomeButton : MonoBehaviour
    public void EnterHubStage()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("HubStage");
+        CircleTransition.Instance.LoadScene("HubStage");
+        //SceneManager.LoadScene("HubStage");
     }
 }
