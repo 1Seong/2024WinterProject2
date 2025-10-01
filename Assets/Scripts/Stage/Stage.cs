@@ -37,6 +37,9 @@ public class Stage : MonoBehaviour
     {
         //StageManager.instance.stage = this;
 
+        defaultMovables = new List<Movable>();
+        invertMovables = new List<Movable>();
+
         stageStartEvent += Init;
         stageStartEvent += SpawnPlayer;
         stageStartEvent += StageManager.instance.FindCanvas;
@@ -66,9 +69,13 @@ public class Stage : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         StageManager.instance.stage = this;
+    }
+
+    private void Start()
+    {
         stageStartEvent?.Invoke();
     }
 

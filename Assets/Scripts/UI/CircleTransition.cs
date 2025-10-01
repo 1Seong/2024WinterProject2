@@ -22,25 +22,31 @@ public class CircleTransition : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        circleImage.transform.localScale = Vector3.one * 30f;
+        circleImage.transform.DOScale(0f, 0.6f);
+    }
+
     public void LoadScene(string sceneName)
     {
         circleImage.transform.localScale = Vector3.zero;
-        circleImage.transform.DOScale(30f, 1f).OnComplete(() =>
+        circleImage.transform.DOScale(30f, 0.6f).OnComplete(() =>
         {
             SceneManager.LoadScene(sceneName);
             circleImage.transform.localScale = Vector3.one * 30f;
-            circleImage.transform.DOScale(0f, 1f);
+            circleImage.transform.DOScale(0f, 0.6f);
         });
     }
 
     public void LoadScene(int sceneBuildId)
     {
         circleImage.transform.localScale = Vector3.zero;
-        circleImage.transform.DOScale(30f, 1f).OnComplete(() =>
+        circleImage.transform.DOScale(30f, 0.6f).OnComplete(() =>
         {
             SceneManager.LoadScene(sceneBuildId);
             circleImage.transform.localScale = Vector3.one * 30f;
-            circleImage.transform.DOScale(0f, 1f);
+            circleImage.transform.DOScale(0f, 0.6f);
         });
     }
 }

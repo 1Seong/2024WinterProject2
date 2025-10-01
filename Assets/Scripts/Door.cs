@@ -54,6 +54,8 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (playerSelectable.CheckColor(other, (int)color) == false) return;
+
         anim.SetBool("Open", false);
     }
 

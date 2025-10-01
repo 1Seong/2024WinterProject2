@@ -54,9 +54,17 @@ public class Movable : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        StageManager.instance.stage.defaultMovables.Remove(this);
+        StageManager.instance.stage.invertMovables.Remove(this);
+        StopCoroutine(GPauseAction());
+    }
+
     private void OnDestroy()
     {
-        movables.Remove(this);
+        StageManager.instance.stage.defaultMovables.Remove(this);
+        StageManager.instance.stage.invertMovables.Remove(this);
         StopCoroutine(GPauseAction());
     }
 

@@ -273,7 +273,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 15
     m_Sprites:
-    - {fileID: 21300000, guid: 69e12ed404913aa46b28212cfcfdbaef, type: 3}
+    - {fileID: 21300000, guid: 0c8420cccafd0ed469e9758e5702a000, type: 3}
     - {fileID: 21300000, guid: 5b228a3a221401f4e997865ea534dc02, type: 3}
     - {fileID: 21300000, guid: 08e4f9d3924dc6d478e5ebd46b885c24, type: 3}
     - {fileID: 21300000, guid: c60e3348593a4424bb7b58ed7ae291f7, type: 3}
@@ -283,7 +283,7 @@ MonoBehaviour:
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
     m_PerlinScale: 0.5
-    m_Output: 1
+    m_Output: 0
     m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 01000000010000000100000001000000

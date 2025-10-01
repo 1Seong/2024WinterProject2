@@ -19,6 +19,7 @@ public class GPause : ItemBehavior
             var anim = GetComponentInChildren<Animator>();
             if (anim != null)
                 anim.SetTrigger("Activate");
+            GetComponent<Collider>().enabled = false;
 
             var cam = Camera.main;
             cam.transform.DOShakePosition(0.4f, 0.2f);
