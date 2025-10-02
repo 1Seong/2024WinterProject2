@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class Stage : MonoBehaviour
 {
-    private StageData data;
+    [SerializeField]private StageData data;
 
     private Transform bottomWall;
     private Transform topWall;
@@ -48,10 +48,13 @@ public class Stage : MonoBehaviour
         convertEvent += ProjectionSetting;
         convertEvent += PlayerConvertReposition;
 
+        /*
         if (GameManager.instance.dynamicInnerWallInstantiation)
         {
             stageStartEvent += MakeProjection;
         }
+        */
+        StageManager.instance.stage = this;
     }
 
     private void OnDestroy()
@@ -69,11 +72,6 @@ public class Stage : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        StageManager.instance.stage = this;
-    }
-
     private void Start()
     {
         stageStartEvent?.Invoke();
@@ -81,7 +79,8 @@ public class Stage : MonoBehaviour
 
     private void Init()
     {
-        data = StageManager.instance.currentStageInfo.data;
+        if(data == null)
+            data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
         bottomWall = transform.GetChild(0);

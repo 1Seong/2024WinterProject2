@@ -38,8 +38,15 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
-        DontDestroyOnLoad(this);
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
         currentStageInfo = new CurrentStage();
 
