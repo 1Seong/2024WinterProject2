@@ -6,12 +6,14 @@ public class SpringScript : ItemBehavior
     public float bias = 1f;
     private float gravity, intial, initialVelocity;
     private static bool isActive1, isActive2;
+    private AudioSource springSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += SpringActivate;
+        springSound = GetComponent<AudioSource>();
     }
 
     private void SpringActivate(Collider other)
@@ -45,6 +47,8 @@ public class SpringScript : ItemBehavior
             Invoke("active1Off", 0.1f);
         else if (other.CompareTag("Player2"))
             Invoke("active2Off", 0.1f);
+
+        springSound.Play();
     }
 
     private void active1Off()
