@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 38926136}
   - component: {fileID: 38926135}
+  - component: {fileID: 38926137}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -171,6 +172,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &38926137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38926134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db27076f8c401249b1dbb0b7d0704ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 3184852bcebc48a4ea15325455f59ead, type: 3}
+  hotSpot: {x: 0, y: 0}
 --- !u!4 &56997265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5934629637878529303, guid: 0a1a3fcf5a50b5d42bef9c6ac6cd8920, type: 3}
