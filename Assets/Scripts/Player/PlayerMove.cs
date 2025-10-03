@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public AudioSource footstep;
+    public AudioClip footstepClip;
     private Action fixedUpdateAction;
 
     Movable movable;
@@ -12,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     {
         movable = GetComponent<Movable>();
         rigid = GetComponent<Rigidbody>();
+        footstep = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -52,12 +55,18 @@ public class PlayerMove : MonoBehaviour
 
         if (!movable.hitInnerWall)
         {
-            if(h != 0f)
+            if (h != 0f)
+            {
                 rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                AudioManager.instance.PlayFootstep();
+            }
+            else
+                AudioManager.instance.StopFootstep();
             rigid.AddForce(dirVec, ForceMode.Impulse);
         }
         else
             rigid.linearVelocity = new Vector3(0, rigid.linearVelocity.y, rigid.linearVelocity.z);
+
     }
 
     private void RestrictSpeed()
@@ -72,4 +81,5 @@ public class PlayerMove : MonoBehaviour
         else if (rigid.linearVelocity.x < max * (-1))
             rigid.linearVelocity = new Vector3(max * (-1), rigid.linearVelocity.y, rigid.linearVelocity.z);
     }
+
 }

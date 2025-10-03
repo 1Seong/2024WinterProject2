@@ -5,9 +5,17 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Player : Movable
 {
     public bool frog = false;
+    public AudioSource iceSound;
 
     private int dir = 0;
     private GameObject _frogHat;
+
+    private void Start()
+    {
+        iceSound = transform.GetComponentInChildren<AudioSource>();
+        if (iceSound == null)
+            Debug.Log("ICESOUND EMPTY");
+    }
 
     public GameObject frogHat
     {
@@ -71,6 +79,11 @@ public class Player : Movable
             {
                 anim.SetBool("Ice", true);
             }
+
+            //Play Ice Sound
+            if(!iceSound.isPlaying)
+                iceSound.Play();
+            
         }
         else if (onIce && (PlatformExist(rayHit) && !iceExist || newDir * dir <= 0)) // onIce : true -> false
         {
@@ -87,6 +100,9 @@ public class Player : Movable
             {
                 anim.SetBool("Ice", false);
             }
+
+            //Play Ice Sound
+            iceSound.Stop();
         }
 
         dir = newDir;

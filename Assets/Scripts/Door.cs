@@ -6,8 +6,9 @@ using static PlayerSelectableInterface;
 public class Door : MonoBehaviour
 {
     //TODO: Door.cs와 상속 관련 refactor 고려
+    public AudioSource openSound;
     enum PlayerColor { pink = 1, blue }
-    [SerializeField] private  PlayerColor color;
+    [SerializeField] private PlayerColor color;
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
@@ -20,6 +21,7 @@ public class Door : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        openSound = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -34,6 +36,9 @@ public class Door : MonoBehaviour
 
         anim.SetBool("Open", true);
         enterTime = Time.time;
+
+        openSound.time = 1.0f;
+        openSound.Play();
     }
 
     private void OnTriggerStay(Collider other)
@@ -55,6 +60,7 @@ public class Door : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         anim.SetBool("Open", false);
+        openSound.Stop();
     }
 
     private void CheckStageClear()

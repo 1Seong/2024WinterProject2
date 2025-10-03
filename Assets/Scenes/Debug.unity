@@ -4488,9 +4488,9 @@ AudioSource:
   m_GameObject: {fileID: 1604017136}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6772834874098582062, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9383b7f8688b0ea4d8ff42a736e50e65, type: 3}
-  m_Resource: {fileID: 8300000, guid: 9383b7f8688b0ea4d8ff42a736e50e65, type: 3}
+  OutputAudioMixerGroup: {fileID: 5358184243857648750, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
+  m_audioClip: {fileID: 8300000, guid: f7f1922ddc3200248949b64f991755b8, type: 3}
+  m_Resource: {fileID: 8300000, guid: f7f1922ddc3200248949b64f991755b8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4589,6 +4589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
+  bgmList: []
+  footstepList: []
 --- !u!4 &1604017139
 Transform:
   m_ObjectHideFlags: 0

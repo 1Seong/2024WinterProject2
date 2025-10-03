@@ -10,11 +10,12 @@ public class MuteButton : MonoBehaviour
     public void MuteButtonAction()
     {
         GameObject button = EventSystem.current.currentSelectedGameObject;
-        isMute = !isMute;
+        Debug.Log("prev: " + isMute.ToString());
         if (isMute)
             GetComponent<Image>().sprite = unmuteIcon;
         else
             GetComponent<Image>().sprite = muteIcon;
+        isMute = !isMute;
         AudioManager.instance.ToggleMute(mixerType);
     }
 }

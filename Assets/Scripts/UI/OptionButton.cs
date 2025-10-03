@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
 {
     public GameObject optionPanel;
@@ -51,5 +52,19 @@ public class OptionButton : MonoBehaviour
         GameObject toggleBar = EventSystem.current.currentSelectedGameObject;
         toggleBar.GetComponent<Transform>().localScale *= -1;
         DataManager.Instance.changeIsDevMode();
+    }
+
+    public void MasterSlider(float value)
+    {
+        //Debug.Log("Slider value " + value.ToString());
+        AudioManager.instance.SetMasterVolume(value);
+    }
+    public void BgmSlider(float value)
+    {
+        AudioManager.instance.SetBgmVolume(value);
+    }
+    public void SfxSlider(float value)
+    {
+        AudioManager.instance.SetSfxVolume(value);
     }
 }

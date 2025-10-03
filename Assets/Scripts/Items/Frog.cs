@@ -5,6 +5,7 @@ public class Frog : Consumable
 {
     public int frogJumpUnit = 2;
     public GameObject frogHatPrefab;
+    private AudioSource frogSound;
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -17,6 +18,7 @@ public class Frog : Consumable
     {
         base.Awake();
         PlayerTriggerEvent += FrogActivate;
+        frogSound = GetComponent<AudioSource>();
     }
 
     private void FrogActivate(Collider other)
@@ -32,7 +34,7 @@ public class Frog : Consumable
             anim.SetTrigger("Frog");
         }
         //player.frogHat = frogHatPrefab;
-            
+        frogSound.Play();    
         
 
         Debug.Log("Frog Item applied: Jump unit increased!");

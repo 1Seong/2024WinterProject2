@@ -6,11 +6,17 @@ public class AudioManager : MonoBehaviour
 {
     public enum EMixerType { MasterVolume, BgmVolume, SfxVolume }
     public static AudioManager instance;
-    AudioSource bgm;
     public AudioMixer mixer;
     
     private bool[] isMute = new bool[3]; // 0:Master, 1:BGM, 2:SFX
     private float[] volumes = new float[3];
+
+    
+    public AudioClip[] bgmList;
+    public AudioClip[] footstepList;
+
+    AudioSource bgm;
+    AudioSource footstep;
 
     private void Awake()
     {
@@ -23,12 +29,14 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        footstep = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        bgm = GetComponent<AudioSource>();
-        bgm.Play(); 
+        //bgm = GetComponent<AudioSource>();
+        //bgm.Play(); 
+        
     }
     public void SetMasterVolume(float value)
     {
@@ -62,4 +70,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayFootstep()
+    {
+        if (!footstep.isPlaying)
+        {
+            footstep.Play();
+        }
+    }
+    public void StopFootstep()
+    {
+        footstep.Stop();
+    }
 }

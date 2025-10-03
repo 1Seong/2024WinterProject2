@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Swap : Consumable
 {
+    private AudioSource swapSound;
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += _ => SwapActivate();
+        swapSound = GetComponent<AudioSource>();
     }
 
     private void SwapActivate()
@@ -18,6 +20,6 @@ public class Swap : Consumable
         player2.transform.position = tempPosition;
 
         Debug.Log("Swap Item applied: Players swapped positions!");
-        
+        swapSound.Play();
     }
 }

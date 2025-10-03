@@ -5,12 +5,15 @@ public class SpringScript : ItemBehavior
     public int springJumpUnit;
     public float bias = 1f;
     private float gravity, intial, initialVelocity;
+
+    private AudioSource jumppadSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += SpringActivate;
+        jumppadSound = GetComponent<AudioSource>();
     }
 
     private void SpringActivate(Collider other)
@@ -32,5 +35,7 @@ public class SpringScript : ItemBehavior
         Debug.Log("force : " + force);
         objRb.linearVelocity = Vector3.zero;
         objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);  
+
+        jumppadSound.Play();
     }
 }

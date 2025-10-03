@@ -9,11 +9,13 @@ public class Portal : ItemBehavior
     public Transform linkedPortal; // Reference to the linked portal
     private bool canTeleport = true;
     private float cooldownTime = 1f; // Cooldown to prevent repeated teleportation
+    private AudioSource portalSound;
 
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += PortalActivate;
+        portalSound = GetComponent<AudioSource>();
     }
 
     private void PortalActivate(Collider other)
@@ -31,6 +33,7 @@ public class Portal : ItemBehavior
                
             }
         }
+        portalSound.Play();
     }
 
     private IEnumerator portalActivateCoroutine(Collider other)
