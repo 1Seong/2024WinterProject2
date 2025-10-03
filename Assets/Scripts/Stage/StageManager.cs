@@ -89,6 +89,8 @@ public class StageManager : MonoBehaviour
     {
         foreach(var door in doors)
         {
+            //Debug.Log("CheckStageClear");
+            if(door == null) continue;
             if (!door.isComplete) return;
         }
         StageClear();
