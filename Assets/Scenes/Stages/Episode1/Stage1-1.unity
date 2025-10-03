@@ -587,6 +587,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
+  isMute: 000000
+  volumes:
+  - 0
+  - 0
+  - 0
   bgmList: []
   footstepList: []
 --- !u!4 &99628227
@@ -6271,7 +6276,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
