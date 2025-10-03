@@ -144,6 +144,7 @@ public class Transparent : MonoBehaviour
         if (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2"))
         {
             gameObject.SetActive(false);
+            Debug.Log("player deactivated");
             StageManager.instance.stage.SetRestrict(false);
         }
     }

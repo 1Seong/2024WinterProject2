@@ -94,6 +94,7 @@ public class HubDoor : MonoBehaviour
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             other.GetComponent<PlayerMove>().enabled = false;
             other.GetComponent<Transparent>().CallFade();
+            //other.gameObject.SetActive(false);
             //StageManager.instance.CheckStageClear();
 
             if(color == PlayerColor.blue)
