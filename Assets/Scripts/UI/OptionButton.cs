@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -54,6 +55,7 @@ public class OptionButton : MonoBehaviour
         GameObject toggleBar = EventSystem.current.currentSelectedGameObject;
         toggleBar.GetComponent<Transform>().localScale *= -1;
         DataManager.Instance.changeIsDevMode();
+        BroadcastMessage("ApplyDevMode", null, SendMessageOptions.DontRequireReceiver);
     }
 
     public void MasterSlider(float value)

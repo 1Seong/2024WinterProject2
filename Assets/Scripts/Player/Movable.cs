@@ -332,6 +332,7 @@ public class Movable : MonoBehaviour
     // pause the player for given duration
     public void Pause(float duration)
     {
+        Debug.Log("Paused....");
         if (CompareTag("Player1") || CompareTag("Player2"))
             GetComponent<PlayerMove>().enabled = false;
         isPaused = true;

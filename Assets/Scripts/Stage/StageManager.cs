@@ -78,9 +78,9 @@ public class StageManager : MonoBehaviour
         currentStageInfo.episode = episode;
         currentStageInfo.stageIndex = index;
         currentStageInfo.data = _epStagePair[currentStageInfo.episode][currentStageInfo.stageIndex];
-        Debug.Log(currentStageInfo.episode);
-        Debug.Log(currentStageInfo.stageIndex);
-        Debug.Log(currentStageInfo.data.stageName);
+        //Debug.Log(currentStageInfo.episode);
+        //Debug.Log(currentStageInfo.stageIndex);
+        //Debug.Log(currentStageInfo.data.stageName);
         if (GameManager.instance) GameManager.instance.isPlaying = true;
         LoadStage();        
     }
@@ -122,9 +122,9 @@ public class StageManager : MonoBehaviour
 
     private void LoadStage()
     {
-        Debug.Log(currentStageInfo.episode);
-        Debug.Log(currentStageInfo.stageIndex);
-        Debug.Log(currentStageInfo.data.stageName);
+        //Debug.Log(currentStageInfo.episode);
+        //Debug.Log(currentStageInfo.stageIndex);
+        //Debug.Log(currentStageInfo.data.stageName);
 
         string sceneName = currentStageInfo.data.stageName;
         Debug.Log(sceneName);

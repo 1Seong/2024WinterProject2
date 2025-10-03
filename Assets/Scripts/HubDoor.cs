@@ -102,10 +102,12 @@ public class HubDoor : MonoBehaviour
                 foreach ( HubDoor door in pinkDoors)
                 {
                     door.epSelected = true;
+                    door.GetComponent<HubDoor>().ep = this.ep;
                 }
             }
             else if(color == PlayerColor.pink)
             {
+                Debug.Log("enter stage no: " + stage);
                 StageManager.instance.StageEnter(ep, stage);
             }
         }
@@ -126,5 +128,22 @@ public class HubDoor : MonoBehaviour
         locked = false;
         gs.turnDeGray();
         //Debug.Log(ep.ToString() + " " + stage.ToString() + " Unlocked");
+    }
+
+    public void ApplyDevMode()
+    {
+        Debug.Log("message recieved!");
+        if (DataManager.Instance.getIsDevMode())
+        {
+            unlockDoor();
+            return;
+        }
+        // 문이 핑크색이거나 파란색인데 아직 해금 안되었다면 잠근다
+        if (color == PlayerColor.pink) lockDoor();
+        else if (!DataManager.Instance.getIsUnlocked(ep, stage))
+        {
+            Debug.Log(ep.ToString() + " " + stage.ToString() + " locking blue door...");
+            lockDoor();
+        }
     }
 }
