@@ -8284,7 +8284,7 @@ PrefabInstance:
     - target: {fileID: 6316403925322610771, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: d77c9e60e97e9ca4b85fbf37b8dc9e56, type: 2}
+      objectReference: {fileID: 22100000, guid: d1e4c1a4e45e0ce4bb7aab678e19fc05, type: 2}
     - target: {fileID: 6575292673081268939, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8292,7 +8292,7 @@ PrefabInstance:
     - target: {fileID: 8152479842972899829, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: d20f09816dd447c418250b32598e3124, type: 2}
+      objectReference: {fileID: 22100000, guid: 161aed9c8a3baa040aeaa2a5cf9fe8c5, type: 2}
     - target: {fileID: 8279291740952550779, guid: 0be817def680b3d488fc0ba7849e8483, type: 3}
       propertyPath: m_Name
       value: Canvas
