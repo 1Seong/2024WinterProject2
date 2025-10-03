@@ -553,6 +553,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
+  isMute: 000000
+  volumes:
+  - 0
+  - 0
+  - 0
   bgmList: []
   footstepList: []
 --- !u!4 &99628227
@@ -6835,6 +6840,7 @@ MonoBehaviour:
   isPlaying: 0
   isSideView: 0
   cameraRotationTime: 0.3
+  _gpauseActive: 0
   speed: 2.5
   maxSpeed: 3
   player1: {fileID: 5193326551105480410, guid: b547f268192da324c8cf9d2c6bedb91c, type: 3}

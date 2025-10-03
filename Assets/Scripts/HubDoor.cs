@@ -6,8 +6,8 @@ using static PlayerSelectableInterface;
 
 public class HubDoor : MonoBehaviour
     //TODO: Door.cs와 상속 관련 refactor 고려
-
 {
+    public AudioSource openSound;
     enum PlayerColor { pink = 1, blue }
     [SerializeField] private PlayerColor color;
     [SerializeField] public Episode ep;
@@ -34,21 +34,11 @@ public class HubDoor : MonoBehaviour
        gs = GetComponent<GrayScript>();
        if(gs == null)
             Debug.LogWarning("GrayScript Not Found");
+        openSound = GetComponent<AudioSource>();
     }
     private void Start()
     {
-        if (DataManager.Instance.getIsDevMode())
-        {
-            unlockDoor();
-            return;
-        }
-        // 문이 핑크색이거나 파란색인데 아직 해금 안되었다면 잠근다
-        if (color == PlayerColor.pink) lockDoor();
-        else if (!DataManager.Instance.getIsUnlocked(ep, stage))
-        {
-            Debug.Log(ep.ToString() + " " + stage.ToString() + " locking blue door...");
-            lockDoor();
-        }
+        ApplyDevMode();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,13 +62,18 @@ public class HubDoor : MonoBehaviour
             }
                 
         }
-        if(!locked)
+        if (!locked)
+        {
             anim.SetBool("Open", true);
+            openSound.time = 1.0f;
+            openSound.Play();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         anim.SetBool("Open", false);
+        openSound.Stop();
     }
 
     private void OnTriggerStay(Collider other)
@@ -132,7 +127,6 @@ public class HubDoor : MonoBehaviour
 
     public void ApplyDevMode()
     {
-        Debug.Log("message recieved!");
         if (DataManager.Instance.getIsDevMode())
         {
             unlockDoor();

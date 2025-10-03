@@ -2571,7 +2571,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 927306769817977879}
         m_TargetAssemblyTypeName: OptionButton, Assembly-CSharp
-        m_MethodName: MasterSlider
+        m_MethodName: MasterSliderChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3141,7 +3141,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 927306769817977879}
         m_TargetAssemblyTypeName: OptionButton, Assembly-CSharp
-        m_MethodName: BgmSlider
+        m_MethodName: BgmSliderChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4007,7 +4007,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 927306769817977879}
         m_TargetAssemblyTypeName: OptionButton, Assembly-CSharp
-        m_MethodName: SfxSlider
+        m_MethodName: SfxSliderChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4062,6 +4062,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionPanel: {fileID: 6575292673081268939}
+  sliders:
+  - {fileID: 2832814004245464169}
+  - {fileID: 512230422522150240}
+  - {fileID: 3761788605907848653}
+  icons:
+  - {fileID: 6988343906711724967}
+  - {fileID: 8758364956515360562}
+  - {fileID: 1901243504580721278}
+  toggleBar: {fileID: 7629277142002220785}
 --- !u!1 &6988343906711724967
 GameObject:
   m_ObjectHideFlags: 0

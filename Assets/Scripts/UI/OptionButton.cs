@@ -10,6 +10,17 @@ public class OptionButton : MonoBehaviour
     private bool isBgmMute;
     private bool isSfxMute;
 
+    public Slider[] sliders;
+    public GameObject[] icons;
+
+    public GameObject toggleBar;
+
+    private void Start()
+    {
+        Debug.Log("activated!");
+        //MaintainSettings();
+    }
+
     public void OpenPanel()
     {
         optionPanel.SetActive(true);
@@ -52,23 +63,40 @@ public class OptionButton : MonoBehaviour
 
     public void toggleDevMode()
     {
-        GameObject toggleBar = EventSystem.current.currentSelectedGameObject;
         toggleBar.GetComponent<Transform>().localScale *= -1;
         DataManager.Instance.changeIsDevMode();
-        BroadcastMessage("ApplyDevMode", null, SendMessageOptions.DontRequireReceiver);
+        if (SceneManager.GetActiveScene().name == "HubStage")
+        {
+            Restart();
+        }
     }
 
-    public void MasterSlider(float value)
+    public void MasterSliderChanged(float value)
     {
         //Debug.Log("Slider value " + value.ToString());
         AudioManager.instance.SetMasterVolume(value);
     }
-    public void BgmSlider(float value)
+    public void BgmSliderChanged(float value)
     {
         AudioManager.instance.SetBgmVolume(value);
     }
-    public void SfxSlider(float value)
+    public void SfxSliderChanged(float value)
     {
         AudioManager.instance.SetSfxVolume(value);
+    }
+
+    public void MaintainSettings()
+    {
+        for(int i = 0;i<3;i++)
+        {
+            Debug.Log(AudioManager.instance.volumes[i]);
+            sliders[i].value = AudioManager.instance.volumes[i];
+            icons[i].GetComponent<MuteButton>().MaintainIcon();
+        } 
+        
+        if (DataManager.Instance.getIsDevMode())
+                toggleBar.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+        else
+            toggleBar.GetComponent<Transform>().localScale = new Vector3(-1, -1, -1);
     }
 }

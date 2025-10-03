@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 public class MuteButton : MonoBehaviour
@@ -17,5 +18,11 @@ public class MuteButton : MonoBehaviour
             GetComponent<Image>().sprite = muteIcon;
         isMute = !isMute;
         AudioManager.instance.ToggleMute(mixerType);
+    }
+
+    public void MaintainIcon()
+    {
+        if(isMute) { GetComponent<Image>().sprite = muteIcon; }
+        else { GetComponent<Image>().sprite = unmuteIcon; }
     }
 }

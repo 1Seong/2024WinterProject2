@@ -8,8 +8,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     public AudioMixer mixer;
     
-    private bool[] isMute = new bool[3]; // 0:Master, 1:BGM, 2:SFX
-    private float[] volumes = new float[3];
+    public bool[] isMute = new bool[3]; // 0:Master, 1:BGM, 2:SFX
+    public float[] volumes = new float[3];
 
     
     public AudioClip[] bgmList;
