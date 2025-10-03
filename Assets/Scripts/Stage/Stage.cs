@@ -76,6 +76,7 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.GpauseActive = false;
         stageStartEvent?.Invoke();
     }
 

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public bool isSideView;
     public float cameraRotationTime;
 
-    private bool _gpauseActive = false;
+    [SerializeField]private bool _gpauseActive = false;
     public bool GpauseActive
     {
         get => _gpauseActive;
