@@ -5,12 +5,14 @@ public class Frog : Consumable
 {
     public int frogJumpUnit = 2;
     public GameObject frogHatPrefab;
-    private AudioSource frogSound;
+    private bool isActive = false;
 
     protected override void OnTriggerEnter(Collider other)
     {
+        if (isActive) return;
         if (other.tag != "Player1" && other.tag != "Player2") return;
         if (other.GetComponent<Player>().frog) return;
+        isActive = true;
         base.OnTriggerEnter(other);
     }
 
@@ -18,23 +20,23 @@ public class Frog : Consumable
     {
         base.Awake();
         PlayerTriggerEvent += FrogActivate;
-        frogSound = GetComponent<AudioSource>();
     }
 
     private void FrogActivate(Collider other)
     {
+        other.GetComponent<Player>().frog = true;
         PlayerJump playerJ = other.GetComponent<PlayerJump>();
-        Player player = other.GetComponent<Player>();
+        
         playerJ.jumpUnit = frogJumpUnit;
         Debug.Log("Frog Item applied: Jump unit set to " + playerJ.jumpUnit);
 
         var anims = other.GetComponentsInChildren<Animator>();
         foreach(var anim in anims)
         {
-            anim.SetTrigger("Frog");
+            anim.SetBool("Frog", true);
         }
         //player.frogHat = frogHatPrefab;
-        frogSound.Play();    
+            
         
 
         Debug.Log("Frog Item applied: Jump unit increased!");

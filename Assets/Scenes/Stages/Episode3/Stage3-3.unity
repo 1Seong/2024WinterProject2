@@ -3037,6 +3037,10 @@ PrefabInstance:
       propertyPath: color
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 735601959576122630, guid: e64a5abc97208ff4ea426aa63a54975a, type: 3}
+      propertyPath: switchAnim
+      value: 
+      objectReference: {fileID: 513769845}
     - target: {fileID: 6216464849688875215, guid: e64a5abc97208ff4ea426aa63a54975a, type: 3}
       propertyPath: m_Name
       value: Pause (1)
@@ -3208,6 +3212,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cfdc99001fef5e4799553332eec2b27, type: 3}
+--- !u!95 &513769845 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 103544867557619690, guid: 2cfdc99001fef5e4799553332eec2b27, type: 3}
+  m_PrefabInstance: {fileID: 513769844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &582179010
 GameObject:
   m_ObjectHideFlags: 0

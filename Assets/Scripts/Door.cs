@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
-    private float goalTime = 2.0f;
+    private float goalTime = 1.5f;
     private float enterTime, stayTime;
     public bool isComplete;
 
@@ -59,6 +59,8 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (playerSelectable.CheckColor(other, (int)color) == false) return;
+
         anim.SetBool("Open", false);
         openSound.Stop();
     }

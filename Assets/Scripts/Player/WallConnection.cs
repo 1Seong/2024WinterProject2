@@ -15,6 +15,7 @@ public class WallConnection : MonoBehaviour
     [SerializeField] private bool _doUpdate = true;
 
     [SerializeField]private bool _connectedToWall = false;
+    
     public bool connectedToWall
     {
         get => _connectedToWall;
@@ -24,9 +25,15 @@ public class WallConnection : MonoBehaviour
             if(_mode == Mode.Spring)
             {
                 if (value)
+                {
                     _rigid.constraints |= RigidbodyConstraints.FreezePositionX;
+                    //_rigid.linearVelocity = new Vector3(0f, _rigid.linearVelocity.y, _rigid.linearVelocity.z);
+                }
                 else
+                {
                     _rigid.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                    //_rigid.linearVelocity = Vector3.zero;
+                }
             }
         }
     }
@@ -39,10 +46,10 @@ public class WallConnection : MonoBehaviour
     private void Update()
     {
         if (!_doUpdate) return;
-        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.03f, 0.1f, 0.41f) : new Vector3(0.03f, 0.41f, 7.5f);
+        Vector3 box = !GameManager.instance.isSideView ? new Vector3(0.01f, 0.1f, 0.41f) : new Vector3(0.01f, 0.41f, 7.5f);
 
-        RaycastHit[] rayHitLeft = Physics.BoxCastAll(_rigid.position + new Vector3(-0.5f, 0f, 0f), box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
-        RaycastHit[] rayHitRight = Physics.BoxCastAll(_rigid.position + new Vector3(0.5f, 0f, 0f), box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit[] rayHitLeft = Physics.BoxCastAll(_rigid.position + new Vector3(-0.47f, 0f, 0f), box, Vector3.left, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit[] rayHitRight = Physics.BoxCastAll(_rigid.position + new Vector3(0.47f, 0f, 0f), box, Vector3.right, Quaternion.identity, 0.5f, LayerMask.GetMask("Platform"));
 
         RaycastHit? existLeft = ExistWallsInRayHit(rayHitLeft);
         RaycastHit? existRight = ExistWallsInRayHit(rayHitRight);
@@ -65,8 +72,11 @@ public class WallConnection : MonoBehaviour
         {
             _rightColl = null;
         }
-        if (existLeft == null && existRight == null)
+        if (connectedToWall && existLeft == null && existRight == null)
             connectedToWall = false;
+
+        
+
     }
 
     private RaycastHit? ExistWallsInRayHit(RaycastHit[] rayHit)
@@ -113,6 +123,7 @@ public class WallConnection : MonoBehaviour
         }
     }
 
+    
     private void OnCollisionStay(Collision collision)
     {
         if (_mode == Mode.Player)
@@ -132,8 +143,13 @@ public class WallConnection : MonoBehaviour
                 springCon.SetUpdate(false);
                 springCon.connectedToWall = false;
             }
+            else
+            {
+                springCon.SetUpdate(true);
+            }
         }
     }
+    
 
     public bool IsExistLeft() 
     {

@@ -44,12 +44,13 @@ public class Portal : ItemBehavior
         Movable player = other.GetComponent<Movable>();
         Rigidbody playerRb = player.GetComponent<Rigidbody>();
 
+        var tempV = playerRb.linearVelocity;
         var targetRotVec = GameManager.instance.isSideView ? new Vector3(0, 0f, 180f) : new Vector3(0, 180f, 0f);
 
         var inSeq = DOTween.Sequence();
-        inSeq.Join(playerRb.transform.DOLocalMove(transform.position, 1.0f));
-        inSeq.Join(playerRb.transform.DORotate(other.transform.rotation.eulerAngles + targetRotVec, 0.25f).SetLoops(4));
-        inSeq.Join(playerRb.transform.DOScale(Vector3.zero, 1f));
+        inSeq.Join(playerRb.transform.DOLocalMove(transform.position, 0.6f));
+        inSeq.Join(playerRb.transform.DORotate(other.transform.rotation.eulerAngles + targetRotVec, 0.15f).SetLoops(4));
+        inSeq.Join(playerRb.transform.DOScale(Vector3.zero, 0.6f));
         yield return inSeq.WaitForCompletion();
         playerRb.DOKill();
         yield return new WaitForFixedUpdate();
@@ -77,13 +78,14 @@ public class Portal : ItemBehavior
             playerRb.transform.position = new Vector3(linkedPos.x, 0f, linkedPos.z);
         }
         playerRb.transform.rotation = Quaternion.identity;
-        playerRb.linearVelocity = Vector3.zero;
+        playerRb.linearVelocity = tempV;
         
         var outSeq = DOTween.Sequence();
-        outSeq.Join(playerRb.transform.DOScale(Vector3.one, 0.5f));
-        yield return outSeq.WaitForCompletion();
+        outSeq.Join(playerRb.transform.DOScale(Vector3.one, 0.3f));
+        //yield return outSeq.WaitForCompletion();
 
-        other.GetComponent<PlayerMove>().enabled = true;
+        if(!other.GetComponent<Player>().onIce)
+            other.GetComponent<PlayerMove>().enabled = true;
 
         Invoke("ResetCooldown", cooldownTime);
     }

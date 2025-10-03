@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
             return;
 
         //Stop speed when button is up
-        if (Input.GetButtonUp("Horizontal"))
+        if (Input.GetAxisRaw("Horizontal")==0f)
         {
             rigid.constraints |= RigidbodyConstraints.FreezePositionX;
             rigid.linearVelocity = new Vector3(0f, rigid.linearVelocity.y, rigid.linearVelocity.z);

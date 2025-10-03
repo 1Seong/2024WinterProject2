@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class Stage : MonoBehaviour
 {
-    private StageData data;
+    [SerializeField]private StageData data;
 
     private Transform bottomWall;
     private Transform topWall;
@@ -37,6 +37,9 @@ public class Stage : MonoBehaviour
     {
         //StageManager.instance.stage = this;
 
+        defaultMovables = new List<Movable>();
+        invertMovables = new List<Movable>();
+
         stageStartEvent += Init;
         stageStartEvent += SpawnPlayer;
         stageStartEvent += StageManager.instance.FindCanvas;
@@ -45,10 +48,13 @@ public class Stage : MonoBehaviour
         convertEvent += ProjectionSetting;
         convertEvent += PlayerConvertReposition;
 
+        /*
         if (GameManager.instance.dynamicInnerWallInstantiation)
         {
             stageStartEvent += MakeProjection;
         }
+        */
+        StageManager.instance.stage = this;
     }
 
     private void OnDestroy()
@@ -68,13 +74,13 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
-        StageManager.instance.stage = this;
         stageStartEvent?.Invoke();
     }
 
     private void Init()
     {
-        data = StageManager.instance.currentStageInfo.data;
+        if(data == null)
+            data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
         bottomWall = transform.GetChild(0);
@@ -116,7 +122,7 @@ public class Stage : MonoBehaviour
         // Convert viewpoint when press 'E' and players should be on bottom platform
         if (!data.conversionActive || isActing || restrict) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
+        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && !player1.GetComponent<PlayerJump>().isJumping)
         {
             Debug.Log("E key down");
             if (data.player2Exist)
@@ -394,7 +400,7 @@ public class Stage : MonoBehaviour
         */
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.GetComponent<Movable>() != null)
         {
@@ -408,5 +414,10 @@ public class Stage : MonoBehaviour
         {
             restrict = false;
         }
+    }
+
+    public void SetRestrict(bool r)
+    {
+        restrict = r;
     }
 }

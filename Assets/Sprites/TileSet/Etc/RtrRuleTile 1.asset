@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: RtrRuleTile 1
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: b5071fc6568278b4288ba0fff405420c, type: 3}
+  m_DefaultSprite: {fileID: 1921648272, guid: dac0f42a1c5109f4f89a893be0a5cc33, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 0
   m_TilingRules:

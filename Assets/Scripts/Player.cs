@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -9,6 +10,7 @@ public class Player : Movable
 
     private int dir = 0;
     private GameObject _frogHat;
+    private float prevMass;
 
     private void Start()
     {
@@ -73,6 +75,8 @@ public class Player : Movable
             onIce = true;
            
             GetComponent<PlayerMove>().enabled = false;
+            //prevMass = rigid.mass;
+            //rigid.mass = 20;
 
             var anims = GetComponentsInChildren<Animator>();
             foreach(var anim in anims)
@@ -90,10 +94,11 @@ public class Player : Movable
             //Debug.Log("On Ice false");
             rigid.linearVelocity = Vector3.zero;
             rigid.constraints |= RigidbodyConstraints.FreezePositionX;
-
+            
             onIce = false;
             
             GetComponent<PlayerMove>().enabled = true;
+            //rigid.mass = prevMass;
 
             var anims = GetComponentsInChildren<Animator>();
             foreach (var anim in anims)

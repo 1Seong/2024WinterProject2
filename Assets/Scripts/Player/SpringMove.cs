@@ -17,7 +17,7 @@ public class SpringMove : Movable
     {
         if (onIce) return;
 
-        if(collision.collider.tag == "Player1" ||  collision.collider.tag == "Player2")
+        if(collision.collider.tag == "Spring" || collision.collider.tag == "Player1" ||  collision.collider.tag == "Player2")
         {
             GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, rigid.linearVelocity.y, rigid.linearVelocity.z);
         }

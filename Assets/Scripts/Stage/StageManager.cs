@@ -38,14 +38,14 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        if (!instance)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         currentStageInfo = new CurrentStage();
@@ -126,12 +126,14 @@ public class StageManager : MonoBehaviour
 
         string sceneName = currentStageInfo.data.stageName;
         Debug.Log(sceneName);
-        SceneManager.LoadScene(sceneName);
+        CircleTransition.Instance.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
     }
 
     private void LoadStage(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        CircleTransition.Instance.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
     }
 
     private void LoadSelectStage()
@@ -177,7 +179,8 @@ public class StageManager : MonoBehaviour
     public void Reset()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        CircleTransition.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void FindCanvas()

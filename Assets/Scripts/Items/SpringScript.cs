@@ -5,19 +5,24 @@ public class SpringScript : ItemBehavior
     public int springJumpUnit;
     public float bias = 1f;
     private float gravity, intial, initialVelocity;
-
-    private AudioSource jumppadSound;
+    private static bool isActive1, isActive2;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     protected override void Awake()
     {
         base.Awake();
         PlayerTriggerEvent += SpringActivate;
-        jumppadSound = GetComponent<AudioSource>();
     }
 
     private void SpringActivate(Collider other)
     {
+        if (other.CompareTag("Player1") && isActive1 || other.CompareTag("Player2") && isActive2) return;
+
+        if (other.CompareTag("Player1"))
+            isActive1 = true;
+        else if(other.CompareTag("Player2"))
+            isActive2 = true;
+
         int appliedJumpUnit = other.GetComponent<Player>().frog ? springJumpUnit + 1 : springJumpUnit;
 
         other.GetComponent<PlayerJump>().isJumping = true;
@@ -34,8 +39,21 @@ public class SpringScript : ItemBehavior
 
         Debug.Log("force : " + force);
         objRb.linearVelocity = Vector3.zero;
-        objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);  
+        objRb.AddForce(other.GetComponent<CustomGravity>().up * force, ForceMode.Impulse);
 
-        jumppadSound.Play();
+        if (other.CompareTag("Player1"))
+            Invoke("active1Off", 0.1f);
+        else if (other.CompareTag("Player2"))
+            Invoke("active2Off", 0.1f);
+    }
+
+    private void active1Off()
+    {
+        isActive1 = false;
+    }
+
+    private void active2Off()
+    {
+        isActive2 = false;
     }
 }
