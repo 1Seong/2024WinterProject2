@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Legacy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,21 @@ public class OptionButton : MonoBehaviour
 
     public GameObject toggleBar;
 
+    private static float masterSliderValue = 1f;
+    private static float bgmSliderValue = 1f;
+    private static float sfxSliderValue = 1f;
+    [SerializeField] private Slider masterSlider;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
+
     private void Start()
     {
-        Debug.Log("activated!");
+        //Debug.Log("activated!");
         //MaintainSettings();
+        masterSlider.value = masterSliderValue;
+        bgmSlider.value = bgmSliderValue;
+        sfxSlider.value = sfxSliderValue;
+
     }
 
     public void OpenPanel()
@@ -74,17 +86,21 @@ public class OptionButton : MonoBehaviour
     public void MasterSliderChanged(float value)
     {
         //Debug.Log("Slider value " + value.ToString());
+        masterSliderValue = value;
         AudioManager.instance.SetMasterVolume(value);
     }
     public void BgmSliderChanged(float value)
     {
+        bgmSliderValue = value;
         AudioManager.instance.SetBgmVolume(value);
     }
     public void SfxSliderChanged(float value)
     {
+        sfxSliderValue = value;
         AudioManager.instance.SetSfxVolume(value);
     }
 
+    /*
     public void MaintainSettings()
     {
         for(int i = 0;i<3;i++)
@@ -99,4 +115,5 @@ public class OptionButton : MonoBehaviour
         else
             toggleBar.GetComponent<Transform>().localScale = new Vector3(-1, -1, -1);
     }
+    */
 }

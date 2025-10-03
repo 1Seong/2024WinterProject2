@@ -1168,8 +1168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32474f1dffcba644879f261fc9be932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mute: 2
   mixerType: 2
-  isMute: 0
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &1954927920865416942
@@ -4071,6 +4071,9 @@ MonoBehaviour:
   - {fileID: 8758364956515360562}
   - {fileID: 1901243504580721278}
   toggleBar: {fileID: 7629277142002220785}
+  masterSlider: {fileID: 2832814004245464169}
+  bgmSlider: {fileID: 512230422522150240}
+  sfxSlider: {fileID: 3761788605907848653}
 --- !u!1 &6988343906711724967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4216,8 +4219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32474f1dffcba644879f261fc9be932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mute: 0
   mixerType: 0
-  isMute: 0
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &7629277142002220785
@@ -4815,8 +4818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32474f1dffcba644879f261fc9be932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mute: 1
   mixerType: 1
-  isMute: 0
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &8959778032837267345
