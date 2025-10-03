@@ -88,11 +88,13 @@ public class Movable : MonoBehaviour
         /*
          * Check inversion condition
          */
+        //Debug.Log("CheckInvert1");
         if (GameManager.instance.isSideView)
             return;
         
         if(customGravity.gravityState == GravityState.defaultG && rigid.position.z > TARGET_Z || customGravity.gravityState == GravityState.invertG && rigid.position.z < TARGET_Z)
         {
+            //Debug.Log("CheckInvert");
             invertEvent?.Invoke();
         }
         

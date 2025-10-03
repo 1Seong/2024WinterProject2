@@ -12,8 +12,9 @@ public class Player : Movable
     private GameObject _frogHat;
     private float prevMass;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         iceSound = transform.GetComponentInChildren<AudioSource>();
         if (iceSound == null)
             Debug.Log("ICESOUND EMPTY");

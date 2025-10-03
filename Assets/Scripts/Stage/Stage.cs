@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Stage : MonoBehaviour
@@ -41,7 +42,8 @@ public class Stage : MonoBehaviour
         invertMovables = new List<Movable>();
 
         stageStartEvent += Init;
-        stageStartEvent += SpawnPlayer;
+        if(SceneManager.GetActiveScene().name != "HubStage")
+            stageStartEvent += SpawnPlayer;
         stageStartEvent += StageManager.instance.FindCanvas;
 
         convertEvent += CallCameraRotate;
@@ -111,7 +113,8 @@ public class Stage : MonoBehaviour
     private void Update()
     {
         // Check convert condition
-        CheckConvert();
+        if (SceneManager.GetActiveScene().name != "HubStage")
+            CheckConvert();
     }
 
     private void CheckConvert()

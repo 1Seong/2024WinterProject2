@@ -453,7 +453,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6772834874098582062, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9383b7f8688b0ea4d8ff42a736e50e65, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9383b7f8688b0ea4d8ff42a736e50e65, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -553,6 +553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 7551100f51436204aaf1a1b0fefd81e3, type: 2}
+  bgmList: []
+  footstepList: []
 --- !u!4 &99628227
 Transform:
   m_ObjectHideFlags: 0
@@ -4418,7 +4420,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1464646211}
   - component: {fileID: 1464646210}
-  - component: {fileID: 1464646212}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -4489,19 +4490,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1464646212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464646209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89de2c6e8e5e8b84c9ad5668d07b3bd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circleImage: {fileID: 0}
 --- !u!1 &1560073293
 GameObject:
   m_ObjectHideFlags: 0
