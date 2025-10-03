@@ -15,10 +15,10 @@ public class Swap : Consumable
         var player1Rb = player1.GetComponent<Rigidbody>();
         var player2Rb = player2.GetComponent<Rigidbody>();
 
-        var tempPosition = player1Rb.position;
+        var tempPosition = player1.transform.position;
         var tempVel = player1Rb.linearVelocity;
-        player1Rb.position = player2Rb.position;
-        player2Rb.position = tempPosition;
+        player1.transform.position = player2.transform.position;
+        player2.transform.position = tempPosition;
         player1Rb.linearVelocity = player2Rb.linearVelocity;
         player2Rb.linearVelocity = tempVel;
 

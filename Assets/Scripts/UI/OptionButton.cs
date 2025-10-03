@@ -25,6 +25,7 @@ public class OptionButton : MonoBehaviour
     public void Restart()
     {
         StageManager.instance.Reset();
+        GameManager.instance.Resume();
     }
 
     private void Update()

@@ -122,7 +122,7 @@ public class Stage : MonoBehaviour
         // Convert viewpoint when press 'E' and players should be on bottom platform
         if (!data.conversionActive || isActing || restrict) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !player1.GetComponent<PlayerJump>().isJumping)
+        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && !player1.GetComponent<PlayerJump>().isJumping)
         {
             Debug.Log("E key down");
             if (data.player2Exist)
@@ -400,7 +400,7 @@ public class Stage : MonoBehaviour
         */
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.GetComponent<Movable>() != null)
         {
@@ -414,5 +414,10 @@ public class Stage : MonoBehaviour
         {
             restrict = false;
         }
+    }
+
+    public void SetRestrict(bool r)
+    {
+        restrict = r;
     }
 }

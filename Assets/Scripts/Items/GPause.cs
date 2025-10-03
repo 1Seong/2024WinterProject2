@@ -14,11 +14,15 @@ public class GPause : ItemBehavior
     protected override void Awake()
     {
         base.Awake();
+        GetComponentInChildren<SpriteRenderer>().flipY = true;
         PlayerTriggerEvent += (Collider other) =>
         {
             var anim = GetComponentInChildren<Animator>();
             if (anim != null)
+            {
+                GetComponentInChildren<SpriteRenderer>().flipY = false;
                 anim.SetTrigger("Activate");
+            }
             GetComponent<Collider>().enabled = false;
 
             var cam = Camera.main;
@@ -40,10 +44,12 @@ public class GPause : ItemBehavior
             }
             
             foreach (var i in movables)
-                i.CallGPauseAction();
+                if(i.gameObject.activeSelf)
+                    i.CallGPauseAction();
 
             foreach (var i in pauseTarget)
-                i.CallPauseInvert();
+                if (i.gameObject.activeSelf)
+                    i.CallPauseInvert();
         };
     }
 

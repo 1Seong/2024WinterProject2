@@ -12,6 +12,7 @@ public class Transparent : MonoBehaviour
     protected Material[] mats;
     protected SpriteRenderer[] renderers;
     protected Tilemap[] tilemaps;
+    protected ParticleSystem ps;
 
     public bool active = true;
 
@@ -24,6 +25,7 @@ public class Transparent : MonoBehaviour
 
         renderers = GetComponentsInChildren<SpriteRenderer>();
         tilemaps = GetComponentsInChildren<Tilemap>();
+        ps = GetComponent<ParticleSystem>();
     }
 
     public void CallFade()
@@ -73,6 +75,15 @@ public class Transparent : MonoBehaviour
                     color.a = amount;
                     t.color = color;
                 }
+            if(ps != null)
+            {
+                var main = ps.main;
+                var color = main.startColor.color;
+                float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime);
+
+                color.a = amount;
+                main.startColor = color;
+            }   
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
@@ -115,14 +126,26 @@ public class Transparent : MonoBehaviour
                     color.a = amount;
                     t.color = color;
                 }
+            if (ps != null)
+            {
+                var main = ps.main;
+                var color = main.startColor.color;
+                float amount = Mathf.Lerp(_maxAlpha, 0f, i / totalTime);
 
+                color.a = amount;
+                main.startColor = color;
+            }
+               
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
         isActing = false;
         active = false;
 
-        if(gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2"))
+        if (gameObject.CompareTag("Player1") || gameObject.CompareTag("Player2"))
+        {
             gameObject.SetActive(false);
+            StageManager.instance.stage.SetRestrict(false);
+        }
     }
 }
 

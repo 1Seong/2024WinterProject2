@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
-    private float goalTime = 2.0f;
+    private float goalTime = 1.5f;
     private float enterTime, stayTime;
     public bool isComplete;
 

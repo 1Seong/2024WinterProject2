@@ -36,6 +36,15 @@ public class RotateTransparent : Transparent
                     color.a = 0f;
                     tilemap.color = color;
                 }
+            if (GetComponent<ParticleSystem>() != null)
+            {
+                var main = GetComponent<ParticleSystem>().main;
+                var color = main.startColor.color;
+
+                color.a = 0f;
+                main.startColor = color;
+            }
+                
         }
 
     }
@@ -68,6 +77,10 @@ public class RotateTransparent : Transparent
             if (tilemaps is not null)
                 foreach (var t in tilemaps)
                     instantImpl(t);
+
+            if(GetComponent<ParticleSystem>() != null)
+                instantImpl(GetComponent<ParticleSystem>());
+
         }
 
     }
@@ -116,6 +129,16 @@ public class RotateTransparent : Transparent
                     color.a = amount;
                     t.color = color;
                 }
+            if (ps != null)
+            {
+                var main = GetComponent<ParticleSystem>().main;
+                var color = main.startColor.color;
+                float amount = Mathf.Lerp(0f, _maxAlpha, i / totalTime);
+                if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //disappear
+                    amount = _maxAlpha - amount;
+                color.a = amount;
+                main.startColor = color;
+            }
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
@@ -172,6 +195,25 @@ public class RotateTransparent : Transparent
         }
 
         o.color = color;
+    }
+
+    private void instantImpl(ParticleSystem o)
+    {
+        var main = o.main;
+        var color = main.startColor.color;
+        var sideview = GameManager.instance.isSideView;
+
+        if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) // disappear
+        {
+            color.a = 0f;
+            o.Clear();
+        }
+        else // appear
+        {
+            color.a = 1f;
+        }
+
+        main.startColor = color;
     }
 
     private void OnDestroy()

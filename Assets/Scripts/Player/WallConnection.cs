@@ -143,6 +143,10 @@ public class WallConnection : MonoBehaviour
                 springCon.SetUpdate(false);
                 springCon.connectedToWall = false;
             }
+            else
+            {
+                springCon.SetUpdate(true);
+            }
         }
     }
     

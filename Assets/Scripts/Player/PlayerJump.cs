@@ -42,7 +42,7 @@ public class PlayerJump : MonoBehaviour
         /*
          * Request jump to fixed update
          */
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
         {
             requestJump = true;
         }
