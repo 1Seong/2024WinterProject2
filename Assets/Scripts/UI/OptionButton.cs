@@ -1,7 +1,4 @@
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Legacy;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
