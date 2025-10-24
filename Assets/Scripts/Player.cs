@@ -68,15 +68,15 @@ public class Player : Movable
         iceExist = IceExist(rayHit);
 
         int newDir;
-        if (rigid.linearVelocity.x > 0.0015f)
+        if (rigid.linearVelocity.x > 0.04f)
             newDir = 1;
-        else if (rigid.linearVelocity.x < -0.0015f)
+        else if (rigid.linearVelocity.x < -0.04f)
             newDir = -1;
         else
             newDir = 0;
 
         //int newDir = rigid.linearVelocity.x > 0 ? 1 : (rigid.linearVelocity.x == 0 ? 0 : -1);
-        Debug.Log(rigid.linearVelocity.x);
+        //Debug.Log(rigid.linearVelocity.x);
         if (!onIce && iceExist && rigid.linearVelocity.x != 0) // onIce : false -> true
         {
             onIce = true;

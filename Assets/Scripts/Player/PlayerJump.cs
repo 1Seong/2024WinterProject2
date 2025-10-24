@@ -33,7 +33,7 @@ public class PlayerJump : MonoBehaviour
 
     private void InvokeLanding()
     {
-        if (Vector3.Dot(rigid.linearVelocity, customGravity.up) < 0 || IsPlayerOnInnerWall())
+        if (Vector3.Dot(rigid.linearVelocity, customGravity.up) <= 0 || IsPlayerOnInnerWall())
             Landing();
     }
 
