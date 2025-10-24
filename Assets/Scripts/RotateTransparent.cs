@@ -8,6 +8,15 @@ public class RotateTransparent : Transparent
     [SerializeField] private mode _mode;
     [SerializeField] private bool _isSideViewObject;
 
+    public void StopCallFade()
+    {
+        Stage.convertEvent -= CallFade;
+    }
+
+    public void DoCallFade()
+    {
+        Stage.convertEvent += CallFade;
+    }
 
     private void Start()
     {
