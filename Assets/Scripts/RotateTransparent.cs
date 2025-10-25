@@ -24,6 +24,9 @@ public class RotateTransparent : Transparent
 
         if (_isSideViewObject)
         {
+            if(coll != null)
+                coll.enabled = false;
+
             if(mats is not null)
                 foreach(var mat in mats)
                 {

@@ -93,7 +93,7 @@ public class OptionButton : MonoBehaviour
         {
             Debug.Log(AudioManager.instance.volumes[i]);
             sliders[i].value = AudioManager.instance.volumes[i];
-            icons[i].GetComponent<MuteButton>().MaintainIcon();
+            //icons[i].GetComponent<MuteButton>().MaintainIcon();
         } 
         
         if (DataManager.Instance.getIsDevMode())
