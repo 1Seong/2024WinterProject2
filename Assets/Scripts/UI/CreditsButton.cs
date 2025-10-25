@@ -3,9 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class CreditsButton : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void EnterCreditsScene()
+    public void LoadHubStage()
     {
-        CircleTransition.Instance.LoadScene("Credits");
+        CircleTransition.Instance.LoadScene("HubStage");
+        //SceneManager.LoadScene("HubStage");
     }
+
 }
