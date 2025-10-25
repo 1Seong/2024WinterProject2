@@ -17,13 +17,15 @@ public class ColliderConvertStretch : MonoBehaviour
     {
         if (GameManager.instance.isSideView) // top -> side
         {
-            StartCoroutine(CheckConvertCollision());
+            StartCoroutine(CheckConvertCollision(new Vector3(0.9f, 0.9f, 16f)));
         }
         else // side -> top
-            GetComponent<BoxCollider>().size = new Vector3(0.9f, 1f, 0.9f);
+        {
+            StartCoroutine(CheckConvertCollision(new Vector3(0.9f, 1f, 0.9f)));
+        }
     }
 
-    private IEnumerator CheckConvertCollision()
+    private IEnumerator CheckConvertCollision(Vector3 targetV)
     {
         bool collide = false;
         Vector3 box = new Vector3(0.36f, 0.36f, 0.36f);
@@ -40,7 +42,7 @@ public class ColliderConvertStretch : MonoBehaviour
             hits = Physics.OverlapBox(rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
             collide = ObjectExistInRaycast(hits);
         }
-        GetComponent<BoxCollider>().size = new Vector3(0.9f, 0.9f, 16f);
+        GetComponent<BoxCollider>().size = targetV;
     }
 
     protected bool ObjectExistInRaycast(Collider[] hits)

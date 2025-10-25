@@ -53,6 +53,14 @@ public class GPause : ItemBehavior
         };
     }
 
+    private void Update()
+    {
+        if (GameManager.instance.isSideView)
+            GetComponentInChildren<Animator>().speed = 0f;
+        else
+            GetComponentInChildren<Animator>().speed = 1f;
+    }
+
 
     /////////////////// NOT USED ////////////////////
     /*

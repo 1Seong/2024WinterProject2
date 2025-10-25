@@ -72,11 +72,13 @@ public class PlayerJump : MonoBehaviour
          */
         //isJumping = true;
 
+        /*
         if (IsPlayerOnInnerWall())
         {
             isJumping = false;
             return;
         }
+        */
 
         Vector3 targetVec = customGravity.down;
         Vector3 box = new Vector3(0.42f, 0, 0.5f);
@@ -91,7 +93,7 @@ public class PlayerJump : MonoBehaviour
         if (rayHit.Length != 0)
             foreach(var i in rayHit)
             {
-                if (i.transform.CompareTag("Spring"))
+                if (i.transform.CompareTag("Spring") || i.transform.CompareTag("Player1") || i.transform.CompareTag("Player2"))
                     continue;
                 if (i.distance < 0.07f && !i.collider.CompareTag(tag))
                 {
@@ -102,9 +104,11 @@ public class PlayerJump : MonoBehaviour
                         foreach (var anim in anims)
                             anim.SetBool("JumpPad", false);
 
-                    break;
+                    return;
                 }
             }
+
+        isJumping = true;
     }
 
     private void PerformJump()
