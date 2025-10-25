@@ -17,8 +17,10 @@ public class OptionButton : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("activated!");
+        //Debug.Log("activated!");
         //MaintainSettings();
+        if(DataManager.Instance.getIsDevMode())
+            toggleBar.GetComponent<Transform>().localScale *= -1;
     }
 
     public void OpenPanel()

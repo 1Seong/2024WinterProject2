@@ -89,6 +89,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stages/Episode5/Stage5-5.unity
     guid: a05c7ba99e9bdbe4a8747d12af9cdc33
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 2447bab9fb16b57428c211e160124070
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
