@@ -21,6 +21,11 @@ public class OptionButton : MonoBehaviour
         //MaintainSettings();
         if(DataManager.Instance.getIsDevMode())
             toggleBar.GetComponent<Transform>().localScale *= -1;
+
+        //masterSlider.value = masterSliderValue;
+        //bgmSlider.value = bgmSliderValue;
+        //sfxSlider.value = sfxSliderValue;
+
     }
 
     public void OpenPanel()
@@ -87,18 +92,18 @@ public class OptionButton : MonoBehaviour
         AudioManager.instance.SetSfxVolume(value);
     }
 
-    public void MaintainSettings()
-    {
-        for(int i = 0;i<3;i++)
-        {
-            Debug.Log(AudioManager.instance.volumes[i]);
-            sliders[i].value = AudioManager.instance.volumes[i];
-            icons[i].GetComponent<MuteButton>().MaintainIcon();
-        } 
+    //public void MaintainSettings()
+    //{
+    //    for(int i = 0;i<3;i++)
+    //    {
+    //        Debug.Log(AudioManager.instance.volumes[i]);
+    //        sliders[i].value = AudioManager.instance.volumes[i];
+    //        icons[i].GetComponent<MuteButton>().MaintainIcon();
+    //    } 
         
-        if (DataManager.Instance.getIsDevMode())
-                toggleBar.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
-        else
-            toggleBar.GetComponent<Transform>().localScale = new Vector3(-1, -1, -1);
-    }
+    //    if (DataManager.Instance.getIsDevMode())
+    //            toggleBar.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+    //    else
+    //        toggleBar.GetComponent<Transform>().localScale = new Vector3(-1, -1, -1);
+    //}
 }

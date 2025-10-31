@@ -27,6 +27,6 @@ public class Swap : Consumable
         //var tempVel = player1.
 
         Debug.Log("Swap Item applied: Players swapped positions!");
-        swapSound.Play();
+        AudioManager.instance.PlayItemClip(AudioManager.Item.swap);
     }
 }

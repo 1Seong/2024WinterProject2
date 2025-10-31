@@ -38,8 +38,8 @@ public class Frog : Consumable
             anim.SetBool("Frog", true);
         }
         //player.frogHat = frogHatPrefab;
-            
-        frogSound.Play();
+
+        AudioManager.instance.PlayItemClip(AudioManager.Item.battery);
 
         Debug.Log("Frog Item applied: Jump unit increased!");
     }

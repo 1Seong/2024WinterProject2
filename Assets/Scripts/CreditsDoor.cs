@@ -1,9 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class CreditsDoor : MonoBehaviour
 {
-    public AudioSource openSound;
+    public float duration = 2.0f;
+    public AudioSource audioSrc;
+    public AudioClip fadeClip;
     private Animator anim;
+    private Material mat;
+    private static bool appeared = false; 
 
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
@@ -13,8 +18,9 @@ public class CreditsDoor : MonoBehaviour
 
     private void Awake()
     {
+        mat = GetComponentInChildren<SpriteRenderer>().material;
         anim = GetComponentInChildren<Animator>();
-        openSound = GetComponent<AudioSource>();
+        audioSrc = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -24,21 +30,27 @@ public class CreditsDoor : MonoBehaviour
             this.gameObject.SetActive(false);
         }
         else
+        {
             Debug.Log("Credit Door Abled");
+            if (!appeared)
+                FadeIn();
+            else
+                mat.SetFloat("_LightAmount", 1.0f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         enterTime = Time.time;
         anim.SetBool("Open", true);
-        openSound.time = 1.0f;
-        openSound.Play();
+        audioSrc.time = 1.0f;
+        audioSrc.Play();
     }
 
     private void OnTriggerExit(Collider other)
     {
         anim.SetBool("Open", false);
-        openSound.Stop();
+        audioSrc.Stop();
     }
 
     private void OnTriggerStay(Collider other)
@@ -56,5 +68,31 @@ public class CreditsDoor : MonoBehaviour
             Debug.Log("enter Credits");
             CircleTransition.Instance.LoadScene("Credits");
         }
+    }
+
+    public void FadeIn()
+    {
+        StartCoroutine(FadeInRoutine());
+    }
+
+    private IEnumerator FadeInRoutine()
+    {
+        //GameManager.instance.Stop();
+
+        audioSrc.PlayOneShot(fadeClip);
+        float t = 0.0f;
+        while (t < duration)
+        {
+            float fadeVal = t / duration;
+            mat.SetFloat("_LightAmount", fadeVal);
+            t += Time.unscaledDeltaTime;
+            yield return null;
+            //yield return new WaitForEndOfFrame();
+        }
+        mat.SetFloat("_LightAmount", 1.0f);
+        appeared = true;
+
+        //GameManager.instance.Resume();
+        //Debug.Log("complete!");
     }
 }
