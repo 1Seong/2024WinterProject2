@@ -11,12 +11,11 @@ public class AudioManager : MonoBehaviour
     public bool[] isMute = new bool[3]; // 0:Master, 1:BGM, 2:SFX
     public float[] volumes = new float[3];
 
-    
-    public AudioClip[] bgmList;
-    public AudioClip[] footstepList;
+    [SerializeField] private AudioClip[] itemClips;
 
-    AudioSource bgm;
+    public enum Item { battery, swap};
     AudioSource footstep;
+    AudioSource itemAudio;
 
     private void Awake()
     {
@@ -29,7 +28,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        footstep = GetComponent<AudioSource>();
+        footstep = transform.GetChild(0).GetComponent<AudioSource>();
+        itemAudio = transform.GetChild(1).GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -80,5 +80,9 @@ public class AudioManager : MonoBehaviour
     public void StopFootstep()
     {
         footstep.Stop();
+    }
+    public void PlayItemClip(Item item)
+    {
+        itemAudio.PlayOneShot(itemClips[(int)item]);
     }
 }
