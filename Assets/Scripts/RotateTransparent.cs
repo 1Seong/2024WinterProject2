@@ -67,9 +67,6 @@ public class RotateTransparent : Transparent
 
         if(coll != null)
         {
-            if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
-                coll.enabled = true;
-
             if (sideview && !_isSideViewObject || !sideview && _isSideViewObject) //when disappear
                 coll.enabled = false;
         }
@@ -78,6 +75,10 @@ public class RotateTransparent : Transparent
             StartCoroutine(Fade());
         else
         {
+            if(coll != null)
+                if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
+                    coll.enabled = true;
+
             if (mats is not null)
                 foreach (var m in mats)
                     instantImpl(m);
@@ -154,6 +155,10 @@ public class RotateTransparent : Transparent
 
             yield return new WaitForFixedUpdate(); // Wait for a fixed delta time
         }
+
+        if (coll != null)
+            if (!sideview && !_isSideViewObject || sideview && _isSideViewObject) //when appear
+                coll.enabled = true;
 
         isActing = false;
     }

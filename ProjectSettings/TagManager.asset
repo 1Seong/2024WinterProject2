@@ -17,6 +17,7 @@ TagManager:
   - SideWall
   - Spring
   - Door
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Platform
   - Ice
   - Spring
-  - 
+  - Background
   - 
   - 
   - 

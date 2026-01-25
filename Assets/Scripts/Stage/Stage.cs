@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Stage : MonoBehaviour
 {
     [SerializeField]private StageData data;
 
-    private Transform bottomWall;
-    private Transform topWall;
     private Transform[] innerWall; // There can be multiple Inner walls
 
     private Transform projectionWallParentXY;
@@ -86,8 +81,6 @@ public class Stage : MonoBehaviour
             data = StageManager.instance.currentStageInfo.data;
         GameManager.instance.isSideView = false;
 
-        bottomWall = transform.GetChild(0);
-        topWall = transform.GetChild(1);
         //innerWall = transform.GetChild(3).GetComponentsInChildren<Transform>();
         projectionWallParentXY = transform.GetChild(4);
         projectionWallParentXZ = transform.GetChild(5);
@@ -146,7 +139,18 @@ public class Stage : MonoBehaviour
          */
         GameManager.instance.isSideView = !GameManager.instance.isSideView;
 
-        convertEvent?.Invoke();
+        //convertEvent?.Invoke();
+        foreach (Action a in convertEvent.GetInvocationList())
+        {
+            try
+            {
+                a.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
         convertEventLast?.Invoke();
     }
 

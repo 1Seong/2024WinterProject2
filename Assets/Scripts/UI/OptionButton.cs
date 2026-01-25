@@ -50,11 +50,12 @@ public class OptionButton : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager.instance.isPlaying) OpenPanel();
             else ClosePanel();
         }
+        else if (Input.GetKeyDown(KeyCode.R)) Restart();
     }
     public void LoadHubStage()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,22 +28,48 @@ public class ColliderConvertStretch : MonoBehaviour
 
     private IEnumerator CheckConvertCollision(Vector3 targetV)
     {
-        bool collide = false;
-        Vector3 box = new Vector3(0.36f, 0.36f, 0.36f);
         var rigid = GetComponent<Rigidbody>();
+        var gravity = GetComponent<CustomGravity>();
+        var boxCollider = GetComponent<BoxCollider>();
 
-        Collider[] hits = Physics.OverlapBox(rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
-        collide = ObjectExistInRaycast(hits);
-
-        while (collide)
+        if (rigid == null || gravity == null || boxCollider == null)
         {
-            //Debug.Log("Collide!");
-            rigid.position += GetComponent<CustomGravity>().up;
-            yield return null;
-            hits = Physics.OverlapBox(rigid.position, box, Quaternion.identity, LayerMask.GetMask("Platform"));
-            collide = ObjectExistInRaycast(hits);
+            Debug.LogError("Required component missing");
+            yield break;
         }
-        GetComponent<BoxCollider>().size = targetV;
+
+        Vector3 box = new Vector3(0.36f, 0.36f, 0.36f);
+
+        bool collide;
+        Collider[] hits;
+
+        while (true)
+        {
+            try
+            {
+                hits = Physics.OverlapBox(
+                    rigid.position,
+                    box,
+                    Quaternion.identity,
+                    LayerMask.GetMask("Platform")
+                );
+
+                collide = ObjectExistInRaycast(hits);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                yield break;
+            }
+
+            if (!collide)
+                break;
+
+            rigid.position += gravity.up;
+            yield return null; // try-catch ¹Ù±ù
+        }
+
+        boxCollider.size = targetV;
     }
 
     protected bool ObjectExistInRaycast(Collider[] hits)

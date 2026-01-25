@@ -20,6 +20,8 @@ public class SpringScript : ItemBehavior
     {
         if (other.CompareTag("Player1") && isActive1 || other.CompareTag("Player2") && isActive2) return;
 
+        if (!other.GetComponent<PlayerJump>().isJumping) return;
+
         if (other.CompareTag("Player1"))
             isActive1 = true;
         else if(other.CompareTag("Player2"))
