@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class HubDoor : MonoBehaviour
@@ -11,6 +12,9 @@ public class HubDoor : MonoBehaviour
     //[SerializeField] private HubDoor[] blueDoors;
     [SerializeField] private HubDoor[] pinkDoors;
     [SerializeField] private GameObject lockObject;
+    [SerializeField] private SpriteRenderer pinkBlockingSprite;
+    [SerializeField] private SpriteRenderer episodeSprite;
+    [SerializeField] private SpriteRenderer stageSprite;
     
     private bool locked = false;
     private bool epSelected = false;
@@ -40,6 +44,7 @@ public class HubDoor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (playerSelectable.CheckColor(other, (int)color) == false) return;
+        if (color == PlayerColor.pink && !epSelected) return;
         enterTime = Time.time;
         if(!DataManager.Instance.getIsDevMode() && color == PlayerColor.blue ) // DevMode가 아닐때만 pink doors 확인
             {
@@ -90,10 +95,15 @@ public class HubDoor : MonoBehaviour
 
             if(color == PlayerColor.blue)
             {
-                foreach ( HubDoor door in pinkDoors)
+                foreach ( var door in pinkDoors)
                 {
                     door.epSelected = true;
-                    door.GetComponent<HubDoor>().ep = this.ep;
+                    door.showPinkDoor();
+                    episodeSprite.DOFade(0f, 0.4f).OnComplete(() =>
+                    {
+                        stageSprite.DOFade(1f, 0.4f);
+                    });
+                    door.ep = this.ep;
                 }
             }
             else if(color == PlayerColor.pink)
@@ -135,5 +145,10 @@ public class HubDoor : MonoBehaviour
             Debug.Log(ep.ToString() + " " + stage.ToString() + " locking blue door...");
             lockDoor();
         }
+    }
+
+    public void showPinkDoor()
+    {
+        pinkBlockingSprite.DOFade(0f, 0.4f);
     }
 }
