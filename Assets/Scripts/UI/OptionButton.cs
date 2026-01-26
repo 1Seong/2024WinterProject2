@@ -1,6 +1,5 @@
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
@@ -14,6 +13,8 @@ public class OptionButton : MonoBehaviour
     public GameObject[] icons;
 
     public GameObject toggleBar;
+    public RectTransform toggleLanHandle;
+    private bool toggleIsActing = false;
 
     private void Start()
     {
@@ -77,6 +78,18 @@ public class OptionButton : MonoBehaviour
         {
             Restart();
         }
+    }
+
+    public void toggleLanguage()
+    {
+        if (toggleIsActing) return;
+
+        toggleIsActing = true;
+
+        var targetPos = -toggleLanHandle.anchoredPosition.x;
+
+        toggleLanHandle.DOAnchorPosX(targetPos, 0.3f).OnComplete(() => { toggleIsActing = false; });
+
     }
 
     public void MasterSliderChanged(float value)
