@@ -86,10 +86,10 @@ public class OptionButton : MonoBehaviour
 
         toggleIsActing = true;
 
+
+
         var targetPos = -toggleLanHandle.anchoredPosition.x;
-
-        toggleLanHandle.DOAnchorPosX(targetPos, 0.3f).OnComplete(() => { toggleIsActing = false; });
-
+        toggleLanHandle.DOAnchorPosX(targetPos, 0.3f).SetUpdate(true).OnComplete(() => { toggleIsActing = false; });
     }
 
     public void MasterSliderChanged(float value)
