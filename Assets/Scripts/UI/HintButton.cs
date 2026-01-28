@@ -64,6 +64,7 @@ public class HintButton : MonoBehaviour
     private void Update()
     {
         if (!GameManager.instance.isPlaying || isActing) return;
+        if (SceneManager.GetActiveScene().name == "HubStage") return;
 
         if (Input.GetKeyDown(KeyCode.H)) OnClick();
     }

@@ -62,6 +62,7 @@ public class CircleTransition : MonoBehaviour
         // 다음 프레임부터 축소 애니메이션
         yield return null;
         yield return null;
+        yield return null;
 
         circleImage.transform.localScale = Vector3.one * scale;
         circleImage.transform.DOScale(0f, 0.6f)

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
 {
     public GameObject optionPanel;
-    private bool isMasterMute;
-    private bool isBgmMute;
-    private bool isSfxMute;
 
     public Slider[] sliders;
     public GameObject[] icons;
@@ -17,7 +14,11 @@ public class OptionButton : MonoBehaviour
     public RectTransform toggleLanHandle;
     private bool toggleIsActing = false;
 
-    private bool isEng = true;
+    static bool isEng = true;
+
+    static float masterValue = 1f;
+    static float bgmValue = 1f;
+    static float sfxValue = 1f;
 
     private void Start()
     {
@@ -26,12 +27,12 @@ public class OptionButton : MonoBehaviour
         if(DataManager.Instance.getIsDevMode())
             toggleBar.GetComponent<Transform>().localScale *= -1;
 
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+        if (!isEng)
+            toggleLanHandle.anchoredPosition = new Vector2(19f, 0f);
 
-        //masterSlider.value = masterSliderValue;
-        //bgmSlider.value = bgmSliderValue;
-        //sfxSlider.value = sfxSliderValue;
-
+        sliders[0].value = masterValue;
+        sliders[1].value = bgmValue;
+        sliders[2].value = sfxValue;
     }
 
     public void OpenPanel()
@@ -56,7 +57,7 @@ public class OptionButton : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager.instance.isPlaying) OpenPanel();
             else ClosePanel();
@@ -102,14 +103,17 @@ public class OptionButton : MonoBehaviour
     public void MasterSliderChanged(float value)
     {
         //Debug.Log("Slider value " + value.ToString());
+        masterValue = value;
         AudioManager.instance.SetMasterVolume(value);
     }
     public void BgmSliderChanged(float value)
     {
+        bgmValue = value;
         AudioManager.instance.SetBgmVolume(value);
     }
     public void SfxSliderChanged(float value)
     {
+        sfxValue = value;
         AudioManager.instance.SetSfxVolume(value);
     }
 
