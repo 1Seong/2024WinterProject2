@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.XR;
 
 public class PlayerJump : MonoBehaviour
 {

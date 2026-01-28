@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: New Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 0a5aa4e539f163b4a9297670f9fa26b7, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 407357644800
+    m_Localized: Put the Square in front of the door with same color.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 413334528000
+    m_Localized: You can jump higher using some Items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668142690304
+    m_Localized: Take the same color portal as the Square.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670676049920
+    m_Localized: Use items in the correct orders.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 672957751296
+    m_Localized: One Square can be a step for the other.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3708732071936
+    m_Localized: Two different directions of gravity are going on. What happens if
+      you cross the middle line?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3713052205056
+    m_Localized: Battery is for Blue Square.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3714218221568
+    m_Localized: This time, Battery is for Pink.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3715266797568
+    m_Localized: Move the Jump-pad so the Blue Square can step on it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3716323762176
+    m_Localized: Blue Square should not get the Battery.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3835811094528
+    m_Localized: You don't need to use All Items.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3836679315456
+    m_Localized: Pink Square need to block something.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3837539147776
+    m_Localized: Jump-pad can be an obstacle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3838478671872
+    m_Localized: When gravity turns back on, use the way it pulls things.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3839359475712
+    m_Localized: Try to fall straight down onto ice, then you won't slides away.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3940467367936
+    m_Localized: Pressing E also can change the view.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3941297840128
+    m_Localized: Switching the view is the key.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3942220587008
+    m_Localized: Place the Jump-pad under the Portal entrance.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3943025893376
+    m_Localized: Blue Square should not get the Battery.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3943948640256
+    m_Localized: Battery is for Pink.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4085175050240
+    m_Localized: Blue Square should take Battery going through the Portal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4085971968000
+    m_Localized: Use the Square like an obstacle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4086986989568
+    m_Localized: Reuse Jump-pad as an obstacle.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4087762935808
+    m_Localized: Use both jump pads even after the Blue Square leaves.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4088681488384
+    m_Localized: Blue Square go to the opposite gravity area without getting the
+      battery.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

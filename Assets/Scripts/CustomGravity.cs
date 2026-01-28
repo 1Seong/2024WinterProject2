@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
 public enum GravityState { defaultG, invertG, convertG };
 

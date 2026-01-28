@@ -93,5 +93,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Credits.unity
     guid: 2447bab9fb16b57428c211e160124070
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 86ff9a606c654ad41b816548aa1ac282, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: c1ef073b1d654144494e34fce2bdf9ab, type: 2}
   m_UseUCBPForAssetBundles: 0

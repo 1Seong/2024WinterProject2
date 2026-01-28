@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class OptionButton : MonoBehaviour
@@ -16,12 +17,16 @@ public class OptionButton : MonoBehaviour
     public RectTransform toggleLanHandle;
     private bool toggleIsActing = false;
 
+    private bool isEng = true;
+
     private void Start()
     {
         //Debug.Log("activated!");
         //MaintainSettings();
         if(DataManager.Instance.getIsDevMode())
             toggleBar.GetComponent<Transform>().localScale *= -1;
+
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
 
         //masterSlider.value = masterSliderValue;
         //bgmSlider.value = bgmSliderValue;
@@ -85,8 +90,10 @@ public class OptionButton : MonoBehaviour
         if (toggleIsActing) return;
 
         toggleIsActing = true;
+        isEng = !isEng;
 
-
+        var idx = isEng ? 0 : 1;
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[idx];
 
         var targetPos = -toggleLanHandle.anchoredPosition.x;
         toggleLanHandle.DOAnchorPosX(targetPos, 0.3f).SetUpdate(true).OnComplete(() => { toggleIsActing = false; });

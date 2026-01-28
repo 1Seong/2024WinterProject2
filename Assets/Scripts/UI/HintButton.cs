@@ -1,6 +1,8 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 
 public class HintButton : MonoBehaviour
 {
@@ -14,22 +16,28 @@ public class HintButton : MonoBehaviour
 
     RectTransform textRect;
     Vector2 startPos;
-    Tween scrollTween;
+    Sequence scrollTween;
     float moveDistance;
+    bool disCached = false;
 
     [SerializeField]bool isActive = false;
     [SerializeField]bool isActing = false;
     public Transform hint;
-    public float dur = 0.3f;
+    public float dur = 0.35f;
+    public float targetScale = 0.76f;
+    public float targetDisSpacing = 50f;
 
     public void Start()
     {
         textRect = tmp.rectTransform;
         startPos = textRect.anchoredPosition;
 
-        var textWidth = tmp.preferredWidth;
-        var maskWidth = maskRect.rect.width;
-        moveDistance = Mathf.Max(0f, textWidth - maskWidth);
+        tmp.GetComponent<LocalizeStringEvent>().StringReference.SetReference("New Table", SceneManager.GetActiveScene().name);
+    }
+
+    public void OnDisable()
+    {
+        scrollTween = null;
     }
 
     public void OnClick()
@@ -41,13 +49,13 @@ public class HintButton : MonoBehaviour
         if (!isActive) // open
         {
             isActive = true;
-            hint.DOScale(1f, dur).SetEase(Ease.OutBack).OnComplete(setIsActingFalse);
+            hint.DOScale(targetScale, dur).SetEase(Ease.OutBack).OnComplete(slideText);
 
         }
         else // close
         {
             isActive = false;
-            hint.DOScale(0f, dur).SetEase(Ease.InBack).OnComplete(setIsActingFalse);
+            hint.DOScale(0f, dur).SetEase(Ease.InBack).OnComplete(stopSlidingText);
         }
 
         
@@ -68,15 +76,33 @@ public class HintButton : MonoBehaviour
     void slideText()
     {
         setIsActingFalse();
+        stopSlidingText();
+
+        textRect.anchoredPosition = startPos;
+
+        if (!disCached) // 캐시가 안되어있으면 거리 계산
+        {
+            var textWidth = tmp.textBounds.size.x;
+            var maskWidth = maskRect.rect.width;
+
+            Debug.Log(textWidth.ToString() + " " + maskWidth.ToString());
+            moveDistance = Mathf.Max(0f, textWidth - maskWidth);
+
+            disCached = true;
+        }
 
         if (moveDistance <= 0f)
             return;
 
         float duration = moveDistance / speed;
 
-        scrollTween = textRect
-            .DOAnchorPosX(startPos.x - moveDistance, duration)
-            .SetDelay(startDelay)
+        scrollTween = DOTween.Sequence()
+            .AppendInterval(startDelay)
+            .Append(
+                textRect.DOAnchorPosX(startPos.x - moveDistance - targetDisSpacing, duration)
+                        .SetEase(Ease.Linear)
+            )
+            .AppendInterval(endDelay)
             .SetEase(ease)
             .SetLoops(-1, LoopType.Restart);
     }
@@ -85,6 +111,21 @@ public class HintButton : MonoBehaviour
     {
         setIsActingFalse();
 
-        scrollTween.Kill();
+        if (scrollTween.IsActive())
+        {
+            scrollTween.Kill();
+            //Debug.Log("Killed");
+            textRect.anchoredPosition = startPos;
+        }
+    }
+
+    public void ResetSlide(string _)
+    {
+        disCached = false;
+
+        tmp.ForceMeshUpdate();
+
+        if(isActive)
+            slideText();
     }
 }

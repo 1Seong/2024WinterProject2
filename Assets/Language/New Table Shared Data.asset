@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: New Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: New Table
+  m_TableCollectionNameGuidString: 0a5aa4e539f163b4a9297670f9fa26b7
+  m_Entries:
+  - m_Id: 407357644800
+    m_Key: Stage1-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 413334528000
+    m_Key: Stage1-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 668142690304
+    m_Key: Stage1-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670676049920
+    m_Key: Stage1-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 672957751296
+    m_Key: Stage1-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3708732071936
+    m_Key: Stage2-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3713052205056
+    m_Key: Stage2-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3714218221568
+    m_Key: Stage2-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3715266797568
+    m_Key: Stage2-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3716323762176
+    m_Key: Stage2-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3835811094528
+    m_Key: Stage3-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3836679315456
+    m_Key: Stage3-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3837539147776
+    m_Key: Stage3-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3838478671872
+    m_Key: Stage3-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3839359475712
+    m_Key: Stage3-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3940467367936
+    m_Key: Stage4-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3941297840128
+    m_Key: Stage4-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3942220587008
+    m_Key: Stage4-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3943025893376
+    m_Key: Stage4-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3943948640256
+    m_Key: Stage4-5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4085175050240
+    m_Key: Stage5-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4085971968000
+    m_Key: Stage5-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4086986989568
+    m_Key: Stage5-3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4087762935808
+    m_Key: Stage5-4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4088681488384
+    m_Key: Stage5-5
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7482103562832970015
+  references:
+    version: 2
+    RefIds:
+    - rid: 7482103562832970015
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1769588094585
