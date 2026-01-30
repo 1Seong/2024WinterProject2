@@ -451,7 +451,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4000, y: 180}
+  m_SizeDelta: {x: 1400, y: 180}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4909485261491470061
 CanvasRenderer:
@@ -508,13 +508,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63
-  m_fontSizeBase: 63
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -589,10 +589,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-      - m_Target: {fileID: 6028591476193381226}
-        m_TargetAssemblyTypeName: HintButton, Assembly-CSharp
-        m_MethodName: ResetSlide
-        m_Mode: 5
+      - m_Target: {fileID: 3692136099556449666}
+        m_TargetAssemblyTypeName: HintButtonLinebreak, Assembly-CSharp
+        m_MethodName: LangSwitchCallback
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3523,7 +3523,7 @@ GameObject:
   - component: {fileID: 8283489283207353858}
   - component: {fileID: 3440071172952746893}
   - component: {fileID: 4405869642063576824}
-  - component: {fileID: 6028591476193381226}
+  - component: {fileID: 3692136099556449666}
   m_Layer: 5
   m_Name: HintButton
   m_TagString: Untagged
@@ -3632,7 +3632,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6028591476193381226}
+      - m_Target: {fileID: 3692136099556449666}
         m_TargetAssemblyTypeName: HintButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -3644,7 +3644,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6028591476193381226
+--- !u!114 &3692136099556449666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3653,21 +3653,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4403053503245219092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aba2209144330e449008720ac35b8c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c1e960a5f2119348ad9511f068a10f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tmp: {fileID: 1042661019053460195}
   maskRect: {fileID: 176711865107787313}
-  speed: 100
-  startDelay: 3
-  endDelay: 3
-  ease: 1
   isActive: 0
   isActing: 0
   hint: {fileID: 5095962355593964060}
   dur: 0.35
   targetScale: 0.76
-  targetDisSpacing: 50
+  bigSize: 55
+  smallSize: 45
 --- !u!1 &4460628457060138073
 GameObject:
   m_ObjectHideFlags: 0

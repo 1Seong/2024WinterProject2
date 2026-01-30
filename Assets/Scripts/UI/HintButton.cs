@@ -9,35 +9,22 @@ public class HintButton : MonoBehaviour
     public TextMeshProUGUI tmp;
     public RectTransform maskRect;
 
-    public float speed = 30f;
-    public float startDelay = 0.5f;
-    public float endDelay = 0.5f;
-    public Ease ease = Ease.Linear;
+    protected RectTransform textRect;
+    protected Vector2 startPos;
+    protected bool cached = false;
 
-    RectTransform textRect;
-    Vector2 startPos;
-    Sequence scrollTween;
-    float moveDistance;
-    bool disCached = false;
-
-    [SerializeField]bool isActive = false;
-    [SerializeField]bool isActing = false;
+    [SerializeField] protected bool isActive = false;
+    [SerializeField] protected bool isActing = false;
     public Transform hint;
     public float dur = 0.35f;
     public float targetScale = 0.76f;
-    public float targetDisSpacing = 50f;
 
-    public void Start()
+    protected virtual void Start()
     {
         textRect = tmp.rectTransform;
         startPos = textRect.anchoredPosition;
 
         tmp.GetComponent<LocalizeStringEvent>().StringReference.SetReference("New Table", SceneManager.GetActiveScene().name);
-    }
-
-    public void OnDisable()
-    {
-        scrollTween = null;
     }
 
     public void OnClick()
@@ -49,16 +36,14 @@ public class HintButton : MonoBehaviour
         if (!isActive) // open
         {
             isActive = true;
-            hint.DOScale(targetScale, dur).SetEase(Ease.OutBack).OnComplete(slideText);
+            hint.DOScale(targetScale, dur).SetEase(Ease.OutBack).OnComplete(toggleOnImpl);
 
         }
         else // close
         {
             isActive = false;
-            hint.DOScale(0f, dur).SetEase(Ease.InBack).OnComplete(stopSlidingText);
+            hint.DOScale(0f, dur).SetEase(Ease.InBack).OnComplete(toggleOffImpl);
         }
-
-        
     }
 
     private void Update()
@@ -69,64 +54,15 @@ public class HintButton : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H)) OnClick();
     }
 
-    void setIsActingFalse()
+    protected void setIsActingFalse()
     {
         isActing = false;
     }
+    
+    // template method pattern
+    protected virtual void toggleOnImpl() { setIsActingFalse(); }
 
-    void slideText()
-    {
-        setIsActingFalse();
-        stopSlidingText();
+    protected virtual void toggleOffImpl() { setIsActingFalse(); }
 
-        textRect.anchoredPosition = startPos;
-
-        if (!disCached) // 캐시가 안되어있으면 거리 계산
-        {
-            var textWidth = tmp.textBounds.size.x;
-            var maskWidth = maskRect.rect.width;
-
-            Debug.Log(textWidth.ToString() + " " + maskWidth.ToString());
-            moveDistance = Mathf.Max(0f, textWidth - maskWidth);
-
-            disCached = true;
-        }
-
-        if (moveDistance <= 0f)
-            return;
-
-        float duration = moveDistance / speed;
-
-        scrollTween = DOTween.Sequence()
-            .AppendInterval(startDelay)
-            .Append(
-                textRect.DOAnchorPosX(startPos.x - moveDistance - targetDisSpacing, duration)
-                        .SetEase(Ease.Linear)
-            )
-            .AppendInterval(endDelay)
-            .SetEase(ease)
-            .SetLoops(-1, LoopType.Restart);
-    }
-
-    void stopSlidingText()
-    {
-        setIsActingFalse();
-
-        if (scrollTween.IsActive())
-        {
-            scrollTween.Kill();
-            //Debug.Log("Killed");
-            textRect.anchoredPosition = startPos;
-        }
-    }
-
-    public void ResetSlide(string _)
-    {
-        disCached = false;
-
-        tmp.ForceMeshUpdate();
-
-        if(isActive)
-            slideText();
-    }
+    public virtual void LangSwitchCallback() { }
 }

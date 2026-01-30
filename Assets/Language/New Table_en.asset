@@ -39,8 +39,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3708732071936
-    m_Localized: Two different directions of gravity are going on. What happens if
-      you cross the middle line?
+    m_Localized: Gravity is acts in different directions. What will happen if you
+      cross the middle line?
     m_Metadata:
       m_Items: []
   - m_Id: 3713052205056
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3714218221568
-    m_Localized: This time, Battery is for Pink.
+    m_Localized: move the jumppad to deliver Pink Square a battery
     m_Metadata:
       m_Items: []
   - m_Id: 3715266797568
@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3839359475712
-    m_Localized: Try to fall straight down onto ice, then you won't slides away.
+    m_Localized: Try to fall straight down onto ice, then you won't slide away.
     m_Metadata:
       m_Items: []
   - m_Id: 3940467367936
