@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class HubDoor : MonoBehaviour
@@ -13,6 +14,7 @@ public class HubDoor : MonoBehaviour
     [SerializeField] private HubDoor[] pinkDoors;
     [SerializeField] private GameObject lockObject;
     [SerializeField] private SpriteRenderer pinkBlockingSprite;
+    [SerializeField] private SpriteRenderer blueBlockSprite;
     [SerializeField] private SpriteRenderer episodeSprite;
     [SerializeField] private SpriteRenderer stageSprite;
     
@@ -21,7 +23,8 @@ public class HubDoor : MonoBehaviour
     private GrayScript gs;
 
     private Animator anim;
-    
+
+    public static event Action<Episode> OnEpSelected;
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
 
@@ -39,6 +42,13 @@ public class HubDoor : MonoBehaviour
     private void Start()
     {
         ApplyDevMode();
+
+        OnEpSelected += hideBlueDoor;
+    }
+
+    private void OnDestroy()
+    {
+        OnEpSelected -= hideBlueDoor;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,6 +115,8 @@ public class HubDoor : MonoBehaviour
                     });
                     door.ep = this.ep;
                 }
+
+                OnEpSelected?.Invoke(ep);
             }
             else if(color == PlayerColor.pink)
             {
@@ -150,5 +162,12 @@ public class HubDoor : MonoBehaviour
     public void showPinkDoor()
     {
         pinkBlockingSprite.DOFade(0f, 0.4f);
+    }
+
+    private void hideBlueDoor(Episode ep)
+    {
+        if (ep == this.ep) return;
+
+        blueBlockSprite.DOFade(0.8f, 0.4f);
     }
 }
