@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageData[] episode3;
     [SerializeField] private StageData[] episode4;
     [SerializeField] private StageData[] episode5;
+    [SerializeField] private StageData[] epCredit;
 
     public CurrentStage currentStageInfo;
     public Stage stage;
@@ -56,7 +57,8 @@ public class StageManager : MonoBehaviour
             { Episode.Episode2, episode2 },
             { Episode.Episode3, episode3 },
             { Episode.Episode4, episode4 },
-            { Episode.Episode5, episode5 }
+            { Episode.Episode5, episode5 },
+            { Episode.Credit, epCredit }
         };
 
         //stageClearEvent

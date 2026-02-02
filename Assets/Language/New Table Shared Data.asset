@@ -115,6 +115,18 @@ MonoBehaviour:
     m_Key: Stage5-5
     m_Metadata:
       m_Items: []
+  - m_Id: 1761313699684352
+    m_Key: StageC-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761317298397184
+    m_Key: StageC-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761318267281408
+    m_Key: StageC-3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

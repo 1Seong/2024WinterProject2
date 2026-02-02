@@ -120,6 +120,18 @@ MonoBehaviour:
       battery.
     m_Metadata:
       m_Items: []
+  - m_Id: 1761313699684352
+    m_Localized: You've cleared all the Stages. Thanks for playing our game!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761317298397184
+    m_Localized: You've cleared all the Stages. Thanks for playing our game!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761318267281408
+    m_Localized: You've cleared all the Stages. Thanks for playing our game!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

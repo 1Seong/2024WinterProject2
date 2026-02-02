@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Episode { Episode1, Episode2, Episode3, Episode4, Episode5 };
+public enum Episode { Episode1, Episode2, Episode3, Episode4, Episode5, Credit };
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Scriptable Objects/StageData")]
 public class StageData : ScriptableObject
