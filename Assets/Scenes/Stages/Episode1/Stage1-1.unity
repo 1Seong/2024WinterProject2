@@ -7023,6 +7023,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0495b6fe438f1c84b801b5c5715d0acc, type: 2}
   - {fileID: 11400000, guid: 4c62160515063f944ba3786617149808, type: 2}
   - {fileID: 11400000, guid: 612f1a91f0c914a4ba022864284c5aa6, type: 2}
+  epCredit:
+  - {fileID: 11400000, guid: 4ac634f855272b948819ecfafbb19ec5, type: 2}
+  - {fileID: 11400000, guid: 787a30c5b705f6b42b8450272d0a5d0a, type: 2}
+  - {fileID: 11400000, guid: 139245e9e7031a94895e3f6a55744077, type: 2}
   stage: {fileID: 0}
   wallPrefab: {fileID: 5193326551105480410, guid: 28a2bd3eea982134c965ae160c9732b8, type: 3}
   canvas: {fileID: 0}

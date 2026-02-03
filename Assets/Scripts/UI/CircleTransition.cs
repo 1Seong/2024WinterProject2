@@ -63,6 +63,8 @@ public class CircleTransition : MonoBehaviour
         yield return null;
         yield return null;
         yield return null;
+        yield return null;
+        yield return null;
 
         circleImage.transform.localScale = Vector3.one * scale;
         circleImage.transform.DOScale(0f, 0.6f)

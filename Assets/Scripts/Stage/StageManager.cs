@@ -95,6 +95,17 @@ public class StageManager : MonoBehaviour
             if(door == null) continue;
             if (!door.isComplete) return;
         }
+
+        if (currentStageInfo.episode == Episode.Credit)
+        {
+            if(currentStageInfo.stageIndex == 2)
+                CircleTransition.Instance.LoadScene("HubStage");
+            else
+                StageEnter(Episode.Credit, currentStageInfo.stageIndex + 1);
+
+            return;
+        }
+
         StageClear();
     }
 

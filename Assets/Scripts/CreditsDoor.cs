@@ -66,7 +66,7 @@ public class CreditsDoor : MonoBehaviour
             //StageManager.instance.CheckStageClear();
 
             Debug.Log("enter Credits");
-            CircleTransition.Instance.LoadScene("Credits");
+            StageManager.instance.StageEnter(Episode.Credit, 0);
         }
     }
 

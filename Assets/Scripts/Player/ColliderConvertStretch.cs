@@ -9,7 +9,7 @@ public class ColliderConvertStretch : MonoBehaviour
         Stage.convertEvent += ConvertSpringCollider;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Stage.convertEvent -= ConvertSpringCollider;
     }
