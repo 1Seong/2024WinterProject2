@@ -1224,6 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4ed08de5f4b834cb2fdd561b6c0dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   defaultMovables: []
@@ -1690,6 +1691,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1889204746963529120, guid: ef1594d4838125741bf4d435bf5af8e2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3042761824957243708, guid: ef1594d4838125741bf4d435bf5af8e2, type: 3}
       propertyPath: m_VersionIndex
       value: 157

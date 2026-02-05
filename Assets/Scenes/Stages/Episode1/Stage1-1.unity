@@ -7226,7 +7226,7 @@ PrefabInstance:
       objectReference: {fileID: 71201241}
     - target: {fileID: 240949592794645583, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_VersionIndex
-      value: 493
+      value: 511
       objectReference: {fileID: 0}
     - target: {fileID: 240949592794645583, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -11273,6 +11273,7 @@ MonoBehaviour:
   itemClips:
   - {fileID: 8300000, guid: d6ac99872470f1840a3dcda4b6f5c79a, type: 3}
   - {fileID: 8300000, guid: f2e3990a85a724848b62574a4ad0c3d0, type: 3}
+  creditBGMAudio: {fileID: 319650415}
 --- !u!4 &1761799529
 Transform:
   m_ObjectHideFlags: 0

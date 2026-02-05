@@ -92,6 +92,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 2447bab9fb16b57428c211e160124070
+  - enabled: 1
+    path: Assets/Scenes/Stages/Credit/StageC-1.unity
+    guid: 43d78b71d81b96640bb2fc4353af8757
+  - enabled: 1
+    path: Assets/Scenes/Stages/Credit/StageC-2.unity
+    guid: 053e1455daf94b04c842010a3830e809
+  - enabled: 1
+    path: Assets/Scenes/Stages/Credit/StageC-3.unity
+    guid: 09e351be421aed1499ddfcc4ee04bc28
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 86ff9a606c654ad41b816548aa1ac282, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

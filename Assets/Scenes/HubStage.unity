@@ -9584,12 +9584,24 @@ PrefabInstance:
       value: TilingBackground
       objectReference: {fileID: 0}
     - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.696718
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6.696718
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6.696718
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0000061988
       objectReference: {fileID: 0}
     - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000020743
       objectReference: {fileID: 0}
     - target: {fileID: 9213392002304762987, guid: 8696dcd65ca419141a58e0701a34a9f9, type: 3}
       propertyPath: m_LocalPosition.z
