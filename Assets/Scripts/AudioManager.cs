@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public enum Item { battery, swap};
     AudioSource footstep;
     AudioSource itemAudio;
+    [SerializeField] AudioSource creditBGMAudio;
 
     private void Awake()
     {
@@ -84,5 +85,15 @@ public class AudioManager : MonoBehaviour
     public void PlayItemClip(Item item)
     {
         itemAudio.PlayOneShot(itemClips[(int)item]);
+    }
+
+    public void PlayCreditBGM()
+    {
+        creditBGMAudio.Play();
+    }
+
+    public void StopCreditBGM()
+    {
+        creditBGMAudio.Stop();
     }
 }

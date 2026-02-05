@@ -98,8 +98,11 @@ public class StageManager : MonoBehaviour
 
         if (currentStageInfo.episode == Episode.Credit)
         {
-            if(currentStageInfo.stageIndex == 2)
+            if (currentStageInfo.stageIndex == 2)
+            {
+                AudioManager.instance.StopCreditBGM();
                 CircleTransition.Instance.LoadScene("HubStage");
+            }
             else
                 StageEnter(Episode.Credit, currentStageInfo.stageIndex + 1);
 
