@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CreditDoor
+  m_Controller: {fileID: 9100000, guid: fce7383fe03b70f4a8218f854776916d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: eef997f2149637c40bd869acda782cde, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ff4e1bc734e778243b247bba821df3e3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7dbf45155d2f9ff48b9440c92db50d3f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3ecea9328da532b4d88b1df52761e7bd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b7a80732c7accec4c8d75e2886462288, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8d6b5aecf1101e349bfb59250205c1d0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bddc508b4cb730048ade7a9608871860, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 302d6cbdede5ca4498c41d8208f2005b, type: 2}
