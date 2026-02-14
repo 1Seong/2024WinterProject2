@@ -561,6 +561,7 @@ MonoBehaviour:
   itemClips:
   - {fileID: 8300000, guid: d6ac99872470f1840a3dcda4b6f5c79a, type: 3}
   - {fileID: 8300000, guid: f2e3990a85a724848b62574a4ad0c3d0, type: 3}
+  creditBGMAudio: {fileID: 0}
 --- !u!4 &99628227
 Transform:
   m_ObjectHideFlags: 0
