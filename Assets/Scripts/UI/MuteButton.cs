@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 public class MuteButton : MonoBehaviour
@@ -8,6 +7,7 @@ public class MuteButton : MonoBehaviour
     public enum muteType{ mute1, mute2, mute3 };
     public muteType mute;
     public AudioManager.EMixerType mixerType;
+    public Slider[] TargetSliders;
     static public bool isMute1 = false;
     static public bool isMute2 = false;
     public static bool isMute3 = false;
@@ -38,10 +38,34 @@ public class MuteButton : MonoBehaviour
                 break;
         }
 
-        if (mute == muteType.mute1 && isMute1 || mute == muteType.mute2 && isMute2 || mute == muteType.mute3 && isMute3)
+        if (mute == muteType.mute1 && isMute1 || mute == muteType.mute2 && isMute2 || mute == muteType.mute3 && isMute3) // MUTE
+        {
             GetComponent<Image>().sprite = muteIcon;
-        else
+            foreach(var i in TargetSliders)
+            {
+                i.interactable = false;
+            }
+        }
+        else // UN-MUTE
+        {
             GetComponent<Image>().sprite = unmuteIcon;
+
+            if(mute == muteType.mute1)
+            {
+                TargetSliders[0].interactable = true;
+
+                if(!isMute2)
+                    TargetSliders[1].interactable = true;
+
+                if (!isMute3)
+                    TargetSliders[2].interactable = true;
+            }
+            else
+            {
+                if(!isMute1)
+                    TargetSliders[0].interactable = true;
+            }
+        }
 
         AudioManager.instance.ToggleMute(mixerType);
     }

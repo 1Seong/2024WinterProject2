@@ -297,10 +297,11 @@ MonoBehaviour:
   hitInnerWall: 0
   onInnerWall: 0
   onIce: 0
+  IceAudio: {fileID: 7464264330168697046}
   _horizCollDis: 0.06
   _vertCollDis: 0.007
   frog: 0
-  iceSound: {fileID: 0}
+  iceSound: {fileID: 7464264330168697046}
 --- !u!114 &8266004772566766064
 MonoBehaviour:
   m_ObjectHideFlags: 0

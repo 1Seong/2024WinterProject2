@@ -1679,6 +1679,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mute: 2
   mixerType: 2
+  TargetSliders:
+  - {fileID: 3761788605907848653}
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &1954927920865416942
@@ -2352,6 +2354,7 @@ GameObject:
   - component: {fileID: 2413802509505427943}
   - component: {fileID: 4538603720941114925}
   - component: {fileID: 7409485470603376530}
+  - component: {fileID: 1049715581737708934}
   m_Layer: 5
   m_Name: Clear/NextStageButton
   m_TagString: Untagged
@@ -2494,6 +2497,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1049715581737708934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956790560093672684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3a7221f90efdc40a361baaadec7cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4538603720941114925}
 --- !u!1 &3233325741527683421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,9 +4173,9 @@ RectTransform:
   - {fileID: 176711865107787313}
   m_Father: {fileID: 524606290777184033}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -754.00006, y: 397}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200.00003, y: -142.5}
   m_SizeDelta: {x: 1687.5, y: 187.5}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5957303007439283786
@@ -5111,6 +5127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mute: 0
   mixerType: 0
+  TargetSliders:
+  - {fileID: 2832814004245464169}
+  - {fileID: 512230422522150240}
+  - {fileID: 3761788605907848653}
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &7629277142002220785
@@ -5996,6 +6016,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mute: 1
   mixerType: 1
+  TargetSliders:
+  - {fileID: 512230422522150240}
   muteIcon: {fileID: 21300000, guid: f1fb8f822f3691c41bafc8df1e1c278c, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 9e02cc8429df91a46aa4bf8dd8fc9923, type: 3}
 --- !u!1 &8959778032837267345

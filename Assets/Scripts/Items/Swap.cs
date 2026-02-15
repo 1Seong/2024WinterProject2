@@ -14,6 +14,9 @@ public class Swap : Consumable
     {
         var player1 = StageManager.instance.stage.player1;
         var player2 = StageManager.instance.stage.player2;
+
+        if (!player1.activeSelf || !player2.activeSelf) return;
+
         var player1Rb = player1.GetComponent<Rigidbody>();
         var player2Rb = player2.GetComponent<Rigidbody>();
 

@@ -68,9 +68,9 @@ public class Player : Movable
         iceExist = IceExist(rayHit);
 
         int newDir;
-        if (rigid.linearVelocity.x > 0.04f)
+        if (rigid.linearVelocity.x > 0.06f)
             newDir = 1;
-        else if (rigid.linearVelocity.x < -0.04f)
+        else if (rigid.linearVelocity.x < -0.06f)
             newDir = -1;
         else
             newDir = 0;
@@ -92,8 +92,8 @@ public class Player : Movable
             }
 
             //Play Ice Sound
-            if(!iceSound.isPlaying)
-                iceSound.Play();
+            //if(!iceSound.isPlaying)
+            //    iceSound.Play();
             
         }
         else if (onIce && (PlatformExist(rayHit) && !iceExist || newDir * dir <= 0)) // onIce : true -> false
@@ -114,8 +114,13 @@ public class Player : Movable
             }
 
             //Play Ice Sound
-            iceSound.Stop();
+            //iceSound.Stop();
         }
+
+        if (!onIce || !iceExist && iceSound.isPlaying)
+            iceSound.Stop();
+        else if (iceExist && !iceSound.isPlaying)
+            iceSound.Play();
 
         dir = newDir;
     }

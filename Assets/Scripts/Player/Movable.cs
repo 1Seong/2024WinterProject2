@@ -25,6 +25,8 @@ public class Movable : MonoBehaviour
 
     public bool onIce = false;
 
+    public AudioSource IceAudio;
+
     [SerializeField] private float _horizCollDis = 0.063f;
     [SerializeField] private float _vertCollDis = 0.005f;
 
@@ -332,7 +334,10 @@ public class Movable : MonoBehaviour
     {
         Debug.Log("Paused....");
         if (CompareTag("Player1") || CompareTag("Player2"))
+        {
             GetComponent<PlayerMove>().enabled = false;
+            IceAudio.Stop();
+        }
         isPaused = true;
         pauseTimer = duration;
         savedVelocity = rigid.linearVelocity;

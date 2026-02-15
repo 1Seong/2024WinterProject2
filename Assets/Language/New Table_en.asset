@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 407357644800
-    m_Localized: Put the Square in front of the door with same color.
+    m_Localized: Place the Square in front of the door with same color.
     m_Metadata:
       m_Items: []
   - m_Id: 413334528000
@@ -39,8 +39,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3708732071936
-    m_Localized: Gravity is acts in different directions. What will happen if you
-      cross the middle line?
+    m_Localized: Gravity acts in different directions. What will happen if you cross
+      the middle?
     m_Metadata:
       m_Items: []
   - m_Id: 3713052205056
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3714218221568
-    m_Localized: move the jumppad to deliver Pink Square a battery
+    m_Localized: Move the jump-pad to deliver pink a battery
     m_Metadata:
       m_Items: []
   - m_Id: 3715266797568
@@ -80,11 +80,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3940467367936
-    m_Localized: Pressing E also can change the view.
+    m_Localized: Switching the view doesn't work if square or jump-pad is on the
+      yellow caution tile.
     m_Metadata:
       m_Items: []
   - m_Id: 3941297840128
-    m_Localized: Switching the view is the key.
+    m_Localized: While jumping, you can't switch the view. Pressing E also can change
+      the view.
     m_Metadata:
       m_Items: []
   - m_Id: 3942220587008
@@ -104,7 +106,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4085971968000
-    m_Localized: Use the Square like an obstacle.
+    m_Localized: Use the Square as an obstacle.
     m_Metadata:
       m_Items: []
   - m_Id: 4086986989568

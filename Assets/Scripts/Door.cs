@@ -53,7 +53,7 @@ public class Door : MonoBehaviour
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             other.GetComponent<PlayerMove>().enabled = false;
             other.GetComponent<Transparent>().CallFade();
-            Invoke("CheckStageClear", 1f);
+            CheckStageClear();
         }
     }
 

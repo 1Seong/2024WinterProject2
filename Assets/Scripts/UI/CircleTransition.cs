@@ -28,7 +28,7 @@ public class CircleTransition : MonoBehaviour
     private void Start()
     {
         circleImage.transform.localScale = Vector3.one * targetScale;
-        circleImage.transform.DOScale(0f, 0.6f);
+        circleImage.transform.DOScale(0f, 0.6f).SetDelay(0.2f);
     }
 
     public void LoadScene(string sceneName)

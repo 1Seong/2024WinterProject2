@@ -89,7 +89,9 @@ public class StageManager : MonoBehaviour
 
     public void CheckStageClear()
     {
-        foreach(var door in doors)
+        Debug.Log("CheckStageClear");
+
+        foreach (var door in doors)
         {
             //Debug.Log("CheckStageClear");
             if(door == null) continue;
@@ -115,8 +117,6 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         Debug.Log("stage cleared!");
-        int episode = (int)currentStageInfo.episode;
-        int index = currentStageInfo.stageIndex;
         //게임 정지
         GameManager.instance.isPlaying = false;
         //UI표시

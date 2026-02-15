@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 
 public class WallConnection : MonoBehaviour
 {
