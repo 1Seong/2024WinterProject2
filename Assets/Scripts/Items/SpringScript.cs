@@ -14,6 +14,9 @@ public class SpringScript : ItemBehavior
         base.Awake();
         PlayerTriggerEvent += SpringActivate;
         springSound = GetComponent<AudioSource>();
+
+        isActive1 = false;
+        isActive2 = false;
     }
 
     private void SpringActivate(Collider other)

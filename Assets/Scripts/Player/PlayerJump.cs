@@ -90,18 +90,28 @@ public class PlayerJump : MonoBehaviour
         if (rayHit.Length != 0)
             foreach(var i in rayHit)
             {
-                if (i.transform.CompareTag("Spring") || i.transform.CompareTag("Player1") || i.transform.CompareTag("Player2"))
+                if (i.transform.CompareTag("Spring"))
                     continue;
+                if (i.transform.CompareTag("Player1") || i.transform.CompareTag("Player2"))
+                    if(!i.transform.GetComponent<Movable>().isPaused)
+                        continue;
+
+
                 if (i.distance < 0.07f && !i.collider.CompareTag(tag))
                 {
-                    isJumping = false;
-                    
-                    var anims = GetComponentsInChildren<Animator>();
-                    if (anims[0].GetBool("JumpPad"))
-                        foreach (var anim in anims)
-                            anim.SetBool("JumpPad", false);
+                    float dot = Vector3.Dot(i.normal, -customGravity.down.normalized);
 
-                    return;
+                    if (dot > 0.9f)   // 1에 가까울수록 완전한 바닥
+                    {
+                        isJumping = false;
+
+                        var anims = GetComponentsInChildren<Animator>();
+                        if (anims[0].GetBool("JumpPad"))
+                            foreach (var anim in anims)
+                                anim.SetBool("JumpPad", false);
+
+                        return;
+                    }
                 }
             }
 

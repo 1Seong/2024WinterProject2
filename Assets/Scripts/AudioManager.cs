@@ -56,6 +56,7 @@ public class AudioManager : MonoBehaviour
 
     public void ToggleMute(EMixerType mixerType)
     {
+        //Debug.Log("ToggleMute");
         int n = (int)mixerType;
         if (!isMute[n])
         {

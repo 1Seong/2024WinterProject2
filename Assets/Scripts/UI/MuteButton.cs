@@ -15,10 +15,7 @@ public class MuteButton : MonoBehaviour
 
     private void Start()
     {
-        if (mute == muteType.mute1 && isMute1 || mute == muteType.mute2 && isMute2 || mute == muteType.mute3 && isMute3)
-            GetComponent<Image>().sprite = muteIcon;
-        else
-            GetComponent<Image>().sprite = unmuteIcon;
+        UpdateUI();
     }
 
     public void MuteButtonAction()
@@ -38,10 +35,17 @@ public class MuteButton : MonoBehaviour
                 break;
         }
 
+        UpdateUI();
+
+        AudioManager.instance.ToggleMute(mixerType);
+    }
+
+    private void UpdateUI()
+    {
         if (mute == muteType.mute1 && isMute1 || mute == muteType.mute2 && isMute2 || mute == muteType.mute3 && isMute3) // MUTE
         {
             GetComponent<Image>().sprite = muteIcon;
-            foreach(var i in TargetSliders)
+            foreach (var i in TargetSliders)
             {
                 i.interactable = false;
             }
@@ -50,11 +54,11 @@ public class MuteButton : MonoBehaviour
         {
             GetComponent<Image>().sprite = unmuteIcon;
 
-            if(mute == muteType.mute1)
+            if (mute == muteType.mute1)
             {
                 TargetSliders[0].interactable = true;
 
-                if(!isMute2)
+                if (!isMute2)
                     TargetSliders[1].interactable = true;
 
                 if (!isMute3)
@@ -62,12 +66,10 @@ public class MuteButton : MonoBehaviour
             }
             else
             {
-                if(!isMute1)
+                if (!isMute1)
                     TargetSliders[0].interactable = true;
             }
         }
-
-        AudioManager.instance.ToggleMute(mixerType);
     }
 
     /*

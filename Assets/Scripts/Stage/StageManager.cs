@@ -165,12 +165,18 @@ public class StageManager : MonoBehaviour
         int nextIndex = currentStageInfo.stageIndex;
         if (nextIndex == 4)
         {
-            nextEpisode = nextEpisode + 1;
+            if(nextEpisode == Episode.Episode5)
+            {
+                DataManager.Instance.CreditUnlocked();
+                return;
+            }
+
+            ++nextEpisode;
             nextIndex = 0;
         }
         else
         {
-            nextIndex++;
+            ++nextIndex;
         }
         DataManager.Instance.ChapterUnlock(nextEpisode, nextIndex);
     }

@@ -30,9 +30,9 @@ public class OptionButton : MonoBehaviour
         if (!isEng)
             toggleLanHandle.anchoredPosition = new Vector2(19f, 0f);
 
-        sliders[0].value = masterValue;
-        sliders[1].value = bgmValue;
-        sliders[2].value = sfxValue;
+        sliders[0].SetValueWithoutNotify(masterValue);
+        sliders[1].SetValueWithoutNotify(bgmValue);
+        sliders[2].SetValueWithoutNotify(sfxValue);
     }
 
     public void OpenPanel()
@@ -66,6 +66,7 @@ public class OptionButton : MonoBehaviour
     }
     public void LoadHubStage()
     {
+        AudioManager.instance.StopCreditBGM();
         ClosePanel();
         CircleTransition.Instance.LoadScene("HubStage");
         //SceneManager.LoadScene("HubStage");

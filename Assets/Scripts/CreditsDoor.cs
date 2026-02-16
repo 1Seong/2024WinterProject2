@@ -8,7 +8,6 @@ public class CreditsDoor : MonoBehaviour
     public AudioClip fadeClip;
     private Animator anim;
     private Material mat;
-    private static bool appeared = false; 
 
 
     PlayerSelectableInterface playerSelectable = new PlayerSelectable();
@@ -24,7 +23,7 @@ public class CreditsDoor : MonoBehaviour
     }
     private void Start()
     {
-        if (!DataManager.Instance.getIsUnlocked(Episode.Episode5, 4) && !DataManager.Instance.getIsDevMode())
+        if (!DataManager.Instance.GetCreditUnlocked() && !DataManager.Instance.getIsDevMode())
         {
             Debug.Log("Credit Door Disabled");
             this.gameObject.SetActive(false);
@@ -32,7 +31,7 @@ public class CreditsDoor : MonoBehaviour
         else
         {
             Debug.Log("Credit Door Abled");
-            if (!appeared)
+            if (!DataManager.Instance.GetCreditDoorSoundPlayed())
                 FadeIn();
             else
                 mat.SetFloat("_LightAmount", 1.0f);
@@ -72,6 +71,7 @@ public class CreditsDoor : MonoBehaviour
 
     public void FadeIn()
     {
+        DataManager.Instance.CreditDoorSoundPlayed();
         StartCoroutine(FadeInRoutine());
     }
 
@@ -90,7 +90,6 @@ public class CreditsDoor : MonoBehaviour
             //yield return new WaitForEndOfFrame();
         }
         mat.SetFloat("_LightAmount", 1.0f);
-        appeared = true;
 
         //GameManager.instance.Resume();
         //Debug.Log("complete!");

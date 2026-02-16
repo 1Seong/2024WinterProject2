@@ -34,10 +34,17 @@ public class RotateWhileConvert : MonoBehaviour
         float totalTime = GameManager.instance.cameraRotationTime;
         Collider coll;
 
-        
+
 
         if (TryGetComponent(out coll))
+        {
             coll.enabled = false;
+
+            if(CompareTag("Door"))
+            {
+                GetComponentInChildren<Animator>().SetBool("Open", false);
+            }
+        }
         isActing = true;
         
         /*

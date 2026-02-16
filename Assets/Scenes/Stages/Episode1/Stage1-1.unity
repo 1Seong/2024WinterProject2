@@ -706,7 +706,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -7235,7 +7235,7 @@ PrefabInstance:
       objectReference: {fileID: 71201241}
     - target: {fileID: 240949592794645583, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_VersionIndex
-      value: 523
+      value: 541
       objectReference: {fileID: 0}
     - target: {fileID: 240949592794645583, guid: e03bf86de1dc1974c870111eb4f31871, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -11626,6 +11626,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     isUnlock: 01000000000000000000000000000000000000000000000000
+    creditUnlock: 0
+    creditDoorSound: 0
   isDevMode: 0
 --- !u!4 &1873964634
 Transform:

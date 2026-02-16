@@ -87,6 +87,7 @@ public class DataManager : MonoBehaviour
     public void ChapterUnlock(Episode episode, int stageNum)
     {
         data.isUnlock[(int)episode * 5 + stageNum] = true;
+
         SaveGameData();
     }
 
@@ -95,6 +96,28 @@ public class DataManager : MonoBehaviour
         //for (int i = 0; i < 25; i++)
         //        Debug.Log(data.isUnlock[i]);
         return data.isUnlock[(int)episode * 5 + stageNum];
+    }
+
+    public void CreditUnlocked()
+    {
+        data.creditUnlock = true;
+
+        SaveGameData();
+    }
+
+    public bool GetCreditUnlocked()
+    {
+        return data.creditUnlock;
+    }
+
+    public void CreditDoorSoundPlayed()
+    {
+        data.creditDoorSound = true;
+    }
+
+    public bool GetCreditDoorSoundPlayed()
+    {
+        return data.creditDoorSound;
     }
 
     public void changeIsDevMode()

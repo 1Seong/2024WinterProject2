@@ -16,7 +16,7 @@ public class Movable : MonoBehaviour
     protected CustomGravity customGravity;
     protected const float TARGET_Z = 4.0f;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
     private float pauseTimer = 0f;
     private Vector3 savedVelocity; //used for Pause
 
